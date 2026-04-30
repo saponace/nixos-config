@@ -14,6 +14,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   networking.nameservers = [ "1.1.1.1" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -95,6 +97,22 @@
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     initialPassword = "sapo"; 
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+
+    users.sapo = { ... }: {
+      home.stateVersion = "25.11";
+      programs.home-manager.enable = true;
+
+      xdg.enable = true;
+
+      # After copying your LazyVim config into the repo, e.g. ./nvim/
+      # this will manage ~/.config/nvim declaratively:
+      # xdg.configFile."nvim".source = ./nvim;
+    };
   };
 
   # Install firefox.
