@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-networking.nameservers = ["1.1.1.1" ];
+  networking.nameservers = [ "1.1.1.1" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -54,7 +54,7 @@ networking.nameservers = ["1.1.1.1" ];
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
@@ -101,9 +101,23 @@ networking.nameservers = ["1.1.1.1" ];
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
-   vim
-   git
+    git
+
+    # Neovim + LazyVim dependencies
+    neovim
+    ripgrep
+    fd
+    gcc
+    gnumake
+    unzip
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
