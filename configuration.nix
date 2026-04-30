@@ -50,7 +50,7 @@ networking.nameservers = ["1.1.1.1" ];
 
   # Enable the XFCE Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
