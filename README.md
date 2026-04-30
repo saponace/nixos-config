@@ -5,8 +5,8 @@ NixOS configuration repo (flakes + Home Manager).
 ## Day-to-day
 
 ```bash
-# Rebuild and make the new generation the default boot entry
-sudo nixos-rebuild switch --flake .#<host>
+# Rebuild NixOS config and activate
+snrs
 
 # Rebuild but do not make the new generation the default boot entry
 sudo nixos-rebuild test --flake .#<host>

@@ -27,9 +27,10 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      snrs = "sudo nixos-rebuild switch -I nixos-config=/home/sapo/nixos-config/configuration.nix";
+      # Rebuild using this repo flake.
+      snrs = "sudo nixos-rebuild switch --flake /home/sapo/nixos-config#nixos";
+    };
   };
-};
 
   # Enable networking
   networking.networkmanager.enable = true;
