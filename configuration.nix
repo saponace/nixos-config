@@ -35,6 +35,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Make non-Nix binaries work (useful for Neovim plugin tooling like mason.nvim)
+  programs.nix-ld.enable = true;
+  services.envfs.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -110,9 +114,8 @@
 
       xdg.enable = true;
 
-      # After copying your LazyVim config into the repo, e.g. ./nvim/
-      # this will manage ~/.config/nvim declaratively:
-      # xdg.configFile."nvim".source = ./nvim;
+      # LazyVim config lives in this repo at ./nvim
+      xdg.configFile."nvim".source = ./nvim;
     };
   };
 
@@ -120,15 +123,22 @@
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # Core CLI
     git
+    curl
 
-    # Neovim + LazyVim dependencies
-    neovim
+    # LazyVim runtime deps (plugins installed by lazy.nvim)
     ripgrep
     fd
+    unzip
+
+    # Tooling often required for plugin builds
     gcc
     gnumake
-    unzip
+
+    # Common external tooling used by Neovim plugins (e.g. mason.nvim)
+    nodejs
+    python3
   ];
 
   programs.neovim = {
