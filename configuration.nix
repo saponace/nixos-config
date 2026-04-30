@@ -6,8 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -22,7 +22,12 @@ networking.nameservers = ["1.1.1.1" ];
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      snrs = "sudo nixos-rebuild switch -I nixos-config=/home/sapo/nixos-config/configuration.nix";
+  };
+};
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -92,19 +97,12 @@ networking.nameservers = ["1.1.1.1" ];
     initialPassword = "sapo"; 
   };
 
-  environment.variables = {
-    NIXOS_CONFIG = "/home/sapo/nixos-config/configuration.nix";
-  };
-
   # Install firefox.
   programs.firefox.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-git
-  #  wget
+   vim
+   git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
