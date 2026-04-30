@@ -22,6 +22,8 @@ networking.nameservers = ["1.1.1.1" ];
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  programs.zsh.enable = true;
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -82,13 +84,16 @@ networking.nameservers = ["1.1.1.1" ];
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.d = {
+  users.users.sapo = {
     isNormalUser = true;
-    description = "d";
+    description = "sapo";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    shell = pkgs.zsh;
+    initialPassword = "sapo"; 
+  };
+
+  environment.variables = {
+    NIXOS_CONFIG = "/home/sapo/nixos-config/configuration.nix";
   };
 
   # Install firefox.
