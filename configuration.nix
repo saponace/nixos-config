@@ -115,7 +115,7 @@
       xdg.enable = true;
 
       # LazyVim config lives in this repo at ./nvim
-      xdg.configFile."nvim/lua".source = ./nvim;
+      xdg.configFile."nvim".source = ./nvim;
     };
   };
 
