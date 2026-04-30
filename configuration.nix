@@ -108,14 +108,15 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    users.sapo = { ... }: {
+    users.sapo = { config, ... }: {
       home.stateVersion = "25.11";
       programs.home-manager.enable = true;
 
       xdg.enable = true;
 
-      # LazyVim config lives in this repo at ./nvim
-      xdg.configFile."nvim".source = ./nvim;
+      # LazyVim writes lazy-lock.json under ~/.config/nvim, so keep it writable.
+      xdg.configFile."nvim".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/nvim";
     };
   };
 
