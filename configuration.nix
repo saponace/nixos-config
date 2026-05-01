@@ -24,14 +24,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      # Rebuild using this repo flake.
-      snrs = "sudo nixos-rebuild switch --flake /home/sapo/nixos-config#nixos";
-    };
-  };
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -108,6 +100,10 @@
     initialPassword = "sapo"; 
   };
 
+  programs.zsh = {
+    enable = true;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -118,11 +114,27 @@
 
       xdg.enable = true;
 
+      programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+
+        # Keep this pure-eval friendly by reading from the flake source.
+        initExtra = builtins.readFile ./zsh/all;
+
+        shellAliases = {
+          snrs = "sudo nixos-rebuild switch --flake /home/sapo/nixos-config#nixos";
+        };
+      };
+
+
       # LazyVim writes lazy-lock.json under ~/.config/nvim, so keep it writable.
       xdg.configFile."nvim".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/nvim";
     };
   };
+
 
   # Install firefox.
   programs.firefox.enable = true;

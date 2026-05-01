@@ -1,0 +1,9 @@
+# Warning ! Misc must be sourced first because other scripts use misc definitions
+
+
+COMMONPATH=$(cd $(dirname "$0"); pwd)
+
+source ${COMMONPATH}/misc
+source ${COMMONPATH}/misc-functions
+source ${COMMONPATH}/aliases
+source ${COMMONPATH}/prompt
