@@ -121,7 +121,12 @@
         syntaxHighlighting.enable = true;
 
         # Keep this pure-eval friendly by reading from the flake source.
-        initExtra = builtins.readFile ./zsh/all;
+        initExtra = builtins.concatStringsSep "\n" [
+          (builtins.readFile ./zsh/misc)
+          (builtins.readFile ./zsh/misc-functions)
+          (builtins.readFile ./zsh/aliases)
+          (builtins.readFile ./zsh/prompt)
+        ];
 
         shellAliases = {
           snrs = "sudo nixos-rebuild switch --flake /home/sapo/nixos-config#nixos";
