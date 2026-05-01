@@ -111,6 +111,7 @@
     users.sapo = { config, ... }: {
       home.stateVersion = "25.11";
       programs.home-manager.enable = true;
+      programs.zoxide.enable = true;
 
       xdg.enable = true;
 
@@ -120,8 +121,7 @@
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
 
-        # Keep this pure-eval friendly by reading from the flake source.
-        initExtra = builtins.concatStringsSep "\n" [
+        initContent = builtins.concatStringsSep "\n" [
           (builtins.readFile ./zsh/misc)
           (builtins.readFile ./zsh/misc-functions)
           (builtins.readFile ./zsh/aliases)
