@@ -5,12 +5,6 @@
 { config, pkgs, ... }:
 
 {
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   networking.nameservers = [ "1.1.1.1" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

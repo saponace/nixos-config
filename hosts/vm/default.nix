@@ -7,6 +7,7 @@
     ../../configuration.nix
 
     ../../modules/base/locale.nix
+    ../../modules/base/nix.nix
     ../../modules/base/networking.nix
     ../../modules/base/users.nix
     ../../modules/base/tools.nix
@@ -16,6 +17,9 @@
   ];
 
   networking.hostName = "vm";
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
