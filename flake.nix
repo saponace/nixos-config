@@ -1,6 +1,4 @@
 {
-  description = "NixOS configuration (flakes + Home Manager)";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -12,8 +10,7 @@
   outputs = { self, nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-    in
-    {
+    in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
 
