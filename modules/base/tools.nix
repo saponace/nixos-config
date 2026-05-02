@@ -6,6 +6,7 @@
     vim
     ranger
     lsd
+    wget
   ];
 
   services.printing.enable = true;
