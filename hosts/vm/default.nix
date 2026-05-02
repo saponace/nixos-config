@@ -12,6 +12,7 @@
     ../../modules/base/tools.nix
 
     ../../modules/services/ssh.nix
+    ../../modules/desktop/xfce.nix
   ];
 
   networking.hostName = "vm";
