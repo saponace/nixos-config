@@ -6,6 +6,7 @@
     ../modules/base/networking.nix
     ../modules/base/users.nix
     ../modules/base/tools.nix
+    ../modules/base/sound.nix
 
     ../modules/services/ssh.nix
     ../modules/desktop/xfce.nix
