@@ -4,7 +4,7 @@
   imports = [
     ../desktop/apps.nix
     ../tools/zsh.nix
-    ../tools/neovim.nix
+    ../tools/nvim.nix
   ];
 
   home.stateVersion = "25.11";
