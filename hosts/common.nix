@@ -7,6 +7,7 @@
     ../modules/base/users.nix
     ../modules/base/tools.nix
     ../modules/base/sound.nix
+    ../modules/base/fonts.nix
 
     ../modules/services/ssh.nix
     ../modules/desktop/xfce.nix
