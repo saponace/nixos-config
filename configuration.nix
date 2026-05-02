@@ -6,18 +6,6 @@
 
 {
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sapo = {
-    isNormalUser = true;
-    description = "sapo";
-    extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-    initialPassword = "sapo"; 
-  };
-
   programs.zsh = {
     enable = true;
   };

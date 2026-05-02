@@ -1,10 +1,12 @@
 { pkgs, ... }:
 
 {
-  users.users.saponace = {
+  users.users.sapo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    description = "sapo";
+    extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
+    initialPassword = "sapo"; 
   };
 
   programs.zsh.enable = true;
