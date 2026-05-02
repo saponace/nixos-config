@@ -19,5 +19,5 @@
   home-manager.useUserPackages = true;
   home-manager.users.saponace = import ../../home/saponace/vm.nix;
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }
