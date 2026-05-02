@@ -17,7 +17,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.users.saponace = import ../../home/saponace/desktop.nix;
+  home-manager.users.saponace = import ../../home/saponace/main.nix;
 
   system.stateVersion = "24.11";
 }

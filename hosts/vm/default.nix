@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+
     ../../configuration.nix
 
     ../../modules/base/locale.nix
@@ -17,7 +18,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.users.saponace = import ../../home/saponace/vm.nix;
+  home-manager.users.saponace = import ../../home/saponace/main.nix;
 
   system.stateVersion = "25.11";
 }
