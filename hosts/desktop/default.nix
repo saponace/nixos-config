@@ -13,7 +13,11 @@
     ../../modules/desktop/xfce.nix
   ];
 
-  networking.hostName = "desktop";
+  networking.hostName = "poireau";
+
+
+  networking.wireless.enable = true;
+
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
