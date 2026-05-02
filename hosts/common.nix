@@ -1,0 +1,17 @@
+{ config, pkgs, lib, ... }:
+
+{
+  imports = [
+    ../modules/base/locale.nix
+    ../modules/base/networking.nix
+    ../modules/base/users.nix
+    ../modules/base/tools.nix
+
+    ../modules/services/ssh.nix
+    ../modules/desktop/xfce.nix
+  ];
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.saponace = import ../home/saponace/main.nix;
+}

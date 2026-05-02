@@ -5,24 +5,12 @@
 { config, pkgs, ... }:
 
 {
-  programs.nix-ld.enable = true;
-  services.envfs.enable = true;
-
-
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable clipboard sharing with host when this instance is the VM
-  services.spice-vdagentd.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
