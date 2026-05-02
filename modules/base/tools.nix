@@ -5,6 +5,7 @@
     unzip
     vim
     ranger
+    lsd
   ];
 
   services.printing.enable = true;

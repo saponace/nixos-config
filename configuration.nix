@@ -14,37 +14,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    users.sapo = { config, ... }: {
-      home.stateVersion = "25.11";
-      programs.home-manager.enable = true;
-      programs.zoxide.enable = true;
-      programs.ranger.enable = true;
-
-      xdg.enable = true;
-
-      programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-
-        initContent = builtins.concatStringsSep "\n" [
-          (builtins.readFile ./zsh/misc)
-          (builtins.readFile ./zsh/misc-functions)
-          (builtins.readFile ./zsh/aliases)
-          (builtins.readFile ./zsh/prompt)
-        ];
-
-        shellAliases = {
-          snrs = "sudo nixos-rebuild switch --flake /home/sapo/nixos-config#nixos";
-        };
-      };
-
-
-      # LazyVim writes lazy-lock.json under ~/.config/nvim, so keep it writable.
-      xdg.configFile."nvim".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/nvim";
-    };
   };
 
 
