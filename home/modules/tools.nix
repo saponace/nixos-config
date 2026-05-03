@@ -11,8 +11,10 @@
 
     zellij = {
       enable = true;
-      enableZshIntegration = true;
-      settings.theme = "catppuccin-macchiato";
+      settings = {
+        theme = "catppuccin-macchiato";
+        show_startup_tips = false;
+      };
     };
 
     zoxide = {
