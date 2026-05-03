@@ -17,6 +17,11 @@
   xdg.enable = true;
 
   programs = {
+    git = {
+      enable = true;
+      userEmail = "saponace@gmail.com";
+      userName = "saponace";
+    };
     home-manager.enable = true;
     zoxide.enable = true;
     ranger.enable = true;
