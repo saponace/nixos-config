@@ -2,6 +2,17 @@
 
 {
   home.packages = with pkgs; [
-    firefox
+    sxiv
+    vlc
   ];
+
+  programs.firefox.enable = true;
+  services.flameshot = {
+    enable = true;
+    settings = {
+      general = {
+        showStartupLaunchMessage = false;
+      };
+    };
+  };
 }
