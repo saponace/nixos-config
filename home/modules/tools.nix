@@ -4,6 +4,11 @@
   programs = {
     lsd.enable = true;
 
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    }; 
+
     yazi = {
       enable = true;
       enableZshIntegration = true;
