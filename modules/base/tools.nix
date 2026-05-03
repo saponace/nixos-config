@@ -9,7 +9,7 @@
     wget
   ];
 
+  programs.tmux.enable = true;
   services.printing.enable = true;
-  # Enable clipboard sharing with host when running as vm
-  services.spice-vdagentd.enable = true;
+  services.spice-vdagentd.enable = true;  # Enables clipboard sharing with host when running as vm
 }
