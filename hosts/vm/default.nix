@@ -6,8 +6,6 @@
     ../common.nix
   ];
 
-  system.stateVersion = "25.11";
-
   networking.hostName = "vm";
 
   boot.loader.systemd-boot.enable = true;

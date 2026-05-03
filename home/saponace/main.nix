@@ -8,7 +8,7 @@
     ../tools/nvim.nix
   ];
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   home = {
     username = "saponace";
@@ -20,8 +20,10 @@
   programs = {
     git = {
       enable = true;
-      userEmail = "saponace@gmail.com";
-      userName = "saponace";
+      settings.user = {
+        email =  "saponace@gmail.com";
+        name = "saponace";
+        };
     };
     home-manager.enable = true;
     zoxide.enable = true;

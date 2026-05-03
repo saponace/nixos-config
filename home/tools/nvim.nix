@@ -24,7 +24,7 @@
     # Prefer Nix-managed LSP/formatters over Mason downloads
     lua-language-server
     nil
-    nixfmt-rfc-style
+    nixfmt
     statix
     stylua
     shfmt
