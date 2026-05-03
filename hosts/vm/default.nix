@@ -4,8 +4,6 @@
   imports = [
     ./hardware.nix
     ../common.nix
-
-    ../../configuration.nix
   ];
 
   system.stateVersion = "25.11";
