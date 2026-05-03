@@ -26,7 +26,9 @@
         };
     };
     home-manager.enable = true;
-    zoxide.enable = true;
-    ranger.enable = true;
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 }
