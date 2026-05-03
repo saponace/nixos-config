@@ -15,7 +15,10 @@
     ../modules/desktop/apps.nix
   ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.saponace = import ../home/saponace/main.nix;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.saponace = import ../home/saponace/main.nix;
+  };
 }

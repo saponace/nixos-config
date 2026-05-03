@@ -10,6 +10,4 @@
     wget
     zip
   ];
-
-  programs.tmux.enable = true;
 }
