@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ../desktop/apps.nix
-    ../tools/tools.nix
-    ../tools/zsh.nix
-    ../tools/nvim.nix
+    ../modules/apps.nix
+    ../modules/tools.nix
+    ../modules/zsh/zsh.nix
+    ../modules/nvim/nvim.nix
   ];
 
   home.stateVersion = "26.05";

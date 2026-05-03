@@ -8,10 +8,10 @@
     syntaxHighlighting.enable = true;
 
     initContent = builtins.concatStringsSep "\n" [
-      (builtins.readFile ../files/zsh/misc)
-      (builtins.readFile ../files/zsh/misc-functions)
-      (builtins.readFile ../files/zsh/aliases)
-      (builtins.readFile ../files/zsh/prompt)
+      (builtins.readFile ./config/misc)
+      (builtins.readFile ./config/misc-functions)
+      (builtins.readFile ./config/aliases)
+      (builtins.readFile ./config/prompt)
     ];
 
     shellAliases = {
