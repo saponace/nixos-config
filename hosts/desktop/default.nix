@@ -9,4 +9,6 @@
   networking.hostName = "poireau";
 
   networking.wireless.enable = true;
+
+  system.stateVersion = "26.05";
 }
