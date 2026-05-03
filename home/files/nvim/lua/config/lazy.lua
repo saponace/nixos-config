@@ -26,6 +26,9 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
+  -- Home Manager often makes ~/.config/nvim read-only (symlinks into the Nix store).
+  -- Put the lockfile in a writable per-machine location.
+  lockfile = vim.fn.stdpath("state") .. "/lazy-lock.json",
   install = {},
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {

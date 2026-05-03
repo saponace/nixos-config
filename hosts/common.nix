@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../modules/base/nix.nix
     ../modules/base/locale.nix
     ../modules/base/networking.nix
     ../modules/base/users.nix
