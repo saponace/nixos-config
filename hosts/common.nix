@@ -12,6 +12,7 @@
 
     ../modules/services/ssh.nix
     ../modules/desktop/xfce.nix
+    ../modules/desktop/default.nix
   ];
 
   home-manager.useGlobalPkgs = true;
