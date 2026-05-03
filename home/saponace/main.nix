@@ -3,6 +3,7 @@
 {
   imports = [
     ../desktop/apps.nix
+    ../tools/tools.nix
     ../tools/zsh.nix
     ../tools/nvim.nix
   ];

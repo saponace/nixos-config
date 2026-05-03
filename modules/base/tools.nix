@@ -3,9 +3,6 @@
 {
   environment.systemPackages = with pkgs; [
     unzip
-    vim
-    ranger
-    lsd
     wget
   ];
 
