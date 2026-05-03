@@ -9,14 +9,16 @@
 
   home.stateVersion = "25.11";
 
-  home.username = "saponace";
-  home.homeDirectory = "/home/saponace";
-
-  programs.home-manager.enable = true;
-
-  programs.zoxide.enable = true;
-  programs.ranger.enable = true;
+  home = {
+    username = "saponace";
+    homeDirectory = "/home/saponace";
+  };
 
   xdg.enable = true;
 
+  programs = {
+    home-manager.enable = true;
+    zoxide.enable = true;
+    ranger.enable = true;
+  };
 }
