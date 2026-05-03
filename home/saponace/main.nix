@@ -18,17 +18,14 @@
   xdg.enable = true;
 
   programs = {
+    home-manager.enable = true;
+
     git = {
       enable = true;
       settings.user = {
         email =  "saponace@gmail.com";
         name = "saponace";
         };
-    };
-    home-manager.enable = true;
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
     };
   };
 }

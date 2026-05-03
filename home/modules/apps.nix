@@ -8,11 +8,15 @@
 
   programs.firefox.enable = true;
 
-  services.flameshot = {
-    enable = true;
-    settings = {
-      general = {
-        showStartupLaunchMessage = false;
+  services = {
+    pasystray.enable = true;
+
+    flameshot = {
+      enable = true;
+      settings = {
+        general = {
+          showStartupLaunchMessage = false;
+        };
       };
     };
   };
