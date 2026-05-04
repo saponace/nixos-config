@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ../common.nix
+    ../../modules/desktop/virtualisation.nix
   ];
 
   networking.hostName = "poireau";

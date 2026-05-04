@@ -3,7 +3,7 @@
 {
   users.users.saponace = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "libvirtd" ];
     shell = pkgs.zsh;
     initialPassword = "sapo";
   };
