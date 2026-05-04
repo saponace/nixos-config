@@ -4,8 +4,9 @@
   imports = [
     ./hardware.nix
     ../common.nix
+
     ../../modules/desktop/virtualisation.nix
-    ../../modules/hardware/extmonitorbrightcontrol.nix
+    ../../modules/hardware/ext-monitor-bright-ctrl.nix
   ];
 
   networking.hostName = "poireau";
