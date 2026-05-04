@@ -24,19 +24,16 @@ in
     efi.canTouchEfiVariables = true;
   };
 
-  # Power management
-  services.tlp.enable = true;
-  services.upower.enable = true;
+  services = {
+    tlp.enable = true;
+    upower.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     acpi
     brightnessctl
     libnotify
     batteryLevel
-  ];
-
-  home-manager.users.saponace.imports = [
-    ../../home/modules/hardware/battery-level.nix
   ];
 
   system.stateVersion = "26.05";
