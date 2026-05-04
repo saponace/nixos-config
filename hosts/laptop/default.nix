@@ -14,9 +14,17 @@ in
     ../common.nix
   ];
 
-  networking.hostName = "celeri";
+  networking = {
+    hostName = "celeri";
+    wireless.enable = true;
+  };
 
-  # Laptop power management
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
+  # Power management
   services.tlp.enable = true;
   services.upower.enable = true;
 

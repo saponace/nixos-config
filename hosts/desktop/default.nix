@@ -9,9 +9,15 @@
     ../../modules/hardware/ext-monitor-bright-ctrl.nix
   ];
 
-  networking.hostName = "poireau";
+  networking = {
+    hostName = "poireau";
+    wireless.enable = true;
+  };
 
-  networking.wireless.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   system.stateVersion = "26.05";
 }
