@@ -1,0 +1,57 @@
+set -euo pipefail
+
+# Display total battery level across all batteries.
+compute_total_battery_level() {
+  local batteries_total_capacity=0
+  local batteries_total_capacity_times_level=0
+  local nb_of_batteries
+  nb_of_batteries="$("@acpi@" -b | wc -l)"
+
+  for counter in $(seq 1 "${nb_of_batteries}"); do
+    local curr_battery_level
+    curr_battery_level="$("@acpi@" -b | grep -oP '[0-9]+(?=%)' | cut -d $'\n' -f"${counter}")"
+    local curr_battery_capacity
+    curr_battery_capacity="$("@acpi@" -V | grep -oP '[0-9]+(?= mAh,)' | cut -d $'\n' -f"${counter}")"
+
+    batteries_total_capacity="$((batteries_total_capacity + curr_battery_capacity))"
+    batteries_total_capacity_times_level="$((batteries_total_capacity_times_level + curr_battery_capacity * curr_battery_level))"
+  done
+
+  echo "$((batteries_total_capacity_times_level / batteries_total_capacity))"
+}
+
+is_adapter_plugged() {
+  if "@acpi@" -a | grep -q "on-line"; then
+    echo 1
+  else
+    echo 0
+  fi
+}
+
+case "${1:-}" in
+  -s)
+    echo "$(compute_total_battery_level)%"
+    ;;
+  -n)
+    is_ac_plugged_in="$(is_adapter_plugged)"
+    total_battery_level="$(compute_total_battery_level)"
+
+    low_level=10
+    very_low_level=6
+    critical_level=3
+
+    if [ "${is_ac_plugged_in}" -eq 0 ]; then
+      if [ "${total_battery_level}" -le "${low_level}" ] && [ "${total_battery_level}" -gt "${very_low_level}" ]; then
+        "@notify_send@" "Low battery" "Battery level is ${total_battery_level}%" --urgency=normal
+      elif [ "${total_battery_level}" -le "${very_low_level}" ] && [ "${total_battery_level}" -gt "${critical_level}" ]; then
+        "@notify_send@" "Critical battery level" "Battery level is ${total_battery_level}%" --urgency=critical
+      elif [ "${total_battery_level}" -le "${critical_level}" ]; then
+        "@notify_send@" "Battery critically low" "Battery level is ${total_battery_level}%" --urgency=critical
+      fi
+    fi
+    ;;
+  *)
+    echo "Usage: battery-level -s|-n" >&2
+    exit 1
+    ;;
+esac

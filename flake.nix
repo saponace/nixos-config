@@ -25,6 +25,7 @@
 
       # New skeleton: per-host entrypoints.
       nixosConfigurations.desktop = mkHost ./hosts/desktop;
+      nixosConfigurations.laptop = mkHost ./hosts/laptop;
       nixosConfigurations.vm = mkHost ./hosts/vm;
     };
 }
