@@ -5,6 +5,7 @@
     ./hardware.nix
     ../common.nix
     ../../modules/desktop/virtualisation.nix
+    ../../modules/hardware/extmonitorbrightcontrol.nix
   ];
 
   networking.hostName = "poireau";
