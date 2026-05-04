@@ -6,7 +6,7 @@
     ../common.nix
 
     ../../modules/desktop/virtualisation.nix
-    ../../modules/hardware/ext-monitor-bright-ctrl.nix
+    ../../modules/hardware/ext-monitor-bright-ctrl/default.nix
   ];
 
   networking = {
