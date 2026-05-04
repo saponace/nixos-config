@@ -14,7 +14,7 @@ in
     ../common.nix
   ];
 
-  networking.hostName = "t550";
+  networking.hostName = "celeri";
 
   # Laptop power management
   services.tlp.enable = true;
