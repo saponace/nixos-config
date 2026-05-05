@@ -13,9 +13,5 @@
       (builtins.readFile ./config/aliases)
       (builtins.readFile ./config/prompt)
     ];
-
-    shellAliases = {
-      nrs = "sudo nixos-rebuild switch --flake #";
-    };
   };
 }

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   programs.nix-ld.enable = true;
@@ -20,4 +20,12 @@
     "steam-unwrapped"
     "steam-run"
   ];
+
+  environment.systemPackages = with pkgs; [
+    nh
+  ];
+
+  environment.sessionVariables = {
+      FLAKE = "/home/saponace/nixos-config/"; # Used by nh
+    };
 }
