@@ -21,11 +21,26 @@
     "steam-run"
   ];
 
-  environment.systemPackages = with pkgs; [
-    nh
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      nh
+    ];
 
-  environment.sessionVariables = {
-      FLAKE = "/home/saponace/nixos-config/"; # Used by nh
+    sessionVariables = {
+        FLAKE = "/home/saponace/nixos-config/"; # Used by nh
+      };
+  };
+
+  nix = {
+    optimise = {
+      automatic = true;
+      dates = [ "03:45" ];
     };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
 }
