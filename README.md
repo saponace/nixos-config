@@ -11,16 +11,18 @@ After installing NixOS and rebooting into the new system:
 2) Clone this repo
 ```bash
 git clone https://github.com/saponace/nixos-config.git
-```
+cd nixos-config/
+` ``
 
 3) Optional - Copy the generated hardware config if it is the install on this host
 ```bash
-sudo cp /etc/nixos/hardware-configuration.nix nixos-config/hosts/[HOST]/hardware.nix
+sudo cp /etc/nixos/hardware-configuration.nix hosts/[HOST]/hardware.nix
+git add hosts/[HOST]/hardware.nix
 ```
 
 4) Rebuild using flakes:
 ```bash
-sudo nixos-rebuild switch --flake nixos-config/#[HOST]
+sudo nixos-rebuild switch --flake .#[HOST]
 ```
 
 ## Day-to-day
