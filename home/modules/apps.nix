@@ -39,6 +39,8 @@
   };
 
   services = {
+    network-manager-applet.enable = true;
+
     pasystray.enable = true;
 
     flameshot = {
