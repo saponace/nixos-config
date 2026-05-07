@@ -5,7 +5,7 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "kvm" "libvirtd" ];
     shell = pkgs.zsh;
-    initialPassword = "sapo";
+    initialPassword = "pwd";
   };
 
   programs.zsh.enable = true;
