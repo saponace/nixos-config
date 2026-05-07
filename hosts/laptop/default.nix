@@ -27,6 +27,9 @@ in
   services = {
     tlp.enable = true;
     upower.enable = true;
+    xserver = {
+      xkb.layout = "fr";
+    };
   };
 
   environment.systemPackages = with pkgs; [
