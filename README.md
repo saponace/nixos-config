@@ -2,16 +2,36 @@
 
 NixOS configuration repo (flakes + Home Manager).
 
+## Bootstrap (Fresh Install)
+
+After installing NixOS and rebooting into the new system:
+
+1) In a nix-shell with `git` and `nh`
+
+2) Clone this repo
+```bash
+git clone https://github.com/saponace/nixos-config.git
+```
+
+3) Optional - Copy the generated hardware config if it is the install on this host
+```bash
+sudo cp /etc/nixos/hardware-configuration.nix nixos-config/hosts/[HOST]/hardware.nix
+```
+
+4) Rebuild using flakes:
+```bash
+sudo nixos-rebuild switch --flake nixos-config/#[HOST]
+```
+
 ## Day-to-day
 
+### Rebuild NixOS config and activate
 ```bash
-# Rebuild NixOS config and activate
 snrs
+```
 
-# Rebuild but do not make the new generation the default boot entry
-sudo nixos-rebuild test --flake .#<host>
-
-# Update flake inputs
+### Update flake inputs
+```bash
 nix flake update
 ```
 
