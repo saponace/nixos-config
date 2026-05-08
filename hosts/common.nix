@@ -2,6 +2,9 @@
 
 {
   imports = [
+    ../modules/greeter.nix
+    ../modules/window-manager/niri.nix
+
     ../modules/base/nix.nix
     ../modules/base/locale.nix
     ../modules/base/networking.nix
@@ -11,7 +14,6 @@
     ../modules/base/fonts.nix
 
     ../modules/services/ssh.nix
-    ../modules/desktop/xfce.nix
     ../modules/desktop/apps.nix
   ];
 
