@@ -4,17 +4,17 @@
   programs = {
     lsd.enable = true;
 
-    fzf = {
+    fzf = { # fuzzy search
       enable = true;
       enableZshIntegration = true;
     }; 
 
-    yazi = {
+    yazi = { # file explorer
       enable = true;
       enableZshIntegration = true;
     };
 
-    zellij = {
+    zellij = { # terminal multiplexer
       enable = true;
       settings = {
         theme = "catppuccin-macchiato";
@@ -22,7 +22,7 @@
       };
     };
 
-    zoxide = {
+    zoxide = { # better cd
       enable = true;
       enableZshIntegration = true;
     };
