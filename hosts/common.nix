@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../modules/greeter.nix
+    ../modules/display-manager.nix
     ../modules/window-manager/niri.nix
 
     ../modules/base/nix.nix
