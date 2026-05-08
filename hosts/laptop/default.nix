@@ -39,5 +39,9 @@ in
     batteryLevel
   ];
 
+  home-manager.users.saponace.imports = [
+    ../../home/modules/hardware/battery-level.nix
+  ];
+
   system.stateVersion = "26.05";
 }

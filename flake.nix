@@ -1,16 +1,19 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    niri.url = "github:sodiboo/niri-flake";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
       mkHost = hostPath: nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit self; };
+        specialArgs = { inherit self inputs; };
         modules = [
           hostPath
           home-manager.nixosModules.home-manager
