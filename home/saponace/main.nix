@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../modules/wm-dependencies.nix
     ../modules/apps.nix
     ../modules/tools.nix
     ../modules/zsh/zsh.nix
