@@ -8,7 +8,7 @@
     theme = "catppuccin-mocha-mauve";
   };
 
-  environment.systemPackages = [ 
+  environment.systemPackages = [
     (pkgs.catppuccin-sddm.override {
       flavor = "mocha";
       accent = "mauve";
