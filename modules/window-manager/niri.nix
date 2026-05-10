@@ -9,7 +9,12 @@
     xwayland-satellite  # Bridge for X aps to run in wayland
   ];
 
-  home-manager.users.saponace.home.file.".config/niri/config.kdl" = {
-    source = ./config.kdl;
+  home-manager.users.saponace.home.file = {
+      ".config/niri/config.kdl" = {
+        source = ./config/niri/config.kdl;
+    };
+      ".config/noctalia/" = {
+        source = ./config/noctalia;
+    };
   };
 }
