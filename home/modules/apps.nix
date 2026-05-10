@@ -13,7 +13,7 @@
       enable = true;
       theme = "monokai";
       settings = {
-        window.opacity = 0.8;
+        window.opacity = 0.85;
         font = {
           size = 10;
           normal = {
