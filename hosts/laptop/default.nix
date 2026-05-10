@@ -1,13 +1,4 @@
-{ config, pkgs, lib, ... }:
-
-let
-  batteryLevel = pkgs.writeShellScriptBin "battery-level" (
-    builtins.replaceStrings
-      [ "@acpi@" "@notify_send@" ]
-      [ "${pkgs.acpi}/bin/acpi" "${pkgs.libnotify}/bin/notify-send" ]
-      (builtins.readFile ./scripts/battery-level)
-  );
-in
+{ pkgs, ... }:
 {
   imports = [
     ./hardware.nix
@@ -36,7 +27,6 @@ in
     acpi
     brightnessctl
     libnotify
-    batteryLevel
   ];
 
   system.stateVersion = "26.05";
