@@ -1,3 +1,3 @@
 create sub-config files for outputs and locale and set them in hardware (both output and locale)
 replace sxiv for opening images
-remove flameshot
+remove comments in config.kdl

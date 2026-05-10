@@ -351,10 +351,14 @@ binds {
     Mod+S { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
+    Mod+Return hotkey-overlay-title="App launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+Shift+Return hotkey-overlay-title="Control center" { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
+    Mod+Alt+Return hotkey-overlay-title="Settings" { spawn-sh "noctalia-shell ipc call settings toggle"; }
+
     Mod+Space hotkey-overlay-title="Terminal" { spawn "alacritty"; }
-    Mod+Return hotkey-overlay-title="App launcher" { spawn "fuzzel"; }
     Mod+B hotkey-overlay-title="Web browser" { spawn "firefox"; }
     Ctrl+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
+    
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

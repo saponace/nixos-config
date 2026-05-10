@@ -37,19 +37,4 @@
       tui.theme = "catppuccin-macchiato";
     };
   };
-
-  services = {
-    network-manager-applet.enable = true;
-
-    pasystray.enable = true;
-
-    flameshot = {
-      enable = true;
-      settings = {
-        general = {
-          showStartupLaunchMessage = false;
-        };
-      };
-    };
-  };
 }
