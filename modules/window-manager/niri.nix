@@ -4,8 +4,9 @@
   programs.niri.enable = true;
 
   environment.systemPackages = with pkgs; [
-    fuzzel # app launcher
-    swaylock # app launcher
+    noctalia-shell # desktop shell
+    fuzzel         # app launcher
+    swaylock       # app launcher
     waybar
   ];
 
