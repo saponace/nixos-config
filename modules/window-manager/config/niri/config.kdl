@@ -327,6 +327,14 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id="^Alacritty$"
+
+    background-effect {
+        blur true
+    }
+}
+
 /-window-rule {
 }
 
