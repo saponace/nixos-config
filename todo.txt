@@ -20,7 +20,6 @@ remove hardcoded "saponace"
 remove hardcoded paths 
 remove ext-monitor-brightness script ?
 create sub-config files for outputs and locale and set them in hardware (both output and locale)
-replace sxiv for opening images
 remove comments in config.kdl
 add nvim plugin mini.map
 delete scrit battery-management for laptop

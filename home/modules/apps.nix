@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    sxiv
+    swayimg # image visualizer
     vlc
   ];
 
