@@ -20,3 +20,7 @@ alias gr='git rebase' ; compdef _git gr=git-rebase
 alias gl='git pull' ; compdef _git gl=git-pull
 alias gp='git push' ; compdef _git gp=git-push
 alias gd='git diff' ; compdef _git gd=git-diff
+
+alias grep="grep --color=auto --exclude-dir=.git"
+alias df="df -h"
+alias du="du -h"

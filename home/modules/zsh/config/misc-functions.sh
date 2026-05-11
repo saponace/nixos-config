@@ -1,74 +1,30 @@
-## Print the complete command and check correctness
-_-accept-line() {
-    local -a WORDS
-    WORDS=( ${(z)BUFFER} )
-    local -r FIRSTWORD=${WORDS[1]}
-    local -r GREEN=$'\e[32m' RESET_COLORS=$'\e[0m'
-    [[ "$(whence -w $FIRSTWORD 2>/dev/null)" == "${FIRSTWORD}: alias" ]] &&
-    echo -n $'\n'"${GREEN}Executing: $(whence $FIRSTWORD)${RESET_COLORS}"
-    zle .accept-line
-}
-zle -N accept-line _-accept-line
-
-
-## Grep: exclude these special directories for a better matching speed
-[[ -n ${commands[grep]} ]] && {
-    export GREP_COLORS='mt=7;2;32';
-    export GREP_OPT='--color=auto';
-    for PATTERN in .{cvs,git,hg,svn}; do
-        GREP_OPT+=" --exclude-dir=${PATTERN}"
-            done
-    alias grep="/usr/bin/grep $GREP_OPT"
-    unset GREP_OPT
-}
-
-
-# Less as default pager/viewer
-[[ -n ${commands[less]} ]] && {
-export PAGER=less
-export MANPAGER=${PAGER}
-}
-[[ -n ${commands[vim]} ]] && export EDITOR=nvim
-export TAR_OPTIONS='--delay-directory-restore'
-[[ -n ${commands[journalctl]} ]] && export SYSTEMD_LESS=FRXM
-[[ -n ${commands[less]} ]] && export LESS=RM
-
-
-## Add colors in man pages
-[[ -n ${commands[less]} ]] && export LESS_TERMCAP_mb=$'\E[1;36m' \
-    LESS_TERMCAP_md=$'\E[1;31m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[01;44;33m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[1;32m'
-
-
-## Create a dir and cd in it
-mkdirc() {
-    if [[ $# -ne 1 || "${1}" == '--help' ]];then
-        _-automatic-colored
-        print "${bldblu}Usage:${rst} ${bldgrn}mkdirc${rst} [${bldcyn}DIRECTORY${rst}]
-        ${bldgrn}mkdirc${rst} create a directory and then change the current working directory to the created directory.
-
-        ${bldcyn}--help${rst}     help information(this screen)
-        ${bldcyn}--version${rst}  print the version"
-        [[ $# -ne 1 ]] && return 1
-    elif [[ "${1}" == '--version' ]];then
-        local VERSION=0.0
-        echo "mkdirc v${VERSION}"
-    elif [[ ! -d "${1}" ]];then
-        _-automatic-colored
-        echo -n "${grn}";mkdir -pv "${1}" && cd "${1}";echo -n "${rst}"
-    else
-        _-automatic-colored
-        echo "${cyn}mkdirc: \`${1}\' already exists${rst}"
-        cd "${1}"
+# Set colors - used in other functions
+_-automatic-colored() {
+    if [[ ${1} == unset || ! -t 1 ]];then
+        unset rst bld bldwht bldblk bldred bldgrn bldylw bldblu bldcyn blk red grn ylw blu cyn gry
+    elif [[ -t 1 ]];then
+        rst="${reset_color}"
+        bld="${fg_bold[default]}"
+        bldwht="${fg_bold[white]}"
+        bldblk="$fg_bold[black]"
+        bldred="$fg_bold[red]"
+        bldgrn="$fg_bold[green]"
+        bldylw="$fg_bold[yellow]"
+        bldblu="$fg_bold[blue]"
+        bldmgt="${fg_bold[magenta]}"
+        bldcyn="$fg_bold[cyan]"
+        gry="${fg[white]}"
+        blk="$fg[black]"
+        red="$fg[red]"
+        grn="$fg[green]"
+        ylw="$fg[yellow]"
+        blu="$fg[blue]"
+        mgt="${fg[magenta]}"
+        cyn="$fg[cyan]"
     fi
 }
 
-
-## Create a random named tmp directory and cd in it
+# Create a random named tmp directory and cd in it
 cdtmp() {
     if [[ "${1}" == '--help' || "${1}" == '-h' || $# -gt 1 ]];then
         _-automatic-colored
@@ -83,39 +39,7 @@ cdtmp() {
     fi
 }
 
-
-## Display help
-help() {
-    local HELPDIR=${HELPDIR:-/usr/share/zsh/${ZSH_VERSION}/help}
-    [[ ${1} == '.' ]] && 1=dot
-    [[ ${1} == ':' ]] && 1=colon
-    if [[ $# -eq 0 || ${1} == '-l' || ${1} == '--help' || ${1} == '-h' ]];then
-        _-automatic-colored
-        [[ $# -eq 0 || ${1} == '--help' || ${1} == '-h' ]] && echo "${bldblu}Usage:${rst} ${bldcyn}help${rst} [${bldgrn}zsh-builtin-command${rst}]\n"
-        ls ${HELPDIR}
-        if [[ $# -eq 0 || ${1} == '--help' || ${1} == '-h' ]];then
-            for n ({1..${COLUMNS}}) ; do printf '%s' -;done;echo
-                echo "* ${bld}RTFM${rst}(Read the fine/f*cking manual): ${bldgrn}man what-manual-page-you-want${rst}, this is the 1st thing you should do before asking.
-                * ${bld}GIYF${rst}(Google is your Friend), so please google before asking questions: ${bldgrn}elinks ${bldcyn}google.com${rst}
-                * ${bld}RTFW${rst}(Read the fine wiki): The community-maintained ${bldcyn}ArchWiki${rst} is the primary resource that should be consulted if issues arise: ${bldgrn}elinks ${bldcyn}wiki.archlinux.org${rst}
-                * The IRC Channel(${bldcyn}irc://irc.freenode.net/#archlinux${rst}) and the forums(${bldcyn}https://bbs.archlinux.org${rst}) are also good places for asking if an answer cannot be found elsewhere."
-                [[ -t 1 ]] && echo
-            fi
-            return 0
-        elif [[ -n ${HELPDIR:-} && -r ${HELPDIR}/${1} && ${1} != compctl ]];then
-            if [[ -n ${commands[${PAGER:-less}]} ]];then
-                ${PAGER:-less} ${HELPDIR}/${1}
-            else
-                cat ${HELPDIR}/${1}
-            fi
-            return $?
-        else
-            man $@
-        fi
-}
-
-
-## Create backup file
+# Create backup file
 ~() {
 _-intro() {
     _-automatic-colored
@@ -151,87 +75,7 @@ fi
 unset -f _-intro
 }
 
-
-## Sudo su insted of su, plus warning
-su() {
-    if [[ ${EUID} -ne 0 && -n ${commands[sudo]} ]];then
-        print "\e[1;32m==> \e[1;37mNote: Never run \e[1;31msu\e[1;37m directly except the \e[1;32msudo\e[1;37m is unusable.\e[0m (use \e[1;32munset -f su\e[0m to disable this automatic notification)"
-        print "\e[1;34m==> \e[0;32mExecuting: sudo su\e[0m"
-        sudo -- su $@
-    else
-        command su $@
-    fi
-}
-
-
-## Print availible disk space
-df() {
-    if [[ $# -eq 0 ]];then
-        command df -h
-    else
-        command df $@
-    fi
-}
-
-
-## Print files size
-[[ -n ${commands[${PAGER:-less}]} ]] && du() {
-    if [[ $# -eq 0 && -t 0 ]];then
-        command du -h | ${PAGER:-less}
-    else
-        command du $@
-    fi
-}
-
-
-## Show who is logged on and what they are doing
-[[ -n ${commands[w]} ]] && w() {
-    if [[ $# -eq 0 ]];then
-        command w -f
-    else
-        command w $@
-    fi
-}
-
-
-## History
-[[ -n ${commands[${PAGER:-less}]} ]] && hist() {
-    if [[ $# -eq 0 && -t 0 ]];then
-        fc -il 1 | ${PAGER:-less}
-    else
-        builtin history $@
-    fi
-}
-
-
-# Colors settings
-_-automatic-colored() {
-    if [[ ${1} == unset || ! -t 1 ]];then
-        unset rst bld bldwht bldblk bldred bldgrn bldylw bldblu bldcyn blk red grn ylw blu cyn gry
-    elif [[ -t 1 ]];then
-        rst="${reset_color}"
-        bld="${fg_bold[default]}"
-        bldwht="${fg_bold[white]}"
-        bldblk="$fg_bold[black]"
-        bldred="$fg_bold[red]"
-        bldgrn="$fg_bold[green]"
-        bldylw="$fg_bold[yellow]"
-        bldblu="$fg_bold[blue]"
-        bldmgt="${fg_bold[magenta]}"
-        bldcyn="$fg_bold[cyan]"
-        gry="${fg[white]}"
-        blk="$fg[black]"
-        red="$fg[red]"
-        grn="$fg[green]"
-        ylw="$fg[yellow]"
-        blu="$fg[blue]"
-        mgt="${fg[magenta]}"
-        cyn="$fg[cyan]"
-    fi
-}
-
-
-## Extract lots of archive types
+# Extract various types of archives
 extract () {
     if [ -f $1 ] ; then
         case $1 in
@@ -252,62 +96,3 @@ extract () {
         echo "'$1' is not a valid file!"
     fi
 }
-
-
-## Terminal emulator title settings ##
-case ${TERM} in
-    xterm*|rxvt*|ansi)
-        _default_terminal_title() {
-            print -n '\e]0;'${(%):-'%n@%m'}'\a'
-        }
-        _command_terminal_title() {
-            setopt local_options extended_glob
-            print -n '\e]0;'${1[(wr)^(*=*|command|sudo|ssh|rake|i386|x86_64|linux32|linux64|pty|ptypg|stdoutisatty|unbuffer|me|proxychains|grc|rlwrap|-*)]:gs/%/%%}${(%):-' - %n@%m'}'\a'
-        }
-        add-zsh-hook precmd _default_terminal_title
-        add-zsh-hook preexec _command_terminal_title ;;
-esac
-
-
-
-
-#----- Motion in command prompt
-    ## ZLE
-        if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} ));then
-        zle-line-init() {
-            echoti smkx
-        }
-        zle-line-finish() {
-            echoti rmkx
-        }
-        zle -N zle-line-init
-        zle -N zle-line-finish
-        fi
-    ## C-x,C-e: edit the current command line in ${EDITOR}
-        autoload -Uz edit-command-line
-        zle -N edit-command-line
-        bindkey '^x^e' edit-command-line
-
-    ## up: match history forward
-        [[ -n ${terminfo[kcuu1]} ]] && bindkey ${terminfo[kcuu1]} up-line-or-search
-        bindkey '^k' up-line-or-search        # vim motion
-    ## down: match history backward
-        [[ -n ${terminfo[kcud1]} ]] && bindkey ${terminfo[kcud1]} down-line-or-search
-        bindkey '^j' down-line-or-search      # vim motion
-    ## home: go to beginning of line
-        [[ -n ${terminfo[khome]} ]] && bindkey ${terminfo[khome]} beginning-of-line
-    ## end: go to end of line
-        [[ -n ${terminfo[kend]} ]] && bindkey ${terminfo[kend]} end-of-line
-    ## perform history expansion and insert a space into the buffer; this is intended to be bound to space
-        bindkey ' ' magic-space
-
-    ## C-right: move forward one word
-        bindkey '^[[1;5C' forward-word
-    ## C-left: move backward one word
-        bindkey '^[[1;5D' backward-word
-    ## S-tab: move through the completion menu backwards
-        [[ -n ${terminfo[kcbt]} ]] && bindkey ${terminfo[kcbt]} reverse-menu-complete
-    ## del: delete forward
-        [[ -n ${terminfo[kdch1]} ]] && bindkey ${terminfo[kdch1]} delete-char
-    ## C-x,C-h: This is missing from the emacs keymap, but not from the vi one
-    bindkey '^x^h' _complete_help

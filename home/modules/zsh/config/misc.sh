@@ -12,9 +12,14 @@ autoload -Uz zargs zcalc
 
 ## Exports
     export QT_QPA_PLATFORMTHEME="qt5ct"
-    export EDITOR=/usr/bin/nvim
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
     export BROWSER=/usr/bin/firefox
+export PAGER=less
+export MANPAGER=${PAGER}
+export EDITOR=nvim
+export TAR_OPTIONS='--delay-directory-restore'
+export SYSTEMD_LESS=FRXM
+export LESS=RM
 
 
 ## Miscellaneous options
@@ -65,6 +70,26 @@ alias cd=z
     unlimit
     limit coredumpsize 0
     limit -s
+
+
+
+## After entering a command, print the complete command and check correctness
+_-accept-line() {
+    local -a WORDS
+    WORDS=( ${(z)BUFFER} )
+    local -r FIRSTWORD=${WORDS[1]}
+    local -r GREEN=$'\e[32m' RESET_COLORS=$'\e[0m'
+    [[ "$(whence -w $FIRSTWORD 2>/dev/null)" == "${FIRSTWORD}: alias" ]] &&
+    echo -n $'\n'"${GREEN}Executing: $(whence $FIRSTWORD)${RESET_COLORS}"
+    zle .accept-line
+}
+zle -N accept-line _-accept-line
+
+#----- Navigation
+bindkey ' ' magic-space  # perform history expansion and insert a space into the buffer; this is intended to be bound to space
+bindkey '^[[1;5C' forward-word   # C-right: move forward one word
+bindkey '^[[1;5D' backward-word   # C-left: move backward one word
+bindkey ${terminfo[kdch1]} delete-char   ## del: delete forward
 
 
 #-----  History
