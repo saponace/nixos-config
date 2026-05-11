@@ -1,24 +1,19 @@
-check splice woks with sway
 migrate zsh config to home-manager
+noctalia fully configure (manually) and save config files
 consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
 consistant font amongst terminal emulator, wm, gtk, etc.
-bluetooth + applet
-nix snapshots garbage collection
-bluetooth ps3 controller + audio
-check dead keys work (otherwise xcompose in alis)
+bluetooth ps3 controller
+check dead keys work
 update README.md
 check virtualisation works
 manualy (?) setup windows VM
-wm
 check multi-monitor settings (arandr/autorandr ?)
-gamastep (redshift alternative)
 lock session and screen  auto-off after  5 min
 desktop: test external-monitor brightness scripts
+remove ext-monitor-brightness script ?
 remove hardcoded "saponace"
 remove hardcoded paths 
-remove ext-monitor-brightness script ?
 create sub-config files for outputs and locale and set them in hardware (both output and locale)
-remove comments in config.kdl
+remove comments in config.kdl ?
 add nvim plugin mini.map
-delete scrit battery-management for laptop
 ask feedback file structure and spaghetti configs with opencode
