@@ -21,6 +21,10 @@ export EDITOR=nvim
 export LESS=RM # Define `less options`
 export SYSTEMD_LESS=FRXM # Define `less` options for systemd tools (journalctl, systemctl, etc.)
 
+# Up/down arrow keep current command as prefix for history search
+bindkey ${terminfo[kcuu1]} up-line-or-search
+bindkey ${terminfo[kcud1]} down-line-or-search
+
 
 setopt no_beep auto_cd
 setopt no_nomatch # avoid 'zsh: no matches found...'
