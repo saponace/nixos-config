@@ -8,10 +8,10 @@
     syntaxHighlighting.enable = true;
 
     initContent = builtins.concatStringsSep "\n" [
-      (builtins.readFile ./config/misc)
-      (builtins.readFile ./config/misc-functions)
-      (builtins.readFile ./config/aliases)
-      (builtins.readFile ./config/prompt)
+      (builtins.readFile ./config/misc.sh)
+      (builtins.readFile ./config/misc-functions.sh)
+      (builtins.readFile ./config/aliases.sh)
+      (builtins.readFile ./config/prompt.sh)
     ];
   };
 }
