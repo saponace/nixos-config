@@ -9,7 +9,6 @@
 
 
 ## interactive cp/mv/rm
-    alias rd=rmdir
     alias cp='cp --interactive'
     alias mv='mv --interactive'
     alias rm='rm --interactive --verbose'
@@ -24,9 +23,7 @@
 
 
 ## Misc
-    alias _='sudo'
     alias view='vim -R'  # because view does not use .vimrc
-    alias remove-orphans='_ pacman -Rns $(pacman -Qtdq)'
     alias bt='battery-level -a'
 
 
@@ -43,8 +40,6 @@
         compdef _git gc=git-commit-m
     alias gca='git commit --amend'
         compdef _git gca=git-commit-amend
-    alias gd='git diff'
-        compdef _git gd=git-diff
     alias gr='git rebase'
         compdef _git gr=git-rebase
     alias gl='git pull'
@@ -54,7 +49,8 @@
     alias gp='git push'
         compdef _git gp=git-push
     alias gd='git diff'
-        gdv() { git diff -w "$@" | view - }
+        compdef _git gd=git-diff
+    gdv() { git diff -w "$@" | view - }
         compdef _git gdv=git-diff
     alias gdt='git difftool'
         compdef _git gdt=git-difftool
