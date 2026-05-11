@@ -1,79 +1,48 @@
 export LANG=en_US.UTF-8
 export LANGUAGE=${LANG}
 export LC_ALL=${LANG}
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 
 
 zmodload zsh/{datetime,stat,zpty,system,clone,zprof,zselect}
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &> /dev/null
 autoload -Uz zargs zcalc
+autoload -Uz colors && colors # this is needed by a lot of function in this zshrc
+
+source <(fzf --zsh) # fzf: fuzzy search in files and shell history
+eval "$(zoxide init zsh)" ; alias cd=z # zoxide: better cd
 
 
-## Exports
-    export QT_QPA_PLATFORMTHEME="qt5ct"
-    export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-    export BROWSER=/usr/bin/firefox
+
+export BROWSER=/usr/bin/firefox
 export PAGER=less
 export MANPAGER=${PAGER}
 export EDITOR=nvim
-export TAR_OPTIONS='--delay-directory-restore'
-export SYSTEMD_LESS=FRXM
-export LESS=RM
+export LESS=RM # Define `less options`
+export SYSTEMD_LESS=FRXM # Define `less` options for systemd tools (journalctl, systemctl, etc.)
 
 
-## Miscellaneous options
-    setopt no_beep auto_cd
+setopt no_beep auto_cd
+setopt no_nomatch # avoid 'zsh: no matches found...'
+setopt correct # autocorrect
 
 
-## try to avoid the 'zsh: no matches found...'
-    setopt no_nomatch
+# Consider directories as words
+local WORDCHARS=${WORDCHARS/\/}
+autoload -U select-word-style
+select-word-style bash
 
+# Signals stuff
+setopt no_hup # do not send the HUP signal to running jobs when the shell exits
+setopt long_list_jobs # display PID when suspending processes
+setopt auto_continue # stopped jobs that are removed from the job table with the disown builtin command are automatically sent a SIGCONT to make them running
 
-## correction
-    setopt correct
+# Resources limit
+unlimit
+limit coredumpsize 0
+limit -s
 
-## History reverse search
-    bindkey '^R' history-incremental-pattern-search-backward
-
-
-## Consider directories as words (So Ctrl+w removes up to the latest slash in a filepath)
-    local WORDCHARS=${WORDCHARS/\/}
-    autoload -U select-word-style
-    select-word-style bash
-
-
-#----- Signals stuff
-    ## do not send the HUP signal to running jobs when the shell exits
-    setopt no_hup
-    ## display PID when suspending processes
-    setopt long_list_jobs
-    ## stopped jobs that are removed from the job table with the disown builtin command are automatically sent a SIGCONT to make them running
-    setopt auto_continue
-
-
-
-## this is needed by a lot of function in this zshrc
-    autoload -Uz colors && colors
-
-
-## fzf: fuzzy search in files and shell history
-    source <(fzf --zsh)
-
-## zoxide: better cd
-eval "$(zoxide init zsh)"
-alias cd=z
-
-
-
-#----- Resources limit
-    unlimit
-    limit coredumpsize 0
-    limit -s
-
-
-
-## After entering a command, print the complete command and check correctness
+# After entering a command, print the complete command and check correctness
 _-accept-line() {
     local -a WORDS
     WORDS=( ${(z)BUFFER} )
@@ -90,36 +59,27 @@ bindkey ' ' magic-space  # perform history expansion and insert a space into the
 bindkey '^[[1;5C' forward-word   # C-right: move forward one word
 bindkey '^[[1;5D' backward-word   # C-left: move backward one word
 bindkey ${terminfo[kdch1]} delete-char   ## del: delete forward
+bindkey '^R' history-incremental-pattern-search-backward # History reverse search
 
+# History
+setopt extended_history # save each command's beginning timestamp and the duration to the history file
+setopt hist_ignore_space # remove command lines from the history list when the first character on the line is a space
+setopt hist_ignor_all_dups # if a new command line being added to the history list duplicates an older one, the older command is removed from the list
+setopt hist_verify # whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform history expansion and reload the line into the editing buffer
+setopt inc_append_history # append the history to history file as soon as they are entered rather than waiting until the shell exits
+setopt share_history # import new commands from the history file also in other zsh-session
+setopt hist_reduce_blanks # remove superfluous blanks from each command line being added to the history list
+HISTFILE=${ZDOTDIR:-${HOME}}/.zhistory # the file to save the history
+HISTSIZE=65535 # the maximum number of events stored in the internal history list
+SAVEHIST=${HISTSIZE} # the maximum number of history events to save in the history file
 
-#-----  History
-    ## save each command's beginning timestamp and the duration to the history file
-        setopt extended_history
-    ## remove command lines from the history list when the first character on the line is a space
-        setopt hist_ignore_space
-    ## if a new command line being added to the history list duplicates an older one, the older command is removed from the list
-        setopt hist_ignore_all_dups
-    ## whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform history expansion and reload the line into the editing buffer
-        setopt hist_verify
-    ## append the history to history file as soon as they are entered rather than waiting until the shell exits
-        setopt inc_append_history
-    ## import new commands from the history file also in other zsh-session
-        setopt share_history
-    ## remove superfluous blanks from each command line being added to the history list
-        setopt hist_reduce_blanks
-    ## the file to save the history
-        HISTFILE=${ZDOTDIR:-${HOME}}/.zhistory
-    ## the maximum number of events stored in the internal history list
-        HISTSIZE=65535
-    ## the maximum number of history events to save in the history file
-        SAVEHIST=${HISTSIZE}
-    ## Directory history settings
-        autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-        add-zsh-hook chpwd chpwd_recent_dirs
-    ## number of directory cached in history
-        zstyle ':chpwd:*' recent-dirs-max 10
-    ## file to save the directory history
-        zstyle ':chpwd:*' recent-dirs-file ${ZDOTDIR:-$HOME}/.zdirs
+# Directory history settings
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+# number of directory cached in history
+zstyle ':chpwd:*' recent-dirs-max 10
+# file to save the directory history
+zstyle ':chpwd:*' recent-dirs-file ${ZDOTDIR:-$HOME}/.zdirs
 
 
 
