@@ -64,7 +64,6 @@ bindkey '^R' history-incremental-pattern-search-backward # History reverse searc
 # History
 setopt extended_history # save each command's beginning timestamp and the duration to the history file
 setopt hist_ignore_space # remove command lines from the history list when the first character on the line is a space
-setopt hist_ignor_all_dups # if a new command line being added to the history list duplicates an older one, the older command is removed from the list
 setopt hist_verify # whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform history expansion and reload the line into the editing buffer
 setopt inc_append_history # append the history to history file as soon as they are entered rather than waiting until the shell exits
 setopt share_history # import new commands from the history file also in other zsh-session
