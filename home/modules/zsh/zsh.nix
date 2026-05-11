@@ -9,7 +9,7 @@
 
     initContent = builtins.concatStringsSep "\n" [
       (builtins.readFile ./config/misc.sh)
-      (builtins.readFile ./config/misc-functions.sh)
+      (builtins.readFile ./config/functions.sh)
       (builtins.readFile ./config/aliases.sh)
       (builtins.readFile ./config/prompt.sh)
     ];
