@@ -23,9 +23,8 @@
         ];
       };
 
-      # New skeleton: per-host entrypoints.
-      nixosConfigurations.desktop = mkHost ./hosts/desktop;
-      nixosConfigurations.laptop = mkHost ./hosts/laptop;
+      nixosConfigurations.celeri = mkHost ./hosts/celeri;
+      nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;
     };
 }

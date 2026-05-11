@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
 {
   imports = [
     ./hardware.nix
     ../common.nix
+
+    ../../modules/desktop/virtualisation.nix
+    ../../modules/hardware/ext-monitor-bright-ctrl/default.nix
+    ../../modules/hardware/logitech-peripherals.nix
   ];
 
   networking = {
@@ -14,20 +19,6 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-
-  services = {
-    tlp.enable = true;
-    upower.enable = true;
-    xserver = {
-      xkb.layout = "fr";
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    acpi
-    brightnessctl
-    libnotify
-  ];
 
   system.stateVersion = "26.05";
 }
