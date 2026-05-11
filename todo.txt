@@ -1,0 +1,26 @@
+rename desktop/laptop to celeri/poireau
+check splice woks with sway
+migrate zsh config to home-manager
+consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
+consistant font amongst terminal emulator, wm, gtk, etc.
+bluetooth + applet
+nix snapshots garbage collection
+bluetooth ps3 controller + audio
+check dead keys work (otherwise xcompose in alis)
+update README.md
+check virtualisation works
+manualy (?) setup windows VM
+wm
+check multi-monitor settings (arandr/autorandr ?)
+gamastep (redshift alternative)
+lock session and screen  auto-off after  5 min
+desktop: test external-monitor brightness scripts
+laptop: test battery management script
+remove hardcoded "saponace"
+remove hardcoded paths 
+remove ext-monitor-brightness script ?
+create sub-config files for outputs and locale and set them in hardware (both output and locale)
+replace sxiv for opening images
+remove comments in config.kdl
+add nvim plugin mini.map
+delete scrit battery-management for laptop
