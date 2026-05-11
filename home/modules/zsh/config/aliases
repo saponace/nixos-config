@@ -1,56 +1,22 @@
-## ls
-    alias ls='lsd'
-    alias l='ls'
-    alias ll='ls -lart'
+alias ls='lsd'
+alias l='ls'
+alias ll='ls -lart'
 
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+alias rm='rm --interactive --verbose'
 
-## mkdir
-    alias mdc=mkdirc
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
 
-
-## interactive cp/mv/rm
-    alias cp='cp --interactive'
-    alias mv='mv --interactive'
-    alias rm='rm --interactive --verbose'
-
-
-## because typing 'cd' is A LOT of work!!
-    alias d='cd'
-    alias ..='cd ../'
-    alias ...='cd ../../'
-    alias ....='cd ../../../'
-    alias .....='cd ../../../../'
-
-
-## Misc
-    alias view='vim -R'  # because view does not use .vimrc
-    alias bt='battery-level -a'
-
-
-## Git aliases
-    alias g='git'
-        compdef g=git
-    alias gst='git status'
-        compdef _git gst=git-status
-    alias gadd='git add'
-        compdef _git gadd=git-add
-    alias gco='git checkout'
-        compdef _git gco=git-checkout
-    alias gc='git commit -m'
-        compdef _git gc=git-commit-m
-    alias gca='git commit --amend'
-        compdef _git gca=git-commit-amend
-    alias gr='git rebase'
-        compdef _git gr=git-rebase
-    alias gl='git pull'
-        compdef _git gl=git-pull
-    alias gup='git pull --rebase'
-        compdef _git gup=git-fetch
-    alias gp='git push'
-        compdef _git gp=git-push
-    alias gd='git diff'
-        compdef _git gd=git-diff
-    gdv() { git diff -w "$@" | view - }
-        compdef _git gdv=git-diff
-    alias gdt='git difftool'
-        compdef _git gdt=git-difftool
+alias gst='git status' ; compdef _git gst=git-status
+alias gadd='git add' ; compdef _git gadd=git-add
+alias gco='git checkout' ; compdef _git gco=git-checkout
+alias gc='git commit -m' ; compdef _git gc=git-commit-m
+alias gca='git commit --amend' ; compdef _git gca=git-commit-amend
+alias gr='git rebase' ; compdef _git gr=git-rebase
+alias gl='git pull' ; compdef _git gl=git-pull
+alias gp='git push' ; compdef _git gp=git-push
+alias gd='git diff' ; compdef _git gd=git-diff
