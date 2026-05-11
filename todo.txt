@@ -1,7 +1,5 @@
-migrate zsh config to home-manager
 noctalia fully configure (manually) and save config files
 consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
-consistant font amongst terminal emulator, wm, gtk, etc.
 bluetooth ps3 controller
 check dead keys work
 update README.md
