@@ -1,5 +1,5 @@
-noctalia fully configure (manually) and save config files
 consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
+noctalia cannot download plugins to nixstore link
 bluetooth ps3 controller
 check dead keys work
 update README.md
