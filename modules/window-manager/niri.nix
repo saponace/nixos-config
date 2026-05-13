@@ -5,7 +5,6 @@
 
   environment.systemPackages = with pkgs; [
     noctalia-shell      # Desktop shell
-    swaylock            # Lockscreen
     xwayland-satellite  # Bridge for X aps to run in wayland
   ];
 

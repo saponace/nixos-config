@@ -17,3 +17,4 @@ add nvim plugin mini.map
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
+replace swaylock

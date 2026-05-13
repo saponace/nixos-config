@@ -365,7 +365,7 @@ binds {
 
     Mod+Space hotkey-overlay-title="Terminal" { spawn "alacritty"; }
     Mod+B hotkey-overlay-title="Web browser" { spawn "firefox"; }
-    Ctrl+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
+    Ctrl+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia-shell ipc call lockScreen lock"; }
     
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
