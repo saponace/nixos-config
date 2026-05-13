@@ -161,6 +161,9 @@
                     "icon": "noctalia",
                     "id": "ControlCenter",
                     "useDistroLogo": false
+                },
+                {
+                    "id": "plugin:usb-drive-manager"
                 }
             ]
         }
@@ -237,10 +240,16 @@
                     "id": "Bluetooth"
                 },
                 {
-                    "id": "WallpaperSelector"
-                },
-                {
-                    "id": "NoctaliaPerformance"
+                    "defaultSettings": {
+                        "autoMount": false,
+                        "fileBrowser": "yazi",
+                        "hideWhenEmpty": false,
+                        "iconColor": "none",
+                        "showBadge": false,
+                        "showNotifications": true,
+                        "terminalCommand": "kitty"
+                    },
+                    "id": "plugin:usb-drive-manager"
                 }
             ],
             "right": [
@@ -252,6 +261,9 @@
                 },
                 {
                     "id": "NightLight"
+                },
+                {
+                    "id": "WallpaperSelector"
                 }
             ]
         }
