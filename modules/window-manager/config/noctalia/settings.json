@@ -305,9 +305,9 @@
         "autoStartAuth": false,
         "avatarImage": "",
         "boxRadiusRatio": 1,
-        "clockFormat": "hh\\nmm",
+        "clockFormat": "HH:mm ",
         "clockStyle": "custom",
-        "compactLockScreen": false,
+        "compactLockScreen": true,
         "dimmerOpacity": 0.2,
         "enableBlurBehind": true,
         "enableLockScreenCountdown": true,
@@ -341,13 +341,13 @@
         },
         "language": "",
         "lockOnSuspend": true,
-        "lockScreenAnimations": false,
-        "lockScreenBlur": 0,
+        "lockScreenAnimations": true,
+        "lockScreenBlur": 0.5,
         "lockScreenCountdownDuration": 10000,
         "lockScreenMonitors": [
         ],
-        "lockScreenTint": 0,
-        "passwordChars": false,
+        "lockScreenTint": 0.1,
+        "passwordChars": true,
         "radiusRatio": 1,
         "reverseScroll": false,
         "scaleRatio": 1,
@@ -358,7 +358,7 @@
         "showChangelogOnStartup": true,
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
-        "showSessionButtonsOnLockScreen": true,
+        "showSessionButtonsOnLockScreen": false,
         "smoothScrollEnabled": true,
         "telemetryEnabled": false
     },
@@ -428,7 +428,7 @@
         "disableWallpaper": true
     },
     "notifications": {
-        "backgroundOpacity": 0.7000000000000001,
+        "backgroundOpacity": 0.8,
         "clearDismissed": true,
         "criticalUrgencyDuration": 15,
         "density": "default",
@@ -461,12 +461,13 @@
     },
     "osd": {
         "autoHideMs": 2000,
-        "backgroundOpacity": 1,
+        "backgroundOpacity": 0.8,
         "enabled": true,
         "enabledTypes": [
             0,
             1,
-            2
+            2,
+            3
         ],
         "location": "top_right",
         "monitors": [
