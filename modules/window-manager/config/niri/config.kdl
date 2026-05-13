@@ -409,15 +409,15 @@ binds {
     Mod+WheelScrollDown      { focus-column-right; }
     Mod+WheelScrollUp        { focus-column-left; }
 
-    Mod+Shift+Left  { focus-monitor-left; }
-    Mod+Shift+Down  { focus-monitor-down; }
-    Mod+Shift+Up    { focus-monitor-up; }
-    Mod+Shift+Right { focus-monitor-right; }
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Down  { focus-monitor-down; }
+    Mod+Ctrl+Up    { focus-monitor-up; }
+    Mod+Ctrl+Right { focus-monitor-right; }
 
-    Mod+Ctrl+Down                            { focus-workspace-down; }
-    Mod+Ctrl+Up                              { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Shift+Down                            { focus-workspace-down; }
+    Mod+Shift+Up                              { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+Shift+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
 
     Mod+Alt+Left  { move-column-left; }
     Mod+Alt+Down  { move-window-down; }
@@ -426,13 +426,13 @@ binds {
     Mod+Alt+WheelScrollDown { move-column-right; }
     Mod+Alt+Shift+WheelScrollUp   { move-column-left; }
 
-    Mod+Alt+Shift+Left  { move-column-to-monitor-left; }
-    Mod+Alt+Shift+Down  { move-column-to-monitor-down; }
-    Mod+Alt+Shift+Up    { move-column-to-monitor-up; }
-    Mod+Alt+Shift+Right { move-column-to-monitor-right; }
+    Mod+Alt+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Alt+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Alt+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Alt+Ctrl+Right { move-column-to-monitor-right; }
 
-    Mod+Alt+Ctrl+Down  { move-column-to-workspace-down; }
-    Mod+Alt+Ctrl+Up  { move-column-to-workspace-up; }
+    Mod+Alt+Shift+Down  { move-column-to-workspace-down; }
+    Mod+Alt+Shift+Up  { move-column-to-workspace-up; }
 
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
@@ -493,8 +493,8 @@ binds {
     // Cycle through widths set in preset-column-widths.
     Mod+R { switch-preset-column-width; }
 
-    Mod+Ctrl+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
+    // Mod+Ctrl+Shift+R { switch-preset-window-height; }
+    // Mod+Ctrl+R { reset-window-height; }
 
     Mod+Shift+F { fullscreen-window; }
 
