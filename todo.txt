@@ -12,7 +12,9 @@ remove hardcoded "saponace"
 remove hardcoded paths 
 create sub-config files for outputs and locale and set them in hardware (both output and locale)
 remove comments in config.kdl ?
-add nvim plugin mini.map
+add plymouth animation
+ssdm theme
+add nvim plugin smear-cursor
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed

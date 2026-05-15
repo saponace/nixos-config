@@ -4,7 +4,7 @@
   imports = [
     ../modules/apps.nix
     ../modules/tools.nix
-    ../modules/theme.nix
+    ../modules/stylix.nix
     ../modules/zsh/zsh.nix
     ../modules/nvim/nvim.nix
   ];

@@ -9,11 +9,8 @@
   ];
 
   home-manager.users.saponace.home.file = {
-      ".config/niri/config.kdl" = {
-        source = ./config/niri/config.kdl;
-    };
-      ".config/noctalia/" = {
-        source = ./config/noctalia;
-    };
+    ".config/niri/config.kdl".source = ./config/niri/config.kdl;
+    ".config/noctalia/settings.json".source = ./config/noctalia/settings.json;
+    ".config/noctalia/plugins.json".source = ./config/noctalia/plugins.json;
   };
 }

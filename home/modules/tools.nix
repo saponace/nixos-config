@@ -16,7 +16,7 @@
     zellij = { # terminal multiplexer
       enable = true;
       settings = {
-        theme = "catppuccin-macchiato";
+        theme = "catppuccin-mocha";
         show_startup_tips = false;
       };
     };
