@@ -1,7 +1,6 @@
 consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
 noctalia cannot download plugins to nixstore link
 bluetooth ps3 controller
-check dead keys work
 update README.md
 check virtualisation works
 manualy (?) setup windows VM
@@ -18,3 +17,4 @@ ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
 replace swaylock
+continue.dev (or an other harness)

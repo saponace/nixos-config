@@ -15,6 +15,7 @@
 
     ../modules/services/ssh.nix
     ../modules/desktop/apps.nix
+    ../modules/desktop/ai.nix
   ];
 
   home-manager = {
