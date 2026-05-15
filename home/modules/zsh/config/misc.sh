@@ -9,9 +9,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 autoload -Uz zargs zcalc
 autoload -Uz colors && colors # this is needed by a lot of function in this zshrc
 
-source <(fzf --zsh) # fzf: fuzzy search in files and shell history
 eval "$(zoxide init zsh)" ; alias cd=z # zoxide: better cd
-
+source <(fzf --zsh) # fzf: fuzzy search in files and shell history
 
 
 export BROWSER=/usr/bin/firefox
@@ -63,7 +62,6 @@ bindkey ' ' magic-space  # perform history expansion and insert a space into the
 bindkey '^[[1;5C' forward-word   # C-right: move forward one word
 bindkey '^[[1;5D' backward-word   # C-left: move backward one word
 bindkey ${terminfo[kdch1]} delete-char   ## del: delete forward
-bindkey '^R' history-incremental-pattern-search-backward # History reverse search
 
 # History
 setopt extended_history # save each command's beginning timestamp and the duration to the history file

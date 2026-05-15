@@ -6,7 +6,6 @@
 
     fzf = { # fuzzy search
       enable = true;
-      enableZshIntegration = true;
     }; 
 
     yazi = { # file explorer
