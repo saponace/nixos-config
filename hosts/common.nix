@@ -12,6 +12,7 @@
     ../modules/base/users.nix
     ../modules/base/tools.nix
     ../modules/base/sound.nix
+    ../modules/base/plymouth.nix
 
     ../modules/services/ssh.nix
     ../modules/desktop/apps.nix

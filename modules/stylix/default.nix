@@ -7,6 +7,8 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
 
+    targets.plymouth.enable = false;
+
     cursor = {
       package = pkgs.nordzy-cursor-theme;
       name = "Nordzy-catppuccin-mocha-dark";
