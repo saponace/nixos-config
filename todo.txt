@@ -22,3 +22,4 @@ replace swaylock
 continue.dev (or an other harness)
 delete niri branch
 zsh: update PS1 (+ remove "executing" indication after sending command)
+
