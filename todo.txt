@@ -2,13 +2,12 @@ check virtualisation works
 remove hardcoded "saponace"
 remove hardcoded paths 
 tui git diff ?
-checkout noctalia plugins
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
+zsh: update PS1 (+ remove "executing" indication after sending command)
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
 continue.dev (or an other harness)
 delete niri branch
-zsh: update PS1 (+ remove "executing" indication after sending command)
 stylix: firefox: `config.stylix.targets.firefox.profileNames` is not set.
 
 check multi-monitor settings (arandr/autorandr ?)

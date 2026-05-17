@@ -164,6 +164,9 @@
                 },
                 {
                     "id": "plugin:usb-drive-manager"
+                },
+                {
+                    "id": "plugin:clipboard"
                 }
             ]
         }
