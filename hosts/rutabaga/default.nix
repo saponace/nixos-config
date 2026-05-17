@@ -23,6 +23,8 @@
     };
   };
 
+  console.keyMap = "fr";
+
   environment.systemPackages = with pkgs; [
     acpi
     brightnessctl

@@ -19,5 +19,7 @@
     efi.canTouchEfiVariables = true;
   };
 
+  console.keyMap = "us";
+
   system.stateVersion = "26.05";
 }

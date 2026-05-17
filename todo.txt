@@ -1,22 +1,18 @@
 noctalia cannot download plugins to nixstore link
-bluetooth ps3 controller
-update README.md
 check virtualisation works
-manualy (?) setup windows VM
-check multi-monitor settings (arandr/autorandr ?)
-lock session and screen  auto-off after  5 min
-desktop: test external-monitor brightness scripts
-remove ext-monitor-brightness script ?
 remove hardcoded "saponace"
 remove hardcoded paths 
-create sub-config files for outputs and locale and set them in hardware (both output and locale)
-remove comments in config.kdl ?
 tui git diff ?
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
-replace swaylock
 continue.dev (or an other harness)
 delete niri branch
 zsh: update PS1 (+ remove "executing" indication after sending command)
 stylix: firefox: `config.stylix.targets.firefox.profileNames` is not set.
+
+check multi-monitor settings (arandr/autorandr ?)
+test external-monitor brightness scripts
+remove ext-monitor-brightness script ?
+manualy (?) setup windows VM
+bluetooth ps3 controller
