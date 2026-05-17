@@ -13,7 +13,6 @@ create sub-config files for outputs and locale and set them in hardware (both ou
 remove comments in config.kdl ?
 ssdm theme
 increase terminal transparency
-add nvim plugin smear-cursor
 tui git diff ?
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
