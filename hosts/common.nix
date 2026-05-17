@@ -4,7 +4,7 @@
   imports = [
     ../modules/display-manager.nix
     ../modules/window-manager/niri.nix
-    ../modules/stylix
+    ../modules/stylix.nix
 
     ../modules/base/nix.nix
     ../modules/base/locale.nix

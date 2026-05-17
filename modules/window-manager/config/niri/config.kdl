@@ -335,6 +335,12 @@ window-rule {
     }
 }
 
+blur {
+  passes 2
+  offset 3
+  saturation 2
+}
+
 /-window-rule {
 }
 
