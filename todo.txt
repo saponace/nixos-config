@@ -1,8 +1,8 @@
-noctalia cannot download plugins to nixstore link
 check virtualisation works
 remove hardcoded "saponace"
 remove hardcoded paths 
 tui git diff ?
+checkout noctalia plugins
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed

@@ -1,6 +1,6 @@
 { ... }:
 
-{
+{ 
   stylix.targets = {
     alacritty.enable = true;
     firefox.enable = true;
