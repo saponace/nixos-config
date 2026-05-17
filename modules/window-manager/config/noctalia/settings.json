@@ -102,6 +102,16 @@
             ],
             "left": [
                 {
+                    "colorizeDistroLogo": false,
+                    "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
+                    "customIconPath": "",
+                    "enableColorization": false,
+                    "icon": "noctalia",
+                    "id": "ControlCenter",
+                    "useDistroLogo": false
+                },
+                {
                     "clockColor": "none",
                     "customFont": "",
                     "formatHorizontal": "HH:mm ddd, MMM dd",
@@ -137,6 +147,13 @@
                     "unreadBadgeColor": "primary"
                 },
                 {
+                    "displayMode": "onhover",
+                    "iconColor": "none",
+                    "id": "Volume",
+                    "middleClickCommand": "pwvucontrol || pavucontrol",
+                    "textColor": "none"
+                },
+                {
                     "deviceNativePath": "__default__",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -146,27 +163,10 @@
                     "showPowerProfiles": false
                 },
                 {
-                    "displayMode": "onhover",
-                    "iconColor": "none",
-                    "id": "Volume",
-                    "middleClickCommand": "pwvucontrol || pavucontrol",
-                    "textColor": "none"
-                },
-                {
-                    "colorizeDistroLogo": false,
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "noctalia",
-                    "id": "ControlCenter",
-                    "useDistroLogo": false
+                    "id": "plugin:clipboard"
                 },
                 {
                     "id": "plugin:usb-drive-manager"
-                },
-                {
-                    "id": "plugin:clipboard"
                 }
             ]
         }
