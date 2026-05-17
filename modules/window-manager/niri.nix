@@ -9,7 +9,11 @@
   ];
 
   home-manager.users.saponace = { lib, ... }: {
-    home.file.".config/niri/config.kdl".source = ./config/niri/config.kdl;
+    home.file = {
+      ".config/niri/config.kdl".source = ./config/niri/config.kdl;
+      ".config/noctalia/settings.json".source = ./config/noctalia/settings.json;
+      ".config/noctalia/plugins.json".source = ./config/noctalia/plugins.json;
+    };
 
     home.activation.installNoctaliaConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
       # Clean up if the dir is a stale nix store symlink from a previous generation
@@ -17,8 +21,6 @@
         rm "$HOME/.config/noctalia"
       fi
       mkdir -p "$HOME/.config/noctalia/plugins"
-      cp -f "${./config/noctalia/settings.json}" "$HOME/.config/noctalia/settings.json"
-      cp -f "${./config/noctalia/plugins.json}" "$HOME/.config/noctalia/plugins.json"
     '';
   };
 }
