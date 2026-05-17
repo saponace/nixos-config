@@ -9,14 +9,19 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, silentSDDM, ... }:
     let
       mkHost = hostPath: nixpkgs.lib.nixosSystem {
         specialArgs = { inherit self; };
         modules = [
           stylix.nixosModules.stylix
+          silentSDDM.nixosModules.default
           hostPath
           home-manager.nixosModules.home-manager
         ];
@@ -25,6 +30,7 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         modules = [
           stylix.nixosModules.stylix
+          silentSDDM.nixosModules.default
           home-manager.nixosModules.home-manager
         ];
       };

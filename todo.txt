@@ -1,4 +1,3 @@
-consistant theme accross wm, gtk, lazyvim, terminal emulator, ranger, zellij, display manager, home-manager cursor theme, etc. Use https://nix-community.github.io/stylix/installation.html ?
 noctalia cannot download plugins to nixstore link
 bluetooth ps3 controller
 update README.md
@@ -13,7 +12,9 @@ remove hardcoded paths
 create sub-config files for outputs and locale and set them in hardware (both output and locale)
 remove comments in config.kdl ?
 ssdm theme
+increase terminal transparency
 add nvim plugin smear-cursor
+tui git diff ?
 ask feedback file structure and spaghetti configs with opencode
 zsh better prompt
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
