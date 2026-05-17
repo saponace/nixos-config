@@ -2,10 +2,6 @@ alias ls='lsd'
 alias l='ls'
 alias ll='ls -lart'
 
-alias cp='cp --interactive'
-alias mv='mv --interactive'
-alias rm='rm --interactive --verbose'
-
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
