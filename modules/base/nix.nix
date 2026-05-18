@@ -27,14 +27,14 @@
     ];
 
     sessionVariables = {
-        FLAKE = "/home/saponace/nixos-config/"; # Used by nh
+        NH_FLAKE = "/home/saponace/nixos-config/"; # Used by nh
       };
   };
 
   nix = {
     optimise = {
       automatic = true;
-      dates = [ "03:45" ];
+      dates = [ "22:45" ];
     };
 
     gc = {
