@@ -1,3 +1,5 @@
+alacritty theme not very legible (too pale)
+
 delete niri branch
 archive alis
 
