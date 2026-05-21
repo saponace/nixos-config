@@ -19,6 +19,7 @@
     "steam-original"
     "steam-unwrapped"
     "steam-run"
+    "claude-code"
   ];
 
   environment = {

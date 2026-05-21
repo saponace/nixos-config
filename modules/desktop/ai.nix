@@ -2,7 +2,10 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.ollama ];
+  environment.systemPackages = [
+    pkgs.ollama 
+    pkgs.claude-code
+  ];
 
   services.ollama = {
     enable = true;
