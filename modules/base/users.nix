@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
-  users.users.saponace = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "kvm" "libvirtd" ];
     shell = pkgs.zsh;
-    initialPassword = "pwd";
+    initialPassword = username;
   };
 
   programs.zsh.enable = true;

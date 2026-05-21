@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   programs.niri.enable = true;
@@ -8,7 +8,7 @@
     xwayland-satellite  # Bridge for X apps to run in wayland
   ];
 
-  home-manager.users.saponace = { lib, ... }: {
+  home-manager.users.${username} = { lib, ... }: {
     home.file = {
       ".config/niri/config.kdl".source = ./config/niri/config.kdl;
       ".config/noctalia/settings.json".source = ./config/noctalia/settings.json;

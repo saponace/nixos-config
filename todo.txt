@@ -1,4 +1,3 @@
-remove hardcoded "saponace"
 remove hardcoded paths 
 
 ask feedback file structure and spaghetti configs with opencode

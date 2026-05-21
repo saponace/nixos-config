@@ -17,8 +17,10 @@
 
   outputs = { self, nixpkgs, home-manager, stylix, silentSDDM, ... }:
     let
+      username = "saponace";
+      userEmail = "saponace@gmail.com";
       mkHost = hostPath: nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit self; };
+        specialArgs = { inherit self username userEmail; };
         modules = [
           stylix.nixosModules.stylix
           silentSDDM.nixosModules.default

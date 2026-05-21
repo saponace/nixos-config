@@ -1,4 +1,4 @@
-{ ... }:
+{ username, userEmail, ... }:
 
 {
   imports = [
@@ -24,6 +24,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.saponace = import ../home/saponace/main.nix;
+    extraSpecialArgs = { inherit username userEmail; };
+    users.${username} = import ../home/user/main.nix;
   };
 }

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, username, ... }:
 
 {
   programs.nix-ld.enable = true;
@@ -28,7 +28,7 @@
     ];
 
     sessionVariables = {
-        NH_FLAKE = "/home/saponace/nixos-config/"; # Used by nh
+        NH_FLAKE = "/home/${username}/nixos-config/"; # Used by nh
       };
   };
 
