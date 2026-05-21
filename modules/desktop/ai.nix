@@ -1,6 +1,8 @@
 { pkgs, username, ... }:
 
 {
+  allowedUnfreePackages = [ "claude-code" ];
+
   environment.systemPackages = [
     pkgs.ollama
     pkgs.claude-code
