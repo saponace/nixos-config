@@ -15,7 +15,7 @@ alternatedPWD(){
     count=0
     colorgrey="\e[0;49;37m"
     color1="\e[0;35m"
-    color2="\e[0;326m"
+    color2="\e[0;32m"
     echo -ne "$color2"
     for (( i = 0; i < ${#shortPWD}; i++ ))
     do

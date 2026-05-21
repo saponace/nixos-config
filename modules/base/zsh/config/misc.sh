@@ -13,9 +13,9 @@ eval "$(zoxide init zsh)" ; alias cd=z # zoxide: better cd
 source <(fzf --zsh) # fzf: fuzzy search in files and shell history
 
 
-export BROWSER=/usr/bin/firefox
+export BROWSER=firefox
 export PAGER=less
-export MANPAGER=${PAGER}
+export MANPAGER="nvim +Man!"
 export EDITOR=nvim
 export LESS=RM # Define `less options`
 export SYSTEMD_LESS=FRXM # Define `less` options for systemd tools (journalctl, systemctl, etc.)
@@ -44,18 +44,6 @@ setopt auto_continue # stopped jobs that are removed from the job table with the
 unlimit
 limit coredumpsize 0
 limit -s
-
-# After entering a command, print the complete command and check correctness
-_-accept-line() {
-    local -a WORDS
-    WORDS=( ${(z)BUFFER} )
-    local -r FIRSTWORD=${WORDS[1]}
-    local -r GREEN=$'\e[32m' RESET_COLORS=$'\e[0m'
-    # [[ "$(whence -w $FIRSTWORD 2>/dev/null)" == "${FIRSTWORD}: alias" ]] &&
-    # echo -n $'\n'"${GREEN}Executing: $(whence $FIRSTWORD)${RESET_COLORS}"
-    zle .accept-line
-}
-zle -N accept-line _-accept-line
 
 #----- Navigation
 bindkey ' ' magic-space  # perform history expansion and insert a space into the buffer; this is intended to be bound to space

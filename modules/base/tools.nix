@@ -35,7 +35,6 @@
 
       zoxide = { # better cd
         enable = true;
-        enableZshIntegration = true;
       };
     };
   };
