@@ -2,10 +2,6 @@
 
 {
   imports = [
-    ./display-manager.nix
-    ./window-manager/niri.nix
-    ./stylix.nix
-
     ./base/nix.nix
     ./base/locale.nix
     ./base/networking.nix
@@ -13,14 +9,16 @@
     ./base/tools.nix
     ./base/sound.nix
     ./base/plymouth.nix
+    ./base/services.nix
+    ./base/zsh/zsh.nix
 
-    ./services.nix
+    ./desktop/display-manager.nix
+    ./desktop/window-manager/niri.nix
+    ./desktop/stylix.nix
+    ./desktop/ai.nix
     ./desktop/apps.nix
     ./desktop/virtualization.nix
-    ./desktop/ai.nix
-
-    ./tools/nvim/nvim.nix
-    ./tools/zsh/zsh.nix
+    ./desktop/nvim/nvim.nix
   ];
 
   home-manager = {
