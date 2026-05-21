@@ -1,4 +1,4 @@
-alacritty theme not very legible (too pale)
+alacritty theme not very legible . darcula ?
 
 delete niri branch
 archive alis
