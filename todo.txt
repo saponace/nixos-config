@@ -4,8 +4,6 @@ remove hardcoded paths
 ask feedback file structure and spaghetti configs with opencode
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
 
-noctalia: add night light icon to bar
-
 delete niri branch
 
 

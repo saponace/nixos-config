@@ -154,6 +154,10 @@
                     "textColor": "none"
                 },
                 {
+                    "iconColor": "none",
+                    "id": "NightLight"
+                },
+                {
                     "deviceNativePath": "__default__",
                     "displayMode": "graphic-clean",
                     "hideIfIdle": false,
@@ -432,7 +436,7 @@
     "nightLight": {
         "autoSchedule": true,
         "dayTemp": "5012",
-        "enabled": true,
+        "enabled": false,
         "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
