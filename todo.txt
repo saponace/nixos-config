@@ -1,10 +1,9 @@
-remove hardcoded paths 
-
 ask feedback file structure and spaghetti configs with opencode
 zsh ask opencode if there is legacy crap in zsh/misc.all that could be removed
 
 add function to append to the list of allowUnfreePredicate
 delete niri branch
+archive alis
 
 
 check multi-monitor settings (arandr/autorandr ?)
