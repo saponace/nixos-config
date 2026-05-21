@@ -24,19 +24,12 @@
         modules = [
           stylix.nixosModules.stylix
           silentSDDM.nixosModules.default
-          hostPath
           home-manager.nixosModules.home-manager
+          hostPath
+          ./modules/configuration.nix
         ];
       };
     in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        modules = [
-          stylix.nixosModules.stylix
-          silentSDDM.nixosModules.default
-          home-manager.nixosModules.home-manager
-        ];
-      };
-
       nixosConfigurations.celeri = mkHost ./hosts/celeri;
       nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;

@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware.nix
-    ../common.nix
   ];
 
   services.xserver.xkb = {

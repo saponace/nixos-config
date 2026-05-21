@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   stylix = {
@@ -38,6 +38,19 @@
       terminal = 0.8;
       popups = 0.9;
       desktop = 0.8;
+    };
+  };
+
+  home-manager.users.${username} = { ... }: {
+    stylix.targets = {
+      alacritty.enable = true;
+      firefox = {
+        enable = true;
+        profileNames = [ "default" ];
+      };
+      gtk.enable = true;
+      qt.enable = true;
+      noctalia-shell.enable = true;
     };
   };
 }

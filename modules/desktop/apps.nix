@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -9,4 +9,11 @@
   ];
 
   programs.steam.enable = true;
+
+  home-manager.users.${username} = { ... }: {
+    programs = {
+      firefox.enable = true;
+      alacritty.enable = true;
+    };
+  };
 }
