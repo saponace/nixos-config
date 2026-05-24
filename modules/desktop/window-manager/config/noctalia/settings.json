@@ -163,6 +163,12 @@
                     "id": "plugin:usb-drive-manager"
                 },
                 {
+                    "displayMode": "alwaysHide",
+                    "iconColor": "none",
+                    "id": "Bluetooth",
+                    "textColor": "none"
+                },
+                {
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "none",
                     "colorizeSystemText": "none",
