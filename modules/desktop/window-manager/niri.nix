@@ -12,6 +12,7 @@
     environment.systemPackages = with pkgs; [
       noctalia-shell      # Desktop shell
       xwayland-satellite  # Bridge for X apps to run in wayland
+      wl-clipboard
       wdisplays           # arrange monitor layout
     ];
 
