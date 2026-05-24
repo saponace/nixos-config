@@ -6,6 +6,8 @@
     ../../modules/hardware/logitech-peripherals.nix
   ];
 
+  niri.extraConfig = builtins.readFile ./monitors.kdl;
+
   networking = {
     hostName = "celeri";
     wireless.enable = true;
