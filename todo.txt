@@ -1,4 +1,3 @@
 alacritty theme not very legible . darcula ?
-make monitor section in niri config.kdl only appended to config.kdl for celeri host
 manualy (?) setup windows VM
 bluetooth ps3 controller

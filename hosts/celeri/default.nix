@@ -6,7 +6,7 @@
     ../../modules/hardware/logitech-peripherals.nix
   ];
 
-  niri.extraConfig = builtins.readFile ./monitors.kdl;
+  niri.outputsConfig = builtins.readFile ./monitors.kdl;
 
   networking = {
     hostName = "celeri";

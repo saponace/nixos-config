@@ -1,7 +1,7 @@
 { pkgs, username, config, lib, ... }:
 
 {
-  options.niri.extraConfig = lib.mkOption {
+  options.niri.outputsConfig = lib.mkOption {
     type = lib.types.lines;
     default = "";
   };
@@ -19,7 +19,7 @@
       home.file = {
         ".config/niri/config.kdl".text =
           builtins.readFile ./config/niri/config.kdl
-          + config.niri.extraConfig;
+          + config.niri.outputsConfig;
         ".config/noctalia/settings.json".source = ./config/noctalia/settings.json;
         ".config/noctalia/plugins.json".source = ./config/noctalia/plugins.json;
       };
