@@ -199,11 +199,11 @@
                 },
                 {
                     "colorizeDistroLogo": false,
-                    "colorizeSystemIcon": "none",
+                    "colorizeSystemIcon": "secondary",
                     "colorizeSystemText": "none",
                     "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "noctalia",
+                    "enableColorization": true,
+                    "icon": "circle-dot-filled",
                     "id": "ControlCenter",
                     "useDistroLogo": false
                 }
