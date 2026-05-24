@@ -4,6 +4,7 @@ delete niri branch
 archive alis
 
 create ~/repos/
+dead keys
 make monitor section in niri config.kdl only appended to config.kdl for celeri host
 test external-monitor brightness scripts
 remove ext-monitor-brightness script ?
