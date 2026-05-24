@@ -1,3 +1,4 @@
 alacritty theme not very legible . darcula ?
 manualy (?) setup windows VM
+copy bw workspace
 bluetooth ps3 controller
