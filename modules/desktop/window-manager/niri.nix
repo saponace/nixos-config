@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     noctalia-shell      # Desktop shell
     xwayland-satellite  # Bridge for X apps to run in wayland
+    wdisplays           # arrange monitor layout
   ];
 
   home-manager.users.${username} = { lib, ... }: {
