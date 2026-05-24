@@ -3,7 +3,12 @@
 {
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "kvm" "libvirtd" ];
+    extraGroups = [
+      "networkmanager"
+      "i2c"             # access to /dev/i2c to, notably, use ddcutil
+      "wheel"           # sudo
+      "kvm" "libvirtd"  # virtualisation
+    ];
     shell = pkgs.zsh;
     initialPassword = username;
   };

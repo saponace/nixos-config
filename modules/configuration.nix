@@ -3,6 +3,7 @@
 {
   imports = [
     ./base/nix.nix
+    ./base/hardware.nix
     ./base/locale.nix
     ./base/networking.nix
     ./base/users.nix

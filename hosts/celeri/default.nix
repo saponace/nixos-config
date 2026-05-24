@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware.nix
-    ../../modules/hardware/ext-monitor-bright-ctrl/default.nix
     ../../modules/hardware/logitech-peripherals.nix
   ];
 
