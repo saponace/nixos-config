@@ -81,23 +81,23 @@
                 {
                     "characterCount": 2,
                     "colorizeIcons": false,
-                    "emptyColor": "secondary",
-                    "enableScrollWheel": true,
-                    "focusedColor": "primary",
+                    "emptyColor": "error",
+                    "enableScrollWheel": false,
+                    "focusedColor": "secondary",
                     "followFocusedScreen": false,
                     "fontWeight": "bold",
                     "groupedBorderOpacity": 1,
                     "hideUnoccupied": false,
                     "iconScale": 0.8,
                     "id": "Workspace",
-                    "labelMode": "index",
-                    "occupiedColor": "secondary",
+                    "labelMode": "none",
+                    "occupiedColor": "primary",
                     "pillSize": 0.6,
-                    "showApplications": false,
-                    "showApplicationsHover": false,
-                    "showBadge": true,
+                    "showApplications": true,
+                    "showApplicationsHover": true,
+                    "showBadge": false,
                     "showLabelsOnlyWhenOccupied": true,
-                    "unfocusedIconsOpacity": 1
+                    "unfocusedIconsOpacity": 0.7000000000000001
                 }
             ],
             "left": [
