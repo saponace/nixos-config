@@ -16,6 +16,11 @@
     efi.canTouchEfiVariables = true;
   };
 
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "intl";
+  };
+
   console.keyMap = "us";
 
   system.stateVersion = "26.05";

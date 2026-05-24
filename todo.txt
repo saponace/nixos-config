@@ -4,7 +4,6 @@ delete niri branch
 archive alis
 
 create ~/repos/
-dead keys
 split user groups in each component (virtualization, etc.)
 make monitor section in niri config.kdl only appended to config.kdl for celeri host
 manualy (?) setup windows VM
