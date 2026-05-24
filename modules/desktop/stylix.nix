@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, username, lib, ... }:
 
 {
   stylix = {
@@ -53,5 +53,10 @@
       qt.enable = true;
       noctalia-shell.enable = true;
     };
+
+    programs.alacritty.settings.colors = lib.mkForce (
+      (builtins.fromTOML (builtins.readFile "${pkgs.alacritty-theme}/share/alacritty-theme/dracula.toml")).colors
+      // { primary.background = "#1e1e2e"; }
+    );
   };
 }
