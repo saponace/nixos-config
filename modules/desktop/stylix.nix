@@ -16,6 +16,7 @@
     };
 
     fonts = {
+      sizes.terminal = 11;
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";

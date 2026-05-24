@@ -1,2 +1,1 @@
 alacritty theme not very legible . darcula ?
-manualy (?) setup windows VM
