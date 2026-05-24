@@ -1,10 +1,5 @@
 alacritty theme not very legible . darcula ?
-
-delete niri branch
-archive alis
-
-create ~/repos/
-split user groups in each component (virtualization, etc.)
+sort-out/synchronize clipboard buffers
 make monitor section in niri config.kdl only appended to config.kdl for celeri host
 manualy (?) setup windows VM
 bluetooth ps3 controller

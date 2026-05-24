@@ -1,4 +1,4 @@
-{ ... }:
+{ username, ... }:
 
 {
   programs.virt-manager.enable = true;
@@ -7,4 +7,6 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
+
+  users.users.${username}.extraGroups = [ "kvm" "libvirtd" ];
 }
