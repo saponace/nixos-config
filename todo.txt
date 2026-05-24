@@ -3,6 +3,7 @@ alacritty theme not very legible . darcula ?
 delete niri branch
 archive alis
 
+create ~/repos/
 check multi-monitor settings (arandr/autorandr ?)
 test external-monitor brightness scripts
 remove ext-monitor-brightness script ?
