@@ -129,6 +129,28 @@
             ],
             "right": [
                 {
+                    "defaultSettings": {
+                        "autoMount": false,
+                        "fileBrowser": "yazi",
+                        "hideWhenEmpty": false,
+                        "iconColor": "none",
+                        "showBadge": false,
+                        "showNotifications": true,
+                        "terminalCommand": "kitty"
+                    },
+                    "id": "plugin:usb-drive-manager"
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "iconColor": "none",
+                    "id": "Bluetooth",
+                    "textColor": "none"
+                },
+                {
+                    "id": "Spacer",
+                    "width": 10
+                },
+                {
                     "hideWhenZero": false,
                     "hideWhenZeroUnread": false,
                     "iconColor": "none",
@@ -137,15 +159,30 @@
                     "unreadBadgeColor": "primary"
                 },
                 {
+                    "defaultSettings": {
+                        "density": "comfortable",
+                        "maxHistorySize": 100,
+                        "showImagePreviews": true
+                    },
+                    "id": "plugin:clipboard"
+                },
+                {
+                    "id": "Spacer",
+                    "width": 10
+                },
+                {
+                    "id": "plugin:screenshot"
+                },
+                {
+                    "iconColor": "none",
+                    "id": "NightLight"
+                },
+                {
                     "displayMode": "onhover",
                     "iconColor": "none",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol",
                     "textColor": "none"
-                },
-                {
-                    "iconColor": "none",
-                    "id": "NightLight"
                 },
                 {
                     "deviceNativePath": "__default__",
@@ -157,16 +194,8 @@
                     "showPowerProfiles": false
                 },
                 {
-                    "id": "plugin:clipboard"
-                },
-                {
-                    "id": "plugin:usb-drive-manager"
-                },
-                {
-                    "displayMode": "alwaysHide",
-                    "iconColor": "none",
-                    "id": "Bluetooth",
-                    "textColor": "none"
+                    "id": "Spacer",
+                    "width": 10
                 },
                 {
                     "colorizeDistroLogo": false,
