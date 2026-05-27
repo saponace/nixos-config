@@ -453,14 +453,14 @@ binds {
     // Mod+Ctrl+Shift+R { switch-preset-window-height; }
     // Mod+Ctrl+R { reset-window-height; }
 
-    Mod+F { fullscreen-window; }
+    Mod+Shift+F { fullscreen-window; }
 
     // While maximize-column leaves gaps and borders around the window,
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
     // This bind corresponds to normal window maximizing,
     // e.g. by double-clicking on the titlebar.
     // Mod+F { maximize-window-to-edges; }
-    Mod+Shift+F { maximize-column; }
+    Mod+F { maximize-column; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
