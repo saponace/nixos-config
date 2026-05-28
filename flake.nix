@@ -29,9 +29,18 @@
           ./modules/configuration.nix
         ];
       };
+      mkServer = hostPath: nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit self username userEmail; };
+        modules = [
+          home-manager.nixosModules.home-manager
+          hostPath
+          ./modules/server-configuration.nix
+        ];
+      };
     in {
       nixosConfigurations.celeri = mkHost ./hosts/celeri;
       nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;
+      nixosConfigurations.topinambour = mkServer ./hosts/topinambour;
     };
 }

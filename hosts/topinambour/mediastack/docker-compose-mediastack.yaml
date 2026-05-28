@@ -1,0 +1,270 @@
+##########################################################################
+###########################################################################
+networks:
+  mediastack:
+    name: mediastack
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: ${DOCKER_SUBNET:?err}
+        gateway: ${DOCKER_GATEWAY:?err}
+
+services:
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Bazarr (LinuxServer.io)
+##  Function: Download subtitles for Radarr and Sonarr
+##
+##  Documentation: https://docs.linuxserver.io/images/docker-bazarr
+##
+###########################################################################
+###########################################################################
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:v1.5.1-ls295
+    container_name: bazarr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/bazarr:/config
+      - ${FOLDER_FOR_MEDIA:?err}:/data
+    ports:
+      - "${WEBUI_PORT_BAZARR:?err}:6767"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:bazarr
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Homarr (https://ghcr.io/)
+##  Function: Application Dashboard
+##
+##  Documentation: https://homarr.dev/docs/getting-started/after-the-installation
+##
+###########################################################################
+###########################################################################
+  homarr:
+    image: ghcr.io/ajnart/homarr:0.15.10
+    container_name: homarr
+    restart: unless-stopped
+    ports:
+      - "${WEBUI_PORT_HOMARR:?err}:7575"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${FOLDER_FOR_DATA:?err}/homarr/configs:/app/data/configs
+      - ${FOLDER_FOR_DATA:?err}/homarr/icons:/app/public/icons
+      - ${FOLDER_FOR_DATA:?err}/homarr/data:/data
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=${UMASK:?err}
+      - TZ=${TIMEZONE:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Jellyfin (LinuxServer.io)
+##  Function: Media Server
+##
+##  Documentation: https://jellyfin.org/docs/general/administration/installing#docker
+##  https://jellyfin.org/docs/general/administration/hardware-acceleration/
+##
+###########################################################################
+###########################################################################
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:10.11.6ubu2404-ls17
+    container_name: jellyfin
+    restart: unless-stopped
+# Add Configurations for GPU Hardware Rendering Here:
+#    devices:
+#      - /dev/dri/renderD128:/dev/dri/renderD128
+#      - /dev/dri/card0:/dev/dri/card0
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/jellyfin:/config
+      - ${FOLDER_FOR_MEDIA:?err}/media:/data/media
+    ports:
+      - "${WEBUI_PORT_JELLYFIN:?err}:8096"
+#      - 7359:7359/udp      # Enable for DLNA - Only works on HOST Network Mode
+#      - 1900:1900/udp      # Enable for DLNA - Only works on HOST Network Mode
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=${UMASK:?err}
+      - TZ=${TIMEZONE:?err}
+#      - JELLYFIN_PublishedServerUrl=${LOCAL_DOCKER_IP:?err}  # Enable for DLNA - Only works on HOST Network Mode
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Jellyseerr (fallenbagel)
+##  Function: Media Request Manager
+##
+##  Documentation: https://hub.docker.com/r/fallenbagel/jellyseerr
+##
+###########################################################################
+###########################################################################
+  jellyseerr:
+    image: fallenbagel/jellyseerr:2.5.0
+    container_name: jellyseerr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/jellyseerr:/app/config
+    ports:
+      - "${WEBUI_PORT_JELLYSEERR:?err}:5055"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=${UMASK:?err}
+      - TZ=${TIMEZONE:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Prowlarr (LinuxServer.io)
+##  Function: Indexer and Search Manager
+##
+##  Documentation: https://docs.linuxserver.io/images/docker-prowlarr
+##
+###########################################################################
+###########################################################################
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:1.32.2.4987-ls109
+    container_name: prowlarr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/prowlarr:/config
+    ports:
+      - "${WEBUI_PORT_PROWLARR:?err}:9696"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:prowlarr
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Radarr (LinuxServer.io)
+##  Function: Movie Library Manager
+##
+##  Documentation: https://docs.linuxserver.io/images/docker-radarr
+##
+###########################################################################
+###########################################################################
+  radarr:
+    image: lscr.io/linuxserver/radarr:5.19.3.9730-ls262
+    container_name: radarr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/radarr:/config
+      - ${FOLDER_FOR_MEDIA:?err}:/data
+    ports:
+      - "${WEBUI_PORT_RADARR:?err}:7878"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:radarr
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: SABnzbd (LinuxServer.io)
+##  Function: Usenet Download Client
+##
+##  Documentation: https://docs.linuxserver.io/images/docker-sabnzbd
+##
+###########################################################################
+###########################################################################
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:4.4.1-ls205
+    container_name: sabnzbd
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/sabnzbd:/config
+      - ${FOLDER_FOR_MEDIA:?err}:/data
+    ports:
+      - "${WEBUI_PORT_SABNZBD:?err}:8080"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:sabnzbd
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Sonarr (LinuxServer.io)
+##  Function: Series Library Manager (TV Shows)
+##
+##  Documentation: https://docs.linuxserver.io/images/docker-sonarr
+##
+###########################################################################
+###########################################################################
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:4.0.13.2932-ls273
+    container_name: sonarr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/sonarr:/config
+      - ${FOLDER_FOR_MEDIA:?err}:/data
+    ports:
+      - "${WEBUI_PORT_SONARR:?err}:8989"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:sonarr
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: calibre-web (LinuxServer.io)
+##  Function: Book library manager
+##
+##  Documentation: https://docs.linuxserver.io/images/calibre-web
+##
+###########################################################################
+###########################################################################
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:0.6.25-ls357
+    container_name: calibre-web
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/calibre-web:/config
+      - ${FOLDER_FOR_MEDIA:?err}/media/books:/books
+    ports:
+      - "${WEBUI_PORT_CALIBREWEB:?err}:8083"
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:calibre-web
+      - TP_THEME=${TP_THEME:?err}
+    networks:
+      - mediastack
