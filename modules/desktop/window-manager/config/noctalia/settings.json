@@ -199,7 +199,7 @@
                 },
                 {
                     "colorizeDistroLogo": false,
-                    "colorizeSystemIcon": "secondary",
+                    "colorizeSystemIcon": "none",
                     "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": true,
