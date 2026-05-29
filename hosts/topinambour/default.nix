@@ -7,11 +7,6 @@
     networkmanager.enable = true;
   };
 
-  boot.loader = {
-    grub.enable = false;
-    generic-extlinux-compatible.enable = true;
-  };
-
   users.users.${username}.extraGroups = [ "docker" "networkmanager" ];
 
   virtualisation.docker.enable = true;

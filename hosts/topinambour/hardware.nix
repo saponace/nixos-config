@@ -1,22 +1,18 @@
-{ lib, modulesPath, ... }:
+{ lib, ... }:
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
-  # Fill these in after running nixos-generate-config on the machine
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  # Boot and kernel are handled by nixos-hardware.nixosModules.raspberry-pi-5
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"; # TODO: fill in
+    device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"; # TODO: fill in after nixos-generate-config
     fsType = "ext4";
+    options = [ "noatime" ];
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/XXXX-XXXX"; # TODO: fill in
+  # RPi 5 uses /boot/firmware for the FAT partition, not /boot
+  fileSystems."/boot/firmware" = {
+    device = "/dev/disk/by-uuid/XXXX-XXXX"; # TODO: fill in after nixos-generate-config
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = [ "noatime" "noauto" "x-systemd.automount" ];
   };
 
   fileSystems."/mnt/wd" = {
