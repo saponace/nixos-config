@@ -17,10 +17,13 @@
     programs.nix-ld.enable = true;
     services.envfs.enable = true;
 
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    nix.settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [ "root" username ];
+    };
 
     nixpkgs.config.allowUnfreePredicate = pkg:
       let name = lib.getName pkg;
