@@ -7,6 +7,8 @@
     networkmanager.enable = true;
   };
 
+  boot.loader.raspberry-pi.bootloader = "kernel";
+
   users.users.${username}.extraGroups = [ "docker" "networkmanager" ];
 
   virtualisation.docker.enable = true;
