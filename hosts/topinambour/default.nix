@@ -45,7 +45,7 @@
   home-manager.users.${username} = { ... }: {
     programs.zsh = {
       shellAliases = {
-        dcompose = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env";
+        stak = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env";
       };
       initContent = ''
         mediastack-backup() {
