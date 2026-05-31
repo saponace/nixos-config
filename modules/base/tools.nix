@@ -15,7 +15,10 @@
 
   home-manager.users.${username} = { ... }: {
     programs = {
-      lsd.enable = true;
+      lsd = {
+        enable = true;
+        enableZshIntegration = false;
+      };
 
       fzf = { # fuzzy search
         enable = true;
