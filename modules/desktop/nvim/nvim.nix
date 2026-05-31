@@ -1,12 +1,26 @@
 { username, ... }:
 
-{
-  home-manager.users.${username} = { pkgs, ... }: {
+let
+  nvimConfig = { pkgs, ... }: {
     programs.neovim = {
       enable = true;
       defaultEditor = true;
       viAlias = true;
     };
+
+    home.file.".config/nvim" = {
+      source = ./config;
+      recursive = true;
+    };
+  };
+in
+{
+  home-manager.users.root = { ... }: {
+    imports = [ nvimConfig ];
+  };
+
+  home-manager.users.${username} = { pkgs, ... }: {
+    imports = [ nvimConfig ];
 
     home.packages = with pkgs; [
       # Lazy.nvim bootstrap + core UX
@@ -31,9 +45,5 @@
       shfmt
     ];
 
-    home.file.".config/nvim" = {
-      source = ./config;
-      recursive = true;
-    };
   };
 }

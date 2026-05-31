@@ -1,7 +1,7 @@
 { username, ... }:
 
-{
-  home-manager.users.${username} = { ... }: {
+let
+  zshConfig = { ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -15,5 +15,14 @@
         (builtins.readFile ./config/prompt.sh)
       ];
     };
+  };
+in
+{
+  home-manager.users.root = { ... }: {
+    imports = [ zshConfig ];
+  };
+
+  home-manager.users.${username} = { ... }: {
+    imports = [ zshConfig ];
   };
 }

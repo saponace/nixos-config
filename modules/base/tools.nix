@@ -1,19 +1,7 @@
 { pkgs, username, ... }:
 
-{
-  environment.systemPackages = with pkgs; [
-    btop
-    udiskie
-    jmtpfs # Androip Media Transfer Protocol
-    jq
-    rsync
-    sshfs
-    unzip
-    wget
-    zip
-  ];
-
-  home-manager.users.${username} = { ... }: {
+let
+  toolsConfig = { ... }: {
     programs = {
       lsd = {
         enable = true;
@@ -41,5 +29,26 @@
         enable = true;
       };
     };
+  };
+in
+{
+  environment.systemPackages = with pkgs; [
+    btop
+    udiskie
+    jmtpfs # Androip Media Transfer Protocol
+    jq
+    rsync
+    sshfs
+    unzip
+    wget
+    zip
+  ];
+
+  home-manager.users.root = { ... }: {
+    imports = [ toolsConfig ];
+  };
+
+  home-manager.users.${username} = { ... }: {
+    imports = [ toolsConfig ];
   };
 }

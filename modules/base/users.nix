@@ -12,6 +12,8 @@
 
   programs.zsh.enable = true;
 
+  home-manager.users.root.home.stateVersion = "26.05";
+
   home-manager.users.${username} = { ... }: {
     home.stateVersion = "26.05";
 
