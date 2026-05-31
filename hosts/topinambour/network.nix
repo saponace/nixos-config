@@ -8,7 +8,7 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    hostName = "stak"; # advertise as stak.local (A record, more reliable than CNAME aliases)
+    hostName = "stak"; # advertise as stak.local
     publish = {
       enable = true;
       addresses = true;
