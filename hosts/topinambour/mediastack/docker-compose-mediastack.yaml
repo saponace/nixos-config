@@ -104,25 +104,23 @@ services:
 ###########################################################################
 ###########################################################################
 ##
-##  Docker Compose File: Jellyseerr (fallenbagel)
+##  Docker Compose File: Seerr (seerr-team)
 ##  Function: Media Request Manager
 ##
-##  Documentation: https://hub.docker.com/r/fallenbagel/jellyseerr
+##  Documentation: https://docs.seerr.dev
 ##
 ###########################################################################
 ###########################################################################
-  jellyseerr:
-    image: fallenbagel/jellyseerr:2.5.0
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:v3.2.0
+    container_name: seerr
+    init: true
     restart: unless-stopped
     volumes:
-      - ${FOLDER_FOR_DATA:?err}/jellyseerr:/app/config
+      - ${FOLDER_FOR_DATA:?err}/seerr:/app/config
     ports:
-      - "${WEBUI_PORT_JELLYSEERR:?err}:5055"
+      - "${WEBUI_PORT_SEERR:?err}:5055"
     environment:
-      - PUID=${PUID:?err}
-      - PGID=${PGID:?err}
-      - UMASK=${UMASK:?err}
       - TZ=${TIMEZONE:?err}
     networks:
       - mediastack
