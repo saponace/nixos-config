@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, lib, username, ... }:
 {
   imports = [
     ./hardware.nix
@@ -7,6 +7,9 @@
   ];
 
   boot.loader.raspberry-pi.bootloader = "kernel";
+
+  # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
+  boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
 
   users.users.${username}.extraGroups = [ "docker" "networkmanager" ];
 
