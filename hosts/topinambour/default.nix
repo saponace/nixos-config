@@ -11,7 +11,10 @@
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
 
-  users.users.${username}.extraGroups = [ "docker" "networkmanager" ];
+  users.users.${username} = {
+    uid = 1000; # aligns with /mnt/wd ownership and Docker PUID=1000
+    extraGroups = [ "docker" "networkmanager" ];
+  };
 
   virtualisation.docker.enable = true;
 
