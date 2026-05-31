@@ -1,6 +1,9 @@
 { pkgs, username, ... }:
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ../../modules/desktop/nvim/nvim.nix
+  ];
 
   networking = {
     hostName = "topinambour";
