@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    btop
     udiskie
     jmtpfs # Androip Media Transfer Protocol
     jq
