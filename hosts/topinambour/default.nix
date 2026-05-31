@@ -36,16 +36,16 @@
       Restart = "always";
       TimeoutStopSec = 15;
       WorkingDirectory = "/etc/mediastack";
-      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env down";
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env up";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env down";
+      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env down";
+      ExecStart = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env up";
+      ExecStop = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env down";
     };
   };
 
   home-manager.users.${username} = { ... }: {
     programs.zsh = {
       shellAliases = {
-        dcompose = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env";
+        dcompose = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env";
       };
       initContent = ''
         mediastack-backup() {

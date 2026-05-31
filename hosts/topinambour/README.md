@@ -38,3 +38,12 @@ passwd
 nix-shell -p git
 git clone https://github.com/saponace/nixos-config.git
 ```
+
+### 5. Generate secrets (first install only)
+
+Create `/etc/mediastack/secrets.env` with service secrets that are not versioned in the repo.
+This file persists across `nh os switch` rebuilds — only needed once.
+
+```sh
+echo "HOMARR_SECRET_ENCRYPTION_KEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)" | tee /mnt/wd/mediastack-config/secrets.env
+```
