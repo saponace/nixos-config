@@ -2,13 +2,9 @@
 {
   imports = [
     ./hardware.nix
+    ./network.nix
     ../../modules/desktop/nvim/nvim.nix
   ];
-
-  networking = {
-    hostName = "topinambour";
-    networkmanager.enable = true;
-  };
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 
