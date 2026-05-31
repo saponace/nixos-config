@@ -43,8 +43,25 @@
   };
 
   home-manager.users.${username} = { ... }: {
-    programs.zsh.shellAliases = {
-      dcompose = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env";
+    programs.zsh = {
+      shellAliases = {
+        dcompose = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env";
+      };
+      initContent = ''
+        mediastack-backup() {
+          (cd /mnt/wd && zip -r "mediastack-config~$(date +%Y%m%d).zip" mediastack-config \
+            --exclude "mediastack-config/radarr/logs/*" \
+            --exclude "mediastack-config/radarr/MediaCover/*" \
+            --exclude "mediastack-config/bazarr/log" \
+            --exclude "mediastack-config/prowlarr/logs/*" \
+            --exclude "mediastack-config/jellyfin/data/data/subtitles/*" \
+            --exclude "mediastack-config/jellyfin/data/metadata/*" \
+            --exclude "mediastack-config/jellyfin/cache/*" \
+            --exclude "mediastack-config/sabnzbd/logs/*" \
+            --exclude "mediastack-config/sonarr/logs/*" \
+            --exclude "mediastack-config/sonarr/MediaCover/*")
+        }
+      '';
     };
   };
 
