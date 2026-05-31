@@ -33,9 +33,10 @@
           ./modules/configuration.nix
         ];
       };
-      mkServer = hostPath: nixpkgs.lib.nixosSystem {
+      mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosSystem {
         specialArgs = { inherit self username userEmail; };
         modules = [
+          nixos-raspberrypi.nixosModules.raspberry-pi-5.base
           home-manager.nixosModules.home-manager
           hostPath
           ./modules/server-configuration.nix
@@ -45,15 +46,6 @@
       nixosConfigurations.celeri = mkHost ./hosts/celeri;
       nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;
-      nixosConfigurations.topinambour = nixos-raspberrypi.lib.nixosSystem {
-        specialArgs = { inherit self username userEmail; };
-        modules = [
-          home-manager.nixosModules.home-manager
-          nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-          nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
-          ./hosts/topinambour
-          ./modules/server-configuration.nix
-        ];
-      };
+      nixosConfigurations.topinambour = mkRpi5Server ./hosts/topinambour;
     };
 }
