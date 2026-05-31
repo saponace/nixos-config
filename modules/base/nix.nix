@@ -23,6 +23,9 @@
         "flakes"
       ];
       trusted-users = [ "root" username ];
+      # Declared here rather than flake.nix nixConfig to avoid --accept-flake-config warnings
+      extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];
+      extra-trusted-public-keys = [ "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI=" ];
     };
 
     nixpkgs.config.allowUnfreePredicate = pkg:
