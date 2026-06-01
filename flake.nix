@@ -13,9 +13,13 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, silentSDDM, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, silentSDDM, nixos-raspberrypi, ... }:
     let
       username = "saponace";
       userEmail = "saponace@gmail.com";
@@ -29,9 +33,19 @@
           ./modules/configuration.nix
         ];
       };
+      mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosInstaller {
+        specialArgs = { inherit self username userEmail; };
+        modules = [
+          nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+          home-manager.nixosModules.home-manager
+          hostPath
+          ./modules/server-configuration.nix
+        ];
+      };
     in {
       nixosConfigurations.celeri = mkHost ./hosts/celeri;
       nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;
+      nixosConfigurations.topinambour = mkRpi5Server ./hosts/topinambour;
     };
 }
