@@ -35,8 +35,9 @@ passwd
 ### 4. Clone the repo and run the first switch
 
 ```sh
-nix-shell -p git
 git clone https://github.com/saponace/nixos-config.git
+cd nixos-config
+nh os switch
 ```
 
 ### 5. Generate secrets (first install only)
