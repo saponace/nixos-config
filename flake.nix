@@ -33,7 +33,7 @@
           ./modules/configuration.nix
         ];
       };
-      mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosSystem {
+      mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosInstaller {
         specialArgs = { inherit self username userEmail; };
         modules = [
           nixos-raspberrypi.nixosModules.raspberry-pi-5.base
