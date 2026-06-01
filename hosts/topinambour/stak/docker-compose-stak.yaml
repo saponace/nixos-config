@@ -1,8 +1,8 @@
 ##########################################################################
 ###########################################################################
 networks:
-  mediastack:
-    name: mediastack
+  stak:
+    name: stak
     driver: bridge
     ipam:
       driver: default
@@ -37,7 +37,7 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:bazarr
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -64,7 +64,7 @@ services:
       - PGID=${PGID:?err}
       - TZ=${TIMEZONE:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -99,7 +99,7 @@ services:
       - TZ=${TIMEZONE:?err}
 #      - JELLYFIN_PublishedServerUrl=${LOCAL_DOCKER_IP:?err}  # Enable for DLNA - Only works on HOST Network Mode
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -123,7 +123,7 @@ services:
     environment:
       - TZ=${TIMEZONE:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -150,7 +150,7 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:prowlarr
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -178,7 +178,7 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:radarr
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -206,7 +206,7 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:sabnzbd
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -234,7 +234,7 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:sonarr
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak
 
 ###########################################################################
 ###########################################################################
@@ -263,4 +263,4 @@ services:
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:calibre-web
       - TP_THEME=${TP_THEME:?err}
     networks:
-      - mediastack
+      - stak

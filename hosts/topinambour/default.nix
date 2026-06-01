@@ -21,13 +21,13 @@
     systemPackages = [ pkgs.docker-compose ];
 
     etc = {
-      "mediastack/docker-compose.yaml".source = ./mediastack/docker-compose-mediastack.yaml;
-      "mediastack/docker-compose.env".source = ./mediastack/docker-compose.env;
+      "stak/docker-compose.yaml".source = ./stak/docker-compose-stak.yaml;
+      "stak/docker-compose.env".source = ./stak/docker-compose.env;
     };
   };
 
-  systemd.services.mediastack = {
-    description = "Mediastack";
+  systemd.services.stak = {
+    description = "Stak";
     requires = [ "docker.service" "mnt-wd.mount" ];
     after = [ "docker.service" "mnt-wd.mount" ];
     wantedBy = [ "multi-user.target" ];
@@ -35,31 +35,31 @@
       Type = "simple";
       Restart = "always";
       TimeoutStopSec = 15;
-      WorkingDirectory = "/etc/mediastack";
-      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env down";
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env up";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env down";
+      WorkingDirectory = "/etc/stak";
+      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env down";
+      ExecStart = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env up";
+      ExecStop = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env down";
     };
   };
 
   home-manager.users.${username} = { ... }: {
     programs.zsh = {
       shellAliases = {
-        stak = "docker-compose --file /etc/mediastack/docker-compose.yaml --env-file /etc/mediastack/docker-compose.env --env-file /mnt/wd/mediastack-config/secrets.env";
+        stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
       };
       initContent = ''
-        mediastack-backup() {
-          (cd /mnt/wd && zip -r "mediastack-config~$(date +%Y%m%d).zip" mediastack-config \
-            --exclude "mediastack-config/radarr/logs/*" \
-            --exclude "mediastack-config/radarr/MediaCover/*" \
-            --exclude "mediastack-config/bazarr/log" \
-            --exclude "mediastack-config/prowlarr/logs/*" \
-            --exclude "mediastack-config/jellyfin/data/data/subtitles/*" \
-            --exclude "mediastack-config/jellyfin/data/metadata/*" \
-            --exclude "mediastack-config/jellyfin/cache/*" \
-            --exclude "mediastack-config/sabnzbd/logs/*" \
-            --exclude "mediastack-config/sonarr/logs/*" \
-            --exclude "mediastack-config/sonarr/MediaCover/*")
+        stak-backup() {
+          (cd /mnt/wd && zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
+            --exclude "stak-config/radarr/logs/*" \
+            --exclude "stak-config/radarr/MediaCover/*" \
+            --exclude "stak-config/bazarr/log" \
+            --exclude "stak-config/prowlarr/logs/*" \
+            --exclude "stak-config/jellyfin/data/data/subtitles/*" \
+            --exclude "stak-config/jellyfin/data/metadata/*" \
+            --exclude "stak-config/jellyfin/cache/*" \
+            --exclude "stak-config/sabnzbd/logs/*" \
+            --exclude "stak-config/sonarr/logs/*" \
+            --exclude "stak-config/sonarr/MediaCover/*")
         }
       '';
     };
