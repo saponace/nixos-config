@@ -3,6 +3,8 @@
 {
   imports = [
     ./hardware.nix
+    ../../profiles/base.nix
+    ../../profiles/desktop.nix
     ../../modules/peripherals/logitech.nix
     ../../modules/peripherals/nintendo-controllers.nix
   ];

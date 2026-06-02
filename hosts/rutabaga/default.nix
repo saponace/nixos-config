@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./hardware.nix
+    ../../profiles/base.nix
+    ../../profiles/desktop.nix
+    ../../profiles/laptop.nix
   ];
 
   networking.hostName = "rutabaga";
@@ -11,21 +14,9 @@
     efi.canTouchEfiVariables = true;
   };
 
-  services = {
-    tlp.enable = true;
-    upower.enable = true;
-    xserver = {
-      xkb.layout = "fr";
-    };
-  };
+  services.xserver.xkb.layout = "fr";
 
   console.keyMap = "fr";
-
-  environment.systemPackages = with pkgs; [
-    acpi
-    brightnessctl
-    libnotify
-  ];
 
   system.stateVersion = "26.05";
 }

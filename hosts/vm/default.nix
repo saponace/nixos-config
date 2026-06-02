@@ -2,6 +2,8 @@
 {
   imports = [
     ./hardware.nix
+    ../../profiles/base.nix
+    ../../profiles/desktop.nix
   ];
 
   services.xserver.xkb = {
