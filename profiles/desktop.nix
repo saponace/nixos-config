@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./base.nix
-
     ../modules/desktop/hardware.nix
     ../modules/desktop/networking.nix
     ../modules/desktop/sound.nix
