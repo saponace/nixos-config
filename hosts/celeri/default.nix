@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware.nix
-    ../../modules/hardware/logitech-peripherals.nix
-    ../../modules/hardware/nintendo-controllers.nix
+    ../../modules/peripherals/logitech.nix
+    ../../modules/peripherals/nintendo-controllers.nix
   ];
 
   niri.outputsConfig = builtins.readFile ./monitors.kdl;
