@@ -7,6 +7,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
 
+    targets.kmscon.enable = false;
     targets.plymouth.enable = false;
 
     cursor = {
