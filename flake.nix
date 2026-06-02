@@ -30,7 +30,7 @@
           silentSDDM.nixosModules.default
           home-manager.nixosModules.home-manager
           hostPath
-          ./modules/configuration.nix
+          ./profiles/desktop.nix
         ];
       };
       mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosInstaller {
@@ -39,7 +39,7 @@
           nixos-raspberrypi.nixosModules.raspberry-pi-5.base
           home-manager.nixosModules.home-manager
           hostPath
-          ./modules/server-configuration.nix
+          ./profiles/server.nix
         ];
       };
     in {

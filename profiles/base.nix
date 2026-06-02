@@ -1,15 +1,14 @@
 { username, userEmail, ... }:
+
 {
   imports = [
-    ./base/nix.nix
-    ./base/nvim/nvim.nix
-    ./base/locale.nix
-    ./base/users.nix
-    ./base/tools.nix
-    ./base/zsh/zsh.nix
+    ../modules/base/nix.nix
+    ../modules/base/locale.nix
+    ../modules/base/users.nix
+    ../modules/base/tools.nix
+    ../modules/base/zsh/zsh.nix
+    ../modules/base/nvim/nvim.nix
   ];
-
-  services.openssh.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;
