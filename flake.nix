@@ -30,6 +30,7 @@
           silentSDDM.nixosModules.default
           home-manager.nixosModules.home-manager
           hostPath
+          ./profiles/base.nix
           ./profiles/desktop.nix
         ];
       };
@@ -39,7 +40,7 @@
           nixos-raspberrypi.nixosModules.raspberry-pi-5.base
           home-manager.nixosModules.home-manager
           hostPath
-          ./profiles/server.nix
+          ./profiles/base.nix
         ];
       };
     in {
