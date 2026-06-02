@@ -7,8 +7,8 @@
     ../modules/base/locale.nix
     ../modules/base/users.nix
     ../modules/base/tools.nix
-    ../modules/base/zsh/zsh.nix
-    ../modules/base/nvim/nvim.nix
+    ../modules/base/zsh
+    ../modules/base/nvim
   ];
 
   home-manager = {
