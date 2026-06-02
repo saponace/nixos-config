@@ -4,10 +4,7 @@
     ./hardware.nix
   ];
 
-  networking = {
-    hostName = "rutabaga";
-    wireless.enable = true;
-  };
+  networking.hostName = "rutabaga";
 
   boot.loader = {
     systemd-boot.enable = true;

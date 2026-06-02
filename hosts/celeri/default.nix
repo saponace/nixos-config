@@ -9,10 +9,7 @@
 
   niri.outputsConfig = builtins.readFile ./monitors.kdl;
 
-  networking = {
-    hostName = "celeri";
-    wireless.enable = true;
-  };
+  networking.hostName = "celeri";
 
   boot.loader = {
     systemd-boot.enable = true;
