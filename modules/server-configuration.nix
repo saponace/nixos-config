@@ -2,6 +2,7 @@
 {
   imports = [
     ./base/nix.nix
+    ./base/nvim/nvim.nix
     ./base/locale.nix
     ./base/users.nix
     ./base/tools.nix

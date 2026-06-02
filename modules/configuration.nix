@@ -19,7 +19,7 @@
     ./desktop/ai.nix
     ./desktop/apps.nix
     ./desktop/virtualization.nix
-    ./desktop/nvim/nvim.nix
+    ./base/nvim/nvim.nix
   ];
 
   home-manager = {

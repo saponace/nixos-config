@@ -3,7 +3,6 @@
   imports = [
     ./hardware.nix
     ./network.nix
-    ../../modules/desktop/nvim/nvim.nix
   ];
 
   boot.loader.raspberry-pi.bootloader = "kernel";
