@@ -25,21 +25,25 @@
     };
   };
 
-  systemd.services.stak = {
-    description = "Stak";
-    requires = [ "docker.service" "mnt-wd.mount" ];
-    after = [ "docker.service" "mnt-wd.mount" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      TimeoutStopSec = 15;
-      WorkingDirectory = "/etc/stak";
-      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env down";
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env up";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env down";
+  systemd.services.stak =
+    let
+      dc = pkgs.docker-compose;
+      args = "--file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
+    in {
+      description = "Stak";
+      requires = [ "docker.service" "mnt-wd.mount" ];
+      after = [ "docker.service" "mnt-wd.mount" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        TimeoutStopSec = 15;
+        WorkingDirectory = "/etc/stak";
+        ExecStartPre = "${dc}/bin/docker-compose ${args} down";
+        ExecStart = "${dc}/bin/docker-compose ${args} up";
+        ExecStop = "${dc}/bin/docker-compose ${args} down";
+      };
     };
-  };
 
   home-manager.users.${username} = { ... }: {
     programs.zsh = {
