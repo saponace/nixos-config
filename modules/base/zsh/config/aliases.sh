@@ -19,6 +19,7 @@ alias gp='git push' ; compdef _git gp=git-push
 alias gd='git diff' ; compdef _git gd=git-diff
 alias gdu='git diff @{u}'
 alias gdc='git diff --cached' ; compdef _git gd=git-diff-cached
+alias gn='git restore --staged . ; git clean -fd'
 
 alias grep="grep --color=auto --exclude-dir=.git"
 alias df="df -h"
