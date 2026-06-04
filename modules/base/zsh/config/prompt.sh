@@ -71,20 +71,15 @@ PROMPT=$LONGPROMPT
 ## Git PS1
 _-git_ps1() {
   if [[ -n ${commands[git]} ]];then
-    ZSH_THEME_GIT_PROMPT_PREFIX=' %F{FRAMECOL}- %F{12}%F{6}'
-    ZSH_THEME_GIT_PROMPT_DIRTY='%F{3}*'
-    ZSH_THEME_GIT_PROMPT_STASHED='%F{7}+'
-    ZSH_THEME_GIT_PROMPT_SUFFIX='%F{12}%f'
-    ZSH_THEME_GIT_PROMPT_SUBPREFIX='%F{12}─[%f'
-    _git_if_dirty() {
-      [[ -n $(command git status -s --ignore-submodules=dirty 2> /dev/null | tail -n1) ]] && print ${ZSH_THEME_GIT_PROMPT_DIRTY}
+    local PREFIX=' %F{FRAMECOL}- %F{12}%F{6}'
+    local SUFFIX='%F{12}%f'
+    _git_indicators() {
+      local out=''
+      [[ -n $(command git status -s --ignore-submodules=dirty 2> /dev/null | tail -n1) ]] && out+='%F{3}*'
+      { command git rev-parse --verify refs/stash &> /dev/null } && out+='%F{7}-'
+      [[ -n $out ]] && print " ${out}"
     }
-    _git_if_stashed() {
-      { command git rev-parse --verify refs/stash &> /dev/null } && {
-        print ${ZSH_THEME_GIT_PROMPT_SUBPREFIX}${ZSH_THEME_GIT_PROMPT_STASHED}${ZSH_THEME_GIT_PROMPT_SUFFIX}
-      }
-    }
-    ref=$(command git symbolic-ref HEAD 2> /dev/null) || ref=$(command git rev-parse --short HEAD 2> /dev/null) && echo "${ZSH_THEME_GIT_PROMPT_PREFIX}${ref#refs/heads/}$(_git_if_dirty)${ZSH_THEME_GIT_PROMPT_SUFFIX}$(_git_if_stashed)"
+    ref=$(command git symbolic-ref HEAD 2> /dev/null) || ref=$(command git rev-parse --short HEAD 2> /dev/null) && echo "${PREFIX}${ref#refs/heads/}$(_git_indicators)${SUFFIX}"
   fi
 }
 
