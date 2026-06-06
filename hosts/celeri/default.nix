@@ -7,6 +7,7 @@
     ../../profiles/desktop.nix
     ../../modules/peripherals/logitech.nix
     ../../modules/peripherals/nintendo-controllers.nix
+    ../../modules/peripherals/android.nix
   ];
 
   niri.outputsConfig = builtins.readFile ./monitors.kdl;
