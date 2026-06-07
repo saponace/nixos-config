@@ -8,5 +8,8 @@
     spiceUSBRedirection.enable = true;
   };
 
-  users.users.${username}.extraGroups = [ "kvm" "libvirtd" ];
+  users.users.${username}.extraGroups = [
+    "kvm"
+    "libvirtd"
+  ];
 }

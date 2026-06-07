@@ -1,8 +1,8 @@
 { username, ... }:
 
 {
-  hardware.bluetooth.enable = true;  # Bluetooth
-  services.blueman.enable = true;  # Bluetooth audio
+  hardware.bluetooth.enable = true; # Bluetooth
+  services.blueman.enable = true; # Bluetooth audio
 
   networking = {
     networkmanager.enable = true;

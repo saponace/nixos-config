@@ -1,2 +1,3 @@
 nvim/lazy-lock.json
 nvim/lazyvim.json
+.pre-commit-config.yaml

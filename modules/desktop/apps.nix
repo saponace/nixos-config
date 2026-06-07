@@ -2,7 +2,12 @@
 
 {
   allowedUnfreePrefixes = [ "bitwig-studio" ]; # catches bitwig-studio6, bitwig-studio7, etc.
-  allowedUnfreePackages = [ "steam" "steam-original" "steam-unwrapped" "steam-run" ];
+  allowedUnfreePackages = [
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
+  ];
 
   environment.systemPackages = with pkgs; [
     bitwig-studio
@@ -13,15 +18,21 @@
 
   programs.steam.enable = true;
 
-  home-manager.users.${username} = { ... }: {
-    programs = {
-      firefox.enable = true;
-      alacritty = {
-        enable = true;
-        settings.keyboard.bindings = [
-          { key = "F"; mods = "Control"; action = "SearchForward"; }
-        ];
+  home-manager.users.${username} =
+    { ... }:
+    {
+      programs = {
+        firefox.enable = true;
+        alacritty = {
+          enable = true;
+          settings.keyboard.bindings = [
+            {
+              key = "F";
+              mods = "Control";
+              action = "SearchForward";
+            }
+          ];
+        };
       };
     };
-  };
 }

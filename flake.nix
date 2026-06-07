@@ -17,34 +17,64 @@
       url = "github:nvmd/nixos-raspberrypi/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, silentSDDM, nixos-raspberrypi, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      stylix,
+      silentSDDM,
+      nixos-raspberrypi,
+      pre-commit-hooks,
+      ...
+    }:
     let
       username = "saponace";
       userEmail = "saponace@gmail.com";
-      mkHost = hostPath: nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit self username userEmail; };
-        modules = [
-          stylix.nixosModules.stylix
-          silentSDDM.nixosModules.default
-          home-manager.nixosModules.home-manager
-          hostPath
-        ];
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      mkHost =
+        hostPath:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit self username userEmail; };
+          modules = [
+            stylix.nixosModules.stylix
+            silentSDDM.nixosModules.default
+            home-manager.nixosModules.home-manager
+            hostPath
+          ];
+        };
+      mkRpi5Server =
+        hostPath:
+        nixos-raspberrypi.lib.nixosInstaller {
+          specialArgs = { inherit self username userEmail; };
+          modules = [
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+            home-manager.nixosModules.home-manager
+            hostPath
+            ./profiles/base.nix
+          ];
+        };
+      preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
+        src = ./.;
+        hooks.nixfmt-rfc-style.enable = true;
       };
-      mkRpi5Server = hostPath: nixos-raspberrypi.lib.nixosInstaller {
-        specialArgs = { inherit self username userEmail; };
-        modules = [
-          nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-          home-manager.nixosModules.home-manager
-          hostPath
-          ./profiles/base.nix
-        ];
-      };
-    in {
+    in
+    {
       nixosConfigurations.celeri = mkHost ./hosts/celeri;
       nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
       nixosConfigurations.vm = mkHost ./hosts/vm;
       nixosConfigurations.topinambour = mkRpi5Server ./hosts/topinambour;
+
+      checks.x86_64-linux.pre-commit = preCommitCheck;
+
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        inherit (preCommitCheck) shellHook;
+      };
     };
 }

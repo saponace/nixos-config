@@ -1,15 +1,21 @@
-{ lib, pkgs, config, username, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  username,
+  ...
+}:
 
 {
   options = {
     allowedUnfreePackages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
 
     allowedUnfreePrefixes = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
   };
 
@@ -22,15 +28,23 @@
         "nix-command"
         "flakes"
       ];
-      trusted-users = [ "root" username ];
+      trusted-users = [
+        "root"
+        username
+      ];
       # Declared here rather than flake.nix nixConfig to avoid --accept-flake-config warnings
       extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];
-      extra-trusted-public-keys = [ "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI=" ];
+      extra-trusted-public-keys = [
+        "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+      ];
     };
 
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      let name = lib.getName pkg;
-      in builtins.elem name config.allowedUnfreePackages
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      let
+        name = lib.getName pkg;
+      in
+      builtins.elem name config.allowedUnfreePackages
       || builtins.any (prefix: lib.hasPrefix prefix name) config.allowedUnfreePrefixes;
 
     environment = {

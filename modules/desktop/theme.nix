@@ -1,4 +1,9 @@
-{ pkgs, username, lib, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  ...
+}:
 
 let
   theme = "catppuccin-mocha";
@@ -61,21 +66,26 @@ in
     XCURSOR_SIZE = toString cursorSize;
   };
 
-  home-manager.users.${username} = { ... }: {
-    stylix.targets = {
-      alacritty.enable = true;
-      firefox = {
-        enable = true;
-        profileNames = [ "default" ];
+  home-manager.users.${username} =
+    { ... }:
+    {
+      stylix.targets = {
+        alacritty.enable = true;
+        firefox = {
+          enable = true;
+          profileNames = [ "default" ];
+        };
+        gtk.enable = true;
+        qt.enable = true;
+        noctalia-shell.enable = true;
       };
-      gtk.enable = true;
-      qt.enable = true;
-      noctalia-shell.enable = true;
-    };
 
-    programs.alacritty.settings.colors = lib.mkForce (
-      (builtins.fromTOML (builtins.readFile "${pkgs.alacritty-theme}/share/alacritty-theme/dracula.toml")).colors
-      // { primary.background = "#1e1e2e"; }
-    );
-  };
+      programs.alacritty.settings.colors = lib.mkForce (
+        (builtins.fromTOML (builtins.readFile "${pkgs.alacritty-theme}/share/alacritty-theme/dracula.toml"))
+        .colors
+        // {
+          primary.background = "#1e1e2e";
+        }
+      );
+    };
 }

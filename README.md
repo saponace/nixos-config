@@ -25,6 +25,13 @@ git add hosts/[HOST]/hardware.nix
 sudo nixos-rebuild switch --flake .#[HOST]
 ```
 
+## Development
+
+### Install git hooks (once per clone)
+```bash
+nix develop
+```
+
 ## Day-to-day
 
 ### Rebuild NixOS config and activate
