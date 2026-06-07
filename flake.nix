@@ -63,7 +63,7 @@
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
         hooks = {
-          nixfmt-rfc-style.enable = true;
+          nixfmt.enable = true;
           statix.enable = true;
           deadnix.enable = true;
         };
