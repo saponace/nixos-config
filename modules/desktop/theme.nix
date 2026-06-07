@@ -63,7 +63,6 @@ in
 
   home-manager.users.${username} = { ... }: {
     stylix.targets = {
-      btop.enable = true;
       alacritty.enable = true;
       firefox = {
         enable = true;

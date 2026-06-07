@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, username, lib, ... }:
 
 let
   toolsConfig = { ... }: {
@@ -27,12 +27,16 @@ let
       };
 
       lazygit.enable = true;
+
+      btop = {
+        enable = true;
+        settings.color_theme = lib.mkForce "elementarish";
+      };
     };
   };
 in
 {
   environment.systemPackages = with pkgs; [
-    btop
     udiskie
     jmtpfs # Androip Media Transfer Protocol
     jq
