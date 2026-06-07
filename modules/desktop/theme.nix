@@ -18,7 +18,6 @@ in
     polarity = "dark";
 
     targets.kmscon.enable = false;
-    targets.plymouth.enable = false;
 
     cursor = {
       package = pkgs.nordzy-cursor-theme;

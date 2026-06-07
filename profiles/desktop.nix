@@ -5,7 +5,7 @@
     ../modules/desktop/hardware.nix
     ../modules/desktop/networking.nix
     ../modules/desktop/sound.nix
-    ../modules/desktop/plymouth.nix
+    ../modules/desktop/boot.nix
     ../modules/desktop/services.nix
     ../modules/desktop/display-manager.nix
     ../modules/desktop/window-manager/niri.nix
