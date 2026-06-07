@@ -9,10 +9,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +25,6 @@
       nixpkgs,
       home-manager,
       stylix,
-      silentSDDM,
       nixos-raspberrypi,
       pre-commit-hooks,
       ...
@@ -44,7 +39,6 @@
           specialArgs = { inherit self username userEmail; };
           modules = [
             stylix.nixosModules.stylix
-            silentSDDM.nixosModules.default
             home-manager.nixosModules.home-manager
             hostPath
           ];

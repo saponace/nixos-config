@@ -233,6 +233,9 @@ layout {
 
 spawn-at-startup "noctalia-shell"
 
+// Start noctalia lockscreen upon startup (as greetd auto-login)
+spawn-sh-at-startup "until noctalia-shell ipc call lockScreen lock 2>/dev/null; do sleep 0.5; done"
+
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 

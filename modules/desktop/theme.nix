@@ -53,14 +53,6 @@ in
     };
   };
 
-  programs.silentSDDM.theme = theme;
-
-  # Cursor theme for SDDM — doesn't currently work on Wayland.
-  # SDDM ignores CursorTheme and XCURSOR_THEME on its Wayland backend.
-  services.displayManager.sddm = {
-    extraPackages = [ pkgs.nordzy-cursor-theme ];
-    settings.Theme.CursorTheme = cursorTheme;
-  };
   environment.variables = {
     XCURSOR_THEME = cursorTheme;
     XCURSOR_SIZE = toString cursorSize;

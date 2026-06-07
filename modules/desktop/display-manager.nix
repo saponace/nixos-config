@@ -1,17 +1,14 @@
-_:
+{ username, ... }:
 
 {
-  # SDDM on Wayland needs udev/input infrastructure from the xserver module
-  # to make pointer devices work. This doesn't actually start X11.
-  services.xserver.enable = true;
-
-  programs.silentSDDM = {
+  # Auto-login into niri. Noctalia locks the screen immediately.
+  services.greetd = {
     enable = true;
-
-    # Hide profile picture
     settings = {
-      "LoginScreen.LoginArea.Avatar".active-size = 1;
-      "LoginScreen.LoginArea.Avatar".inactive-size = 1;
+      default_session = {
+        command = "niri-session";
+        user = username;
+      };
     };
   };
 }
