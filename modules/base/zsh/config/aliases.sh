@@ -7,6 +7,7 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 
+alias g='lazygit'
 alias gst='git status' ; compdef _git gst=git-status
 alias gadd='git add' ; compdef _git gadd=git-add
 alias gco='git checkout' ; compdef _git gco=git-checkout
