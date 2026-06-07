@@ -18,21 +18,19 @@
 
   programs.steam.enable = true;
 
-  home-manager.users.${username} =
-    { ... }:
-    {
-      programs = {
-        firefox.enable = true;
-        alacritty = {
-          enable = true;
-          settings.keyboard.bindings = [
-            {
-              key = "F";
-              mods = "Control";
-              action = "SearchForward";
-            }
-          ];
-        };
+  home-manager.users.${username} = _: {
+    programs = {
+      firefox.enable = true;
+      alacritty = {
+        enable = true;
+        settings.keyboard.bindings = [
+          {
+            key = "F";
+            mods = "Control";
+            action = "SearchForward";
+          }
+        ];
       };
     };
+  };
 }

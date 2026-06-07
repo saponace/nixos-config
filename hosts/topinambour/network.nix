@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   networking = {
     hostName = "topinambour";
     networkmanager.enable = true;

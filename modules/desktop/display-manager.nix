@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   # SDDM on Wayland needs udev/input infrastructure from the xserver module

@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   services.joycond.enable = true;

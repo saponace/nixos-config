@@ -63,13 +63,16 @@
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
         hooks.nixfmt-rfc-style.enable = true;
+        hooks.statix.enable = true;
       };
     in
     {
-      nixosConfigurations.celeri = mkHost ./hosts/celeri;
-      nixosConfigurations.rutabaga = mkHost ./hosts/rutabaga;
-      nixosConfigurations.vm = mkHost ./hosts/vm;
-      nixosConfigurations.topinambour = mkRpi5Server ./hosts/topinambour;
+      nixosConfigurations = {
+        celeri = mkHost ./hosts/celeri;
+        rutabaga = mkHost ./hosts/rutabaga;
+        vm = mkHost ./hosts/vm;
+        topinambour = mkRpi5Server ./hosts/topinambour;
+      };
 
       checks.x86_64-linux.pre-commit = preCommitCheck;
 

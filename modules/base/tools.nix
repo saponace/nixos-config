@@ -6,45 +6,43 @@
 }:
 
 let
-  toolsConfig =
-    { ... }:
-    {
-      programs = {
-        lsd = {
-          enable = true;
-          enableZshIntegration = false;
-        };
+  toolsConfig = _: {
+    programs = {
+      lsd = {
+        enable = true;
+        enableZshIntegration = false;
+      };
 
-        fzf = {
-          # fuzzy search
-          enable = true;
-        };
+      fzf = {
+        # fuzzy search
+        enable = true;
+      };
 
-        yazi = {
-          # file explorer
-          enable = true;
-          enableZshIntegration = true;
-        };
+      yazi = {
+        # file explorer
+        enable = true;
+        enableZshIntegration = true;
+      };
 
-        zellij = {
-          # terminal multiplexer
-          enable = true;
-          settings.show_startup_tips = false;
-        };
+      zellij = {
+        # terminal multiplexer
+        enable = true;
+        settings.show_startup_tips = false;
+      };
 
-        zoxide = {
-          # better cd
-          enable = true;
-        };
+      zoxide = {
+        # better cd
+        enable = true;
+      };
 
-        lazygit.enable = true;
+      lazygit.enable = true;
 
-        btop = {
-          enable = true;
-          settings.color_theme = lib.mkForce "elementarish";
-        };
+      btop = {
+        enable = true;
+        settings.color_theme = lib.mkForce "elementarish";
       };
     };
+  };
 in
 {
   environment.systemPackages = with pkgs; [

@@ -61,30 +61,28 @@
       };
     };
 
-  home-manager.users.${username} =
-    { ... }:
-    {
-      programs.zsh = {
-        shellAliases = {
-          stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
-        };
-        initContent = ''
-          stak-backup() {
-            (cd /mnt/wd && zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
-              --exclude "stak-config/radarr/logs/*" \
-              --exclude "stak-config/radarr/MediaCover/*" \
-              --exclude "stak-config/bazarr/log" \
-              --exclude "stak-config/prowlarr/logs/*" \
-              --exclude "stak-config/jellyfin/data/data/subtitles/*" \
-              --exclude "stak-config/jellyfin/data/metadata/*" \
-              --exclude "stak-config/jellyfin/cache/*" \
-              --exclude "stak-config/sabnzbd/logs/*" \
-              --exclude "stak-config/sonarr/logs/*" \
-              --exclude "stak-config/sonarr/MediaCover/*")
-          }
-        '';
+  home-manager.users.${username} = _: {
+    programs.zsh = {
+      shellAliases = {
+        stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
       };
+      initContent = ''
+        stak-backup() {
+          (cd /mnt/wd && zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
+            --exclude "stak-config/radarr/logs/*" \
+            --exclude "stak-config/radarr/MediaCover/*" \
+            --exclude "stak-config/bazarr/log" \
+            --exclude "stak-config/prowlarr/logs/*" \
+            --exclude "stak-config/jellyfin/data/data/subtitles/*" \
+            --exclude "stak-config/jellyfin/data/metadata/*" \
+            --exclude "stak-config/jellyfin/cache/*" \
+            --exclude "stak-config/sabnzbd/logs/*" \
+            --exclude "stak-config/sonarr/logs/*" \
+            --exclude "stak-config/sonarr/MediaCover/*")
+        }
+      '';
     };
+  };
 
   system.stateVersion = "26.05";
 }

@@ -19,23 +19,21 @@
 
   home-manager.users.root.home.stateVersion = "26.05";
 
-  home-manager.users.${username} =
-    { ... }:
-    {
-      home.stateVersion = "26.05";
+  home-manager.users.${username} = _: {
+    home.stateVersion = "26.05";
 
-      xdg.enable = true;
+    xdg.enable = true;
 
-      programs = {
-        home-manager.enable = true;
+    programs = {
+      home-manager.enable = true;
 
-        git = {
-          enable = true;
-          settings.user = {
-            email = userEmail;
-            name = username;
-          };
+      git = {
+        enable = true;
+        settings.user = {
+          email = userEmail;
+          name = username;
         };
       };
     };
+  };
 }

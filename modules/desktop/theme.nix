@@ -66,26 +66,24 @@ in
     XCURSOR_SIZE = toString cursorSize;
   };
 
-  home-manager.users.${username} =
-    { ... }:
-    {
-      stylix.targets = {
-        alacritty.enable = true;
-        firefox = {
-          enable = true;
-          profileNames = [ "default" ];
-        };
-        gtk.enable = true;
-        qt.enable = true;
-        noctalia-shell.enable = true;
+  home-manager.users.${username} = _: {
+    stylix.targets = {
+      alacritty.enable = true;
+      firefox = {
+        enable = true;
+        profileNames = [ "default" ];
       };
-
-      programs.alacritty.settings.colors = lib.mkForce (
-        (builtins.fromTOML (builtins.readFile "${pkgs.alacritty-theme}/share/alacritty-theme/dracula.toml"))
-        .colors
-        // {
-          primary.background = "#1e1e2e";
-        }
-      );
+      gtk.enable = true;
+      qt.enable = true;
+      noctalia-shell.enable = true;
     };
+
+    programs.alacritty.settings.colors = lib.mkForce (
+      (builtins.fromTOML (builtins.readFile "${pkgs.alacritty-theme}/share/alacritty-theme/dracula.toml"))
+      .colors
+      // {
+        primary.background = "#1e1e2e";
+      }
+    );
+  };
 }
