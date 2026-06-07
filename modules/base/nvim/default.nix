@@ -36,9 +36,6 @@ in
       gcc
       gnumake
 
-      # Git UI
-      lazygit
-
       # Prefer Nix-managed LSP/formatters over Mason downloads
       lua-language-server
       nil

@@ -1,10 +1,15 @@
 { pkgs, username, lib, ... }:
 
+let
+  theme = "catppuccin-mocha";
+  cursorTheme = "Nordzy-catppuccin-mocha-dark";
+  cursorSize = 12;
+in
 {
   stylix = {
     enable = true;
 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/${theme}.yaml";
     polarity = "dark";
 
     targets.kmscon.enable = false;
@@ -12,8 +17,8 @@
 
     cursor = {
       package = pkgs.nordzy-cursor-theme;
-      name = "Nordzy-catppuccin-mocha-dark";
-      size = 12;
+      name = cursorTheme;
+      size = cursorSize;
     };
 
     fonts = {
@@ -43,8 +48,22 @@
     };
   };
 
+  programs.silentSDDM.theme = theme;
+
+  # Cursor theme for SDDM — doesn't currently work on Wayland.
+  # SDDM ignores CursorTheme and XCURSOR_THEME on its Wayland backend.
+  services.displayManager.sddm = {
+    extraPackages = [ pkgs.nordzy-cursor-theme ];
+    settings.Theme.CursorTheme = cursorTheme;
+  };
+  environment.variables = {
+    XCURSOR_THEME = cursorTheme;
+    XCURSOR_SIZE = toString cursorSize;
+  };
+
   home-manager.users.${username} = { ... }: {
     stylix.targets = {
+      btop.enable = true;
       alacritty.enable = true;
       firefox = {
         enable = true;

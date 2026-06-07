@@ -19,15 +19,14 @@ let
 
       zellij = { # terminal multiplexer
         enable = true;
-        settings = {
-          theme = "catppuccin-mocha";
-          show_startup_tips = false;
-        };
+        settings.show_startup_tips = false;
       };
 
       zoxide = { # better cd
         enable = true;
       };
+
+      lazygit.enable = true;
     };
   };
 in
