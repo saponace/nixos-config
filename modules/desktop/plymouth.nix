@@ -25,8 +25,8 @@
       "udev.log_level=3"
       "systemd.show_status=auto"
     ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    loader.timeout = 0;
+    # Do not set to 0 or it will hide the OS choice for bootloaders and
+    # not possible to choose which generation to boot from
+    loader.timeout = 5;
   };
 }
