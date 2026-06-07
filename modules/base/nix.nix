@@ -50,6 +50,9 @@
     environment = {
       systemPackages = with pkgs; [
         nh
+        nixfmt
+        statix
+        deadnix
       ];
 
       sessionVariables = {

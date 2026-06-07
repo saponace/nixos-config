@@ -1,20 +1,18 @@
 { username, ... }:
 
 let
-  nvimConfig =
-    { pkgs, ... }:
-    {
-      programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-        viAlias = true;
-      };
-
-      home.file.".config/nvim" = {
-        source = ./config;
-        recursive = true;
-      };
+  nvimConfig = _: {
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
     };
+
+    home.file.".config/nvim" = {
+      source = ./config;
+      recursive = true;
+    };
+  };
 in
 {
   home-manager.users.root =
@@ -45,8 +43,7 @@ in
         # Prefer Nix-managed LSP/formatters over Mason downloads
         lua-language-server
         nil
-        nixfmt
-        statix
+
         stylua
         shfmt
       ];

@@ -62,8 +62,11 @@
         };
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
-        hooks.nixfmt-rfc-style.enable = true;
-        hooks.statix.enable = true;
+        hooks = {
+          nixfmt-rfc-style.enable = true;
+          statix.enable = true;
+          deadnix.enable = true;
+        };
       };
     in
     {
