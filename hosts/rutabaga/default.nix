@@ -16,7 +16,5 @@
 
   services.xserver.xkb.layout = "fr";
 
-  console.keyMap = "fr";
-
   system.stateVersion = "26.05";
 }

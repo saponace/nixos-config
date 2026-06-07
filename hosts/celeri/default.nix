@@ -24,7 +24,5 @@
     variant = "intl";
   };
 
-  console.keyMap = "us";
-
   system.stateVersion = "26.05";
 }
