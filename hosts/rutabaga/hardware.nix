@@ -22,7 +22,7 @@
       "sd_mod"
       "rtsx_pci_sdmmc"
     ];
-    initrd.kernelModules = [ ];
+    initrd.kernelModules = [ "i915" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
