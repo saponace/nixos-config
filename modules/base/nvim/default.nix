@@ -15,6 +15,10 @@ let
   };
 in
 {
+  preservation.preserveAt."/persistent".users.${username}.directories = [
+    ".local/share/nvim"
+  ];
+
   home-manager.users.root =
     { ... }:
     {

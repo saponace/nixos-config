@@ -18,6 +18,10 @@ let
   };
 in
 {
+  preservation.preserveAt."/persistent".users.${username}.files = [
+    ".config/zsh/.zhistory"
+  ];
+
   home-manager.users.root =
     { ... }:
     {

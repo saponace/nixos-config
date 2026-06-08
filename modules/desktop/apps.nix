@@ -18,6 +18,12 @@
 
   programs.steam.enable = true;
 
+  preservation.preserveAt."/persistent".users.${username}.directories = [
+    ".config/mozilla"
+    ".local/share/keyrings"
+    "Bitwig Studio"
+  ];
+
   home-manager.users.${username} = _: {
     programs = {
       firefox.enable = true;

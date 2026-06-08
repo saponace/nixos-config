@@ -50,7 +50,6 @@ in
     jmtpfs # Androip Media Transfer Protocol
     jq
     rsync
-    sshfs
     unzip
     wget
     zip

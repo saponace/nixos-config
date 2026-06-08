@@ -15,4 +15,9 @@
   };
 
   users.users.${username}.extraGroups = [ "networkmanager" ];
+
+  preservation.preserveAt."/persistent".directories = [
+    "/var/lib/bluetooth"
+    "/etc/NetworkManager/system-connections"
+  ];
 }

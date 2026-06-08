@@ -59,6 +59,7 @@
           modules = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base
             home-manager.nixosModules.home-manager
+            preservation.nixosModules.default
             hostPath
             ./profiles/base.nix
           ];
