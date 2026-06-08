@@ -17,6 +17,11 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    preservation.url = "github:nix-community/preservation";
   };
 
   outputs =
@@ -27,19 +32,23 @@
       stylix,
       nixos-raspberrypi,
       pre-commit-hooks,
+      disko,
+      preservation,
       ...
     }:
     let
       username = "saponace";
       userEmail = "saponace@gmail.com";
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      mkHost =
+      mkDesktop =
         hostPath:
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit self username userEmail; };
           modules = [
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+            preservation.nixosModules.default
             hostPath
           ];
         };
@@ -65,9 +74,9 @@
     in
     {
       nixosConfigurations = {
-        celeri = mkHost ./hosts/celeri;
-        rutabaga = mkHost ./hosts/rutabaga;
-        vm = mkHost ./hosts/vm;
+        celeri = mkDesktop ./hosts/celeri;
+        rutabaga = mkDesktop ./hosts/rutabaga;
+        vm = mkDesktop ./hosts/vm;
         topinambour = mkRpi5Server ./hosts/topinambour;
       };
 

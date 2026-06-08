@@ -3,6 +3,8 @@
 {
   imports = [
     ./hardware.nix
+    ./disko.nix
+    ./preservation.nix
     ../../profiles/base.nix
     ../../profiles/desktop.nix
     ../../modules/peripherals/logitech.nix
@@ -18,6 +20,9 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+
+  fileSystems."/nix".neededForBoot = true;
+  fileSystems."/persistent".neededForBoot = true;
 
   services.xserver.xkb = {
     layout = "us";
