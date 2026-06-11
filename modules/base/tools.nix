@@ -49,6 +49,7 @@ in
     udiskie
     jmtpfs # Androip Media Transfer Protocol
     jq
+    pre-commit
     rsync
     sshfs
     unzip
