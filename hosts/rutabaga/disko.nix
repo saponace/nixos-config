@@ -9,7 +9,7 @@
     };
 
     disk.main = {
-      device = "/dev/sda"; # verify with lsblk before running disko-install
+      device = "/dev/sda"; # overridden by --disk main /dev/[DISK] at install time
       type = "disk";
       content = {
         type = "gpt";

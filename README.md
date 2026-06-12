@@ -4,26 +4,23 @@ NixOS configuration repo (flakes + Home Manager).
 
 ## Fresh Install
 
-After installing NixOS and rebooting into the new system:
+Boot from the NixOS graphical ISO, close the installer, and open a terminal.
 
-1) In a nix-shell with `git`:
-
-2) Clone this repo
+1. Verify the target disk name:
 ```bash
-git clone https://github.com/saponace/nixos-config.git
-cd nixos-config/
-` ``
-
-3) Optional - Copy the generated hardware config if it is the first install on this host
-```bash
-sudo cp /etc/nixos/hardware-configuration.nix hosts/[HOST]/hardware.nix
-git add hosts/[HOST]/hardware.nix
+lsblk
 ```
 
-4) Build
+2. Update `hosts/[HOST]/disko.nix` if the disk device or swap size differs from the defaults, then run:
 ```bash
-sudo nixos-rebuild switch --flake .#[HOST]
+nix run github:nix-community/disko/latest#disko-install -- \
+  --flake github:saponace/nixos-config#[HOST] \
+  --disk main /dev/[DISK]
 ```
+
+This formats the disk and installs NixOS in one step. Reboot when done.
+
+> **Note:** The `--disk main /dev/[DISK]` argument overrides the device in `disko.nix` at install time. Swap size is hardcoded per host.
 
 ## Development
 
