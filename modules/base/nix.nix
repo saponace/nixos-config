@@ -56,7 +56,7 @@
       ];
 
       sessionVariables = {
-        NH_FLAKE = "/home/${username}/nixos-config/"; # Used by nh
+        NH_FLAKE = "/home/${username}/repos/nixos-config/"; # Used by nh
       };
     };
 

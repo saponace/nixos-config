@@ -22,6 +22,7 @@
         }
       ];
       users.${username}.directories = [
+        "repos"
         "Bitwig\ Studio"
       ];
     };
