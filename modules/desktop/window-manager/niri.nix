@@ -22,6 +22,8 @@
       wdisplays # arrange monitor layout
     ];
 
+    preservation.preserveAt."/persistent".users.${username}.directories = [ ".cache/noctalia" ];
+
     home-manager.users.${username} =
       { lib, ... }:
       {
