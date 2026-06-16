@@ -4,19 +4,16 @@ NixOS configuration repo (flakes + Home Manager).
 
 ## Fresh Install
 
-Boot from the NixOS graphical ISO, close the installer, and open a terminal.
-
-1. Verify the target disk name and update `hosts/[HOST]/disko.nix` if the device or swap size differs from the defaults.
-
-2. Install:
 ```bash
-sudo nix run --extra-experimental-features "nix-command flakes" \
-  github:nix-community/disko/latest#disko-install -- \
-  --flake github:saponace/nixos-config#[HOST] \
-  --disk main /dev/[DISK]
-```
+lsblk  # confirm the disk matches `device` in hosts/[HOST]/disko.nix
 
-This formats the disk and installs NixOS in one step. Reboot when done.
+sudo nix run --extra-experimental-features "nix-command flakes" \
+  github:nix-community/disko -- \
+  --mode destroy,format,mount \
+  --flake github:saponace/nixos-config#[HOST]
+
+sudo nixos-install --flake github:saponace/nixos-config#[HOST]
+```
 
 ## Development
 

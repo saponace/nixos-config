@@ -9,7 +9,7 @@
     };
 
     disk.main = {
-      device = "/dev/nvme0n1"; # overridden by --disk main /dev/[DISK] at install time
+      device = "/dev/nvme0n1";
       type = "disk";
       content = {
         type = "gpt";

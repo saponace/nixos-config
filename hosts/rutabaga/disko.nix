@@ -9,7 +9,7 @@
     };
 
     disk.main = {
-      device = "/dev/sda"; # overridden by --disk main /dev/[DISK] at install time
+      device = "/dev/sda";
       type = "disk";
       content = {
         type = "gpt";
