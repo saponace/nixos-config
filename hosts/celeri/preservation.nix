@@ -8,7 +8,6 @@
           directory = "/var/lib/nixos";
           inInitrd = true;
         }
-        "/tmp"
       ];
       files = [
         {
