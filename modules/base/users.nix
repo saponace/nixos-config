@@ -2,12 +2,14 @@
   pkgs,
   username,
   userEmail,
+  config,
   ...
 }:
 
 {
   users.users.${username} = {
     isNormalUser = true;
+    uid = 1000;
     extraGroups = [
       "wheel"
     ];
@@ -17,6 +19,11 @@
   };
 
   programs.zsh.enable = true;
+
+  # Pre-create sudo's lecture marker so it never lectures
+  systemd.tmpfiles.rules = [
+    "f /var/db/sudo/lectured/${toString config.users.users.${username}.uid} 0600 root root -"
+  ];
 
   home-manager.users.root.home.stateVersion = "26.05";
 
