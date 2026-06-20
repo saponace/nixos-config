@@ -7,10 +7,15 @@ NixOS configuration repo (flakes + Home Manager).
 ```bash
 lsblk  # confirm the disk matches `device` in hosts/[HOST]/disko.nix
 
+# partition, format, mount (also activates swap)
 sudo nix run --extra-experimental-features "nix-command flakes" \
   github:nix-community/disko -- \
   --mode destroy,format,mount \
   --flake github:saponace/nixos-config#[HOST]
+
+# seed the login password into /persistent
+sudo install -d -m700 /mnt/persistent/passwords
+nix-shell -p mkpasswd --run 'mkpasswd -m sha-512' | sudo tee /mnt/persistent/passwords/[USER]
 
 sudo nixos-install --flake github:saponace/nixos-config#[HOST]
 ```
