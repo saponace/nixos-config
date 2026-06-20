@@ -13,11 +13,14 @@ sudo nix run --extra-experimental-features "nix-command flakes" \
   --mode destroy,format,mount \
   --flake github:saponace/nixos-config#[HOST]
 
-# seed the login password into /persistent
-sudo install -d -m700 /mnt/persistent/passwords
-nix-shell -p mkpasswd --run 'mkpasswd -m sha-512' | sudo tee /mnt/persistent/passwords/[USER]
-
 sudo nixos-install --flake github:saponace/nixos-config#[HOST]
+```
+
+After first boot, log in with the initial password (= your username), then set a
+real one (kept on `/persistent`; until then the initial password stays active):
+
+```bash
+nix-shell -p mkpasswd --run 'mkpasswd -m sha-512' | sudo tee /persistent/password
 ```
 
 ## Development
