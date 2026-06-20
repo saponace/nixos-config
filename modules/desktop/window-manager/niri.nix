@@ -25,6 +25,7 @@
     preservation.preserveAt."/persistent".users.${username}.directories = [
       ".cache/noctalia"
       ".config/noctalia/plugins"
+      "Pictures/Wallpapers"
     ];
 
     home-manager.users.${username} =
