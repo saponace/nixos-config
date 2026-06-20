@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  config,
   username,
   userEmail,
   ...
@@ -14,10 +12,8 @@
       "wheel"
     ];
     shell = pkgs.zsh;
-    # initialPassword is kept on purpose as a safety net if persistent hashed pwd file is absent
-    #   - it's the only password source on non-impermanent hosts
-    initialPassword = username;
-    hashedPasswordFile = lib.mkIf config.preservation.enable "/persistent/password";
+    # Password comes from is seeded to the persistent volume at install (see README).
+    hashedPasswordFile = "/persistent/password";
   };
 
   programs.zsh.enable = true;
