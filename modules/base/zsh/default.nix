@@ -18,9 +18,15 @@ let
   };
 in
 {
-  preservation.preserveAt."/persistent".users.${username}.files = [
-    ".config/zsh/.zhistory"
-  ];
+  preservation.preserveAt."/persistent".users.${username} = {
+    files = [
+      ".config/zsh/.zhistory"
+      ".config/zsh/.zdirs"
+    ];
+    directories = [
+      ".local/share/zoxide"
+    ];
+  };
 
   home-manager.users.root =
     { ... }:
