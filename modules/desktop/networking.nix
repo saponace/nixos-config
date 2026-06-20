@@ -5,14 +5,8 @@
   services.blueman.enable = true; # Bluetooth audio
 
   networking = {
-    networkmanager = {
-      enable = true;
-      insertNameservers = [ "1.1.1.1" ];
-    };
-    # DNS is owned by NetworkManager. Avoid networking.nameservers/resolvconf
-    # because that "static" path pushes resolv.conf through openresolv, whose avahi
-    # hook fails network-local-commands at boot.
-    resolvconf.enable = false;
+    networkmanager.enable = true;
+    nameservers = [ "1.1.1.1" ];
   };
 
   services.avahi = {
