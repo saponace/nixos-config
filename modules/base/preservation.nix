@@ -21,7 +21,10 @@
           inInitrd = true;
         }
       ];
-      users.${username}.directories = [ "repos" ];
+      users.${username}.directories = [
+        "repos"
+        "keep" # catch-all for files to keep across reboots while working on something
+      ];
     };
   };
 
