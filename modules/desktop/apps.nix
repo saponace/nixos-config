@@ -22,6 +22,8 @@
     ".config/mozilla"
     ".local/share/keyrings"
     "Bitwig Studio"
+    ".local/share/Steam"
+    ".steam"
   ];
 
   home-manager.users.${username} = _: {
