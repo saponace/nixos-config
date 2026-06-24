@@ -33,6 +33,6 @@ echo "==> Seeding the login password (hashed, stored on the persistent volume)"
 mkpasswd -m sha-512 | sudo tee /mnt/persistent/password >/dev/null
 
 echo "==> Installing NixOS"
-sudo nixos-install --flake "${flake}#${host}"
+sudo nixos-install --no-root-passwd --flake "${flake}#${host}"
 
 echo "==> Done. Reboot into '${host}'."

@@ -12,11 +12,11 @@ nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos
 This runs `scripts/install.sh`, which: 
 * Partitions/formats/mounts it with disko
 * Seeds the hashed login password to `/mnt/persistent/password`
-* Runs `nixos-install`.
+* Runs `nixos-install`
 
 ## Install with existing /persistent/
 ```bash
-sudo nixos-install --flake github:saponace/nixos-config#[HOST]
+sudo nixos-install --no-root-passwd --flake github:saponace/nixos-config#[HOST]
 ```
 
 ## Development
