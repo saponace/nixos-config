@@ -20,6 +20,9 @@ This runs `scripts/install.sh`, which:
 sudo nixos-install --no-root-passwd --flake github:saponace/nixos-config#[HOST]
 ```
 
+## Personalizing
+Identity lives in `flake.nix` which defines `usernamne` and `userEmail`
+
 ## Development
 
 ### Install git hooks (once per clone)
