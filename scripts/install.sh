@@ -1,15 +1,15 @@
 set -euo pipefail
 
 usage() {
-  echo "usage: install <host> [flake-ref]" >&2
-  echo "  host       one of the nixosConfigurations (e.g. celeri, rutabaga)" >&2
-  echo "  flake-ref  defaults to github:saponace/nixos-config" >&2
+  echo "usage: install <host>" >&2
+  echo "  host  one of the nixosConfigurations (e.g. celeri, rutabaga)" >&2
   exit 1
 }
 
 [ "$#" -ge 1 ] || usage
 host="$1"
-flake="${2:-github:saponace/nixos-config}"
+slug="saponace/nixos-config"
+flake="github:${slug}"
 
 echo "==> Current block devices:"
 lsblk
@@ -34,5 +34,14 @@ mkpasswd -m sha-512 | sudo tee /mnt/persistent/password >/dev/null
 
 echo "==> Installing NixOS"
 sudo nixos-install --no-root-passwd --flake "${flake}#${host}"
+
+# Clone this repo into ~/repos/.
+echo "==> Cloning the config into ~/repos"
+repos_dir="/mnt/persistent/home/${user_name}/repos"  # user_name is injected from flake.nix
+sudo mkdir -p "$repos_dir"
+sudo git clone "https://github.com/${slug}.git" "${repos_dir}/nixos-config"
+
+# chown by name from inside the installed system, where the user/group resolve.
+sudo nixos-enter --root /mnt -c "chown -R ${user_name}:users /persistent/home/${user_name}"
 
 echo "==> Done. Reboot into '${host}'."

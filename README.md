@@ -13,6 +13,7 @@ This runs `scripts/install.sh`, which:
 * Partitions/formats/mounts it with disko
 * Seeds the hashed login password to `/mnt/persistent/password`
 * Runs `nixos-install`
+* Clones this repo into `~/repos/`
 
 ## Install with existing /persistent/
 ```bash

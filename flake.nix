@@ -71,8 +71,12 @@
           pkgs.mkpasswd
           pkgs.util-linux # lsblk
           pkgs.nixos-install-tools
+          pkgs.git # clone the config into the persistent home
         ];
-        text = builtins.readFile ./scripts/install.sh;
+        text = ''
+          user_name=${username}
+        ''
+        + builtins.readFile ./scripts/install.sh;
       };
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
