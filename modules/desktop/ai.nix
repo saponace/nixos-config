@@ -14,7 +14,7 @@
   };
 
   preservation.preserveAt."/persistent" = {
-    directories = [ "/var/lib/ollama" ];
+    directories = [ "/var/lib/private/ollama" ];
     users.${username} = {
       directories = [
         ".claude"
