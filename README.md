@@ -1,7 +1,5 @@
 # nixos-config
 
-NixOS configuration repo (flakes + Home Manager).
-
 ## Fresh Install
 
 ```bash
