@@ -14,6 +14,7 @@
           inInitrd = true;
         }
         "/var/lib/systemd"
+        "/var/log/journal"
       ];
       files = [
         {
