@@ -239,6 +239,32 @@ services:
 ###########################################################################
 ###########################################################################
 ##
+##  Docker Compose File: Recyclarr (recyclarr)
+##  Function: Sync TRaSH Guide quality profiles to Radarr and Sonarr
+##
+##  Documentation: https://recyclarr.dev/wiki/
+##
+###########################################################################
+###########################################################################
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:7.4.1
+    container_name: recyclarr
+    user: ${PUID}:${PGID}
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/recyclarr:/config
+      - /etc/stak/recyclarr.yml:/config/recyclarr.yml:ro
+    environment:
+      - TZ=${TIMEZONE:?err}
+      - CRON_SCHEDULE=0 3 * * 0
+      - SONARR_API_KEY=${SONARR_API_KEY:?err}
+      - RADARR_API_KEY=${RADARR_API_KEY:?err}
+    networks:
+      - stak
+
+###########################################################################
+###########################################################################
+##
 ##  Docker Compose File: calibre-web (LinuxServer.io)
 ##  Function: Book library manager
 ##

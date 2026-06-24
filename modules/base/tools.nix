@@ -46,9 +46,8 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    udiskie
-    jmtpfs # Androip Media Transfer Protocol
     jq
+    pre-commit
     rsync
     unzip
     wget

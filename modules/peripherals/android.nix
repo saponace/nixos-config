@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.android-tools ];
+  environment.systemPackages = [
+    pkgs.android-tools # adb / fastboot
+    pkgs.jmtpfs # mount Android storage over MTP
+  ];
 
   # Disable USB autosuspend for ADB devices (Android ADB interface: class ff, subclass 42, protocol 01)
   services.udev.extraRules = ''

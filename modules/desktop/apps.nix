@@ -28,7 +28,16 @@
 
   home-manager.users.${username} = _: {
     programs = {
-      firefox.enable = true;
+      firefox = {
+        enable = true;
+        profiles.default = {
+          id = 0;
+          settings = {
+            # Don't show the "Firefox crashed" prompt after an unclean shutdown
+            "browser.sessionstore.resume_from_crash" = false;
+          };
+        };
+      };
       alacritty = {
         enable = true;
         settings.keyboard.bindings = [

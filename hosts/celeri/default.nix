@@ -1,4 +1,4 @@
-{ username, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
@@ -13,14 +13,28 @@
     ../../modules/peripherals/android.nix
   ];
 
+  niri.outputsConfig =
+    let
+      initSetup = pkgs.writeShellApplication {
+        name = "init-setup";
+        runtimeInputs = [
+          pkgs.niri
+          pkgs.jq
+        ];
+        text = builtins.readFile ./init-setup.sh;
+      };
+    in
+    builtins.readFile ./monitors.kdl
+    + ''
+      spawn-at-startup "${initSetup}/bin/init-setup"
+    '';
+
   networking.hostName = "celeri";
 
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-
-  niri.outputsConfig = builtins.readFile ./monitors.kdl;
 
   preservation.preserveAt."/persistent".users.${username}.directories = [ "samples" ];
 

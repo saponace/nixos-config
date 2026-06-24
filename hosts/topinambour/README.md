@@ -46,5 +46,12 @@ Create `/mnt/wd/stak-config/secrets.env` with service secrets that are not versi
 This file persists across `nh os switch` rebuilds — only needed once.
 
 ```sh
-echo "HOMARR_SECRET_ENCRYPTION_KEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)" | tee /mnt/wd/stak-config/secrets.env
+echo "HOMARR_SECRET_ENCRYPTION_KEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)" > /mnt/wd/stak-config/secrets.env
+```
+
+Then append the API keys for Recyclarr (find them in each app under Settings → General → Security → API Key):
+
+```sh
+echo "SONARR_API_KEY=<sonarr api key>" >> /mnt/wd/stak-config/secrets.env
+echo "RADARR_API_KEY=<radarr api key>" >> /mnt/wd/stak-config/secrets.env
 ```

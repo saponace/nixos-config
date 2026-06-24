@@ -31,6 +31,7 @@
     etc = {
       "stak/docker-compose.yaml".source = ./stak/docker-compose-stak.yaml;
       "stak/docker-compose.env".source = ./stak/docker-compose.env;
+      "stak/recyclarr.yml".source = ./stak/recyclarr.yml;
     };
   };
 
