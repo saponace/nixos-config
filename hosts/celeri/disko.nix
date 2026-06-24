@@ -59,6 +59,14 @@
                     "noatime"
                   ];
                 };
+                # Holds snapper snapshots of /persistent
+                "/persistent/.snapshots" = {
+                  mountpoint = "/persistent/.snapshots";
+                  mountOptions = [
+                    "subvol=persistent/.snapshots"
+                    "noatime"
+                  ];
+                };
                 # Disk-backed, ephemeral ~/Downloads. Emptied on boot by ephemeral-downloads.nix.
                 "/downloads" = {
                   mountpoint = "/home/${username}/Downloads";
