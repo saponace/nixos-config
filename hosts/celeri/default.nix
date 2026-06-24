@@ -1,18 +1,16 @@
-{ ... }:
+{ username, ... }:
 
 {
   imports = [
     ./hardware.nix
     ./disko.nix
-    ./preservation.nix
+    ../../modules/base/preservation.nix
     ../../profiles/base.nix
     ../../profiles/desktop.nix
     ../../modules/peripherals/logitech.nix
     ../../modules/peripherals/nintendo-controllers.nix
     ../../modules/peripherals/android.nix
   ];
-
-  niri.outputsConfig = builtins.readFile ./monitors.kdl;
 
   networking.hostName = "celeri";
 
@@ -21,8 +19,9 @@
     efi.canTouchEfiVariables = true;
   };
 
-  fileSystems."/nix".neededForBoot = true;
-  fileSystems."/persistent".neededForBoot = true;
+  niri.outputsConfig = builtins.readFile ./monitors.kdl;
+
+  preservation.preserveAt."/persistent".users.${username}.directories = [ "samples" ];
 
   services.xserver.xkb = {
     layout = "us";
