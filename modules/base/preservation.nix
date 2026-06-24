@@ -2,6 +2,8 @@
 {
   # Shared impermanence core
 
+  imports = [ ./ephemeral-downloads.nix ];
+
   preservation = {
     enable = true;
     preserveAt."/persistent" = {

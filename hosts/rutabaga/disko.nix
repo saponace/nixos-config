@@ -1,3 +1,4 @@
+{ username, ... }:
 {
   disko.devices = {
     nodev."/" = {
@@ -56,6 +57,15 @@
                   mountOptions = [
                     "subvol=persistent"
                     "noatime"
+                  ];
+                };
+                # Disk-backed, ephemeral ~/Downloads. Emptied on boot by ephemeral-downloads.nix.
+                "/downloads" = {
+                  mountpoint = "/home/${username}/Downloads";
+                  mountOptions = [
+                    "subvol=downloads"
+                    "noatime"
+                    "nofail"
                   ];
                 };
               };
