@@ -7,6 +7,7 @@
     ../modules/base/locale.nix
     ../modules/base/users.nix
     ../modules/base/tools.nix
+    ../modules/base/storage.nix
     ../modules/base/zsh
     ../modules/base/nvim
   ];
