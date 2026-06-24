@@ -1,9 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
 
   environment.systemPackages = with pkgs; [
     crosspipe
+  ];
+
+  preservation.preserveAt."/persistent".users.${username}.directories = [
+    ".local/state/wireplumber" # Per-device routing/volume
   ];
 
   security.rtkit.enable = true;
