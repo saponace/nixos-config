@@ -64,6 +64,16 @@
             ./profiles/base.nix
           ];
         };
+      installScript = pkgs.writeShellApplication {
+        name = "install";
+        runtimeInputs = [
+          disko.packages.x86_64-linux.disko
+          pkgs.mkpasswd
+          pkgs.util-linux # lsblk
+          pkgs.nixos-install-tools
+        ];
+        text = builtins.readFile ./scripts/install.sh;
+      };
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
         hooks = {
@@ -79,6 +89,13 @@
         rutabaga = mkDesktop ./hosts/rutabaga;
         vm = mkDesktop ./hosts/vm;
         topinambour = mkRpi5Server ./hosts/topinambour;
+      };
+
+      packages.x86_64-linux.install = installScript;
+
+      apps.x86_64-linux.install = {
+        type = "app";
+        program = "${installScript}/bin/install";
       };
 
       checks.x86_64-linux.pre-commit = preCommitCheck;

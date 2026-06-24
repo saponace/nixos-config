@@ -1,19 +1,21 @@
 # nixos-config
 
-## Fresh Install
+## Fresh Install On a new drive
+
+One command from the installer ISO (prompts for confirmation, then the login
+password):
 
 ```bash
-lsblk  # confirm the disk matches `device` in hosts/[HOST]/disko.nix
+nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#install -- [HOST]
+```
 
-# partition, format, mount (also activates swap)
-sudo nix run --extra-experimental-features "nix-command flakes" \
-  github:nix-community/disko -- \
-  --mode destroy,format,mount \
-  --flake github:saponace/nixos-config#[HOST]
+This runs `scripts/install.sh`, which: 
+* Partitions/formats/mounts it with disko
+* Seeds the hashed login password to `/mnt/persistent/password`
+* Runs `nixos-install`.
 
-# seed the login password
-nix-shell -p mkpasswd --run 'mkpasswd -m sha-512' | sudo tee /mnt/persistent/password
-
+## Install with existing /persistent/
+```bash
 sudo nixos-install --flake github:saponace/nixos-config#[HOST]
 ```
 
