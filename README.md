@@ -2,18 +2,11 @@
 
 ## Fresh Install On a new drive
 
-One command from the installer ISO (prompts for confirmation, then the login
-password):
+One command from the installer ISO (partitions the disk, installs NixOS and seeds `/persistent`. See `scripts/install.sh`):
 
 ```bash
 nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#install -- [HOST]
 ```
-
-This runs `scripts/install.sh`, which: 
-* Partitions/formats/mounts it with disko
-* Seeds the hashed login password to `/mnt/persistent/password`
-* Runs `nixos-install`
-* Clones this repo into `~/repos/`
 
 ## Install with existing /persistent/
 ```bash
