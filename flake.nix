@@ -65,7 +65,7 @@
           ];
         };
       installScript = pkgs.writeShellApplication {
-        name = "install";
+        name = "bootstrap";
         runtimeInputs = [
           disko.packages.x86_64-linux.disko
           pkgs.mkpasswd
@@ -76,7 +76,7 @@
         text = ''
           user_name=${username}
         ''
-        + builtins.readFile ./scripts/install.sh;
+        + builtins.readFile ./scripts/bootstrap.sh;
       };
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
@@ -95,11 +95,11 @@
         topinambour = mkRpi5Server ./hosts/topinambour;
       };
 
-      packages.x86_64-linux.install = installScript;
+      packages.x86_64-linux.bootstrap = installScript;
 
-      apps.x86_64-linux.install = {
+      apps.x86_64-linux.bootstrap = {
         type = "app";
-        program = "${installScript}/bin/install";
+        program = "${installScript}/bin/bootstrap";
       };
 
       checks.x86_64-linux.pre-commit = preCommitCheck;

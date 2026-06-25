@@ -2,10 +2,10 @@
 
 ## Fresh Install On a new drive
 
-One command from the installer ISO (partitions the disk, installs NixOS and seeds `/persistent`. See `scripts/install.sh`):
+One command from the installer ISO (partitions the disk, installs NixOS and seeds `/persistent`. See `scripts/bootstrap.sh`):
 
 ```bash
-nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#install -- [HOST]
+nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#bootstrap -- [HOST]
 ```
 
 ## Install with existing /persistent/

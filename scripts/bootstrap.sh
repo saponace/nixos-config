@@ -1,7 +1,7 @@
 set -euo pipefail
 
 usage() {
-  echo "usage: install <host>" >&2
+  echo "usage: bootstrap <host>" >&2
   echo "  host  one of the nixosConfigurations (e.g. celeri, rutabaga)" >&2
   exit 1
 }
