@@ -91,7 +91,6 @@
       nixosConfigurations = {
         celeri = mkDesktop ./hosts/celeri;
         rutabaga = mkDesktop ./hosts/rutabaga;
-        vm = mkDesktop ./hosts/vm;
         topinambour = mkRpi5Server ./hosts/topinambour;
       };
 
