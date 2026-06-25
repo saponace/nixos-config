@@ -1,8 +1,20 @@
-_:
+{ pkgs, ... }:
 
 {
   boot = {
-    plymouth.enable = true;
+    plymouth = {
+      enable = true;
+      theme = "colorful_loop";
+      themePackages = with pkgs; [
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [
+            "colorful_loop"
+            "square"
+            "hexagon_2"
+          ];
+        })
+      ];
+    };
     consoleLogLevel = 3;
     initrd.verbose = false;
     kernelParams = [
