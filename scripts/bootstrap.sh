@@ -20,11 +20,8 @@ echo "Disko will DESTROY, format and mount the device declared in"
 echo "  hosts/${host}/disko.nix"
 read -rp "Continue installing '${host}'? [y/N] " reply
 case "$reply" in
-  [yY] | [yY][eE][sS]) ;;
-  *)
-    echo "Aborted." >&2
-    exit 1
-    ;;
+  [yY]*) ;;
+  *) echo "Aborted." >&2; exit 1 ;;
 esac
 
 echo "==> Partitioning, formatting and mounting"
@@ -49,4 +46,8 @@ sudo git clone "https://github.com/${slug}.git" "${repos_dir}/nixos-config"
 # chown by name from inside the installed system, where the user/group resolve.
 sudo nixos-enter --root /mnt -c "chown -R ${user_name}:users /persistent/home/${user_name}"
 
-echo "==> Done. Reboot into '${host}'."
+read -rp "Bootstraping complete. Reboot into '${host}' ? [y/N] " reply
+case "$reply" in
+  [yY]*) sudo reboot ;;
+  *) echo "Skipping reboot. Run 'sudo reboot' when ready." ;;
+esac
