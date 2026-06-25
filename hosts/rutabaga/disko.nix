@@ -47,31 +47,21 @@
               subvolumes = {
                 "/nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [
-                    "subvol=nix"
-                    "noatime"
-                  ];
+                  mountOptions = [ "noatime" ];
                 };
                 "/persistent" = {
                   mountpoint = "/persistent";
-                  mountOptions = [
-                    "subvol=persistent"
-                    "noatime"
-                  ];
+                  mountOptions = [ "noatime" ];
                 };
                 # Holds snapper snapshots of /persistent
                 "/persistent/.snapshots" = {
                   mountpoint = "/persistent/.snapshots";
-                  mountOptions = [
-                    "subvol=persistent/.snapshots"
-                    "noatime"
-                  ];
+                  mountOptions = [ "noatime" ];
                 };
                 # Disk-backed, ephemeral ~/Downloads. Emptied on boot by ephemeral-downloads.nix.
                 "/downloads" = {
                   mountpoint = "/home/${username}/Downloads";
                   mountOptions = [
-                    "subvol=downloads"
                     "noatime"
                     "nofail"
                   ];
