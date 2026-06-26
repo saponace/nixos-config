@@ -22,7 +22,8 @@
   preservation.preserveAt."/persistent".users.${username}.directories = [
     ".config/mozilla"
     ".local/share/keyrings"
-    "Bitwig Studio"
+    "Bitwig Studio" # workspace
+    ".BitwigStudio" # license activation, EULA flag, prefs, installed packages
     ".local/share/Steam"
     ".steam"
   ];
