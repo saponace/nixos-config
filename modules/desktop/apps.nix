@@ -11,6 +11,7 @@
 
   environment.systemPackages = with pkgs; [
     bitwig-studio
+    btrfs-assistant # btrfs/snapper GUI
     nautilus
     swayimg
     vlc

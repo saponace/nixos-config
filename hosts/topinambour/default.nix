@@ -7,7 +7,9 @@
 {
   imports = [
     ./hardware.nix
+    ./disko.nix
     ./network.nix
+    ../../modules/base/btrfs.nix
   ];
 
   boot.loader.raspberry-pi.bootloader = "kernel";
@@ -24,6 +26,10 @@
   users.groups.media.gid = 1000;
 
   virtualisation.docker.enable = true;
+
+  preservation.preserveAt."/persistent".directories = [ "/var/lib/docker" ];
+
+  fileSystems."/persistent".neededForBoot = lib.mkForce true;
 
   environment = {
     systemPackages = [ pkgs.docker-compose ];

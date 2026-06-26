@@ -38,7 +38,4 @@
       fileSystems = [ "/persistent" ];
     };
   };
-
-  # Snapshots and btrfs maintenance GUI
-  environment.systemPackages = [ pkgs.btrfs-assistant ];
 }
