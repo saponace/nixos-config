@@ -1,5 +1,15 @@
 { pkgs, username, ... }:
 {
+  system.activationScripts.snapperNixosRebuild = {
+    supportsDryActivation = false;
+    text = ''
+      ${pkgs.snapper}/bin/snapper -c persistent create \
+        --type single \
+        --cleanup-algorithm number \
+        --description "nixos-rebuild"
+    '';
+  };
+
   services = {
     snapper = {
 
