@@ -35,7 +35,10 @@ let
         enable = true;
       };
 
-      lazygit.enable = true;
+      lazygit = {
+        enable = true;
+        settings.disableStartupPopups = true;
+      };
 
       btop = {
         enable = true;
