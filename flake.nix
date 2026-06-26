@@ -65,20 +65,34 @@
             ./profiles/base.nix
           ];
         };
-      installScript = pkgs.writeShellApplication {
-        name = "bootstrap";
-        runtimeInputs = [
-          disko.packages.x86_64-linux.disko
-          pkgs.mkpasswd
-          pkgs.util-linux # lsblk
-          pkgs.nixos-install-tools
-          pkgs.git # clone the config into the persistent home
-        ];
-        text = ''
-          user_name=${username}
-        ''
-        + builtins.readFile ./scripts/bootstrap.sh;
-      };
+      mkBootstrap =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "bootstrap";
+          runtimeInputs = [
+            disko.packages.${system}.disko
+            p.mkpasswd
+            p.util-linux # lsblk
+            p.nixos-install-tools
+            p.git # clone this repo into the persistent home
+          ];
+          text = ''
+            user_name=${username}
+          ''
+          + builtins.readFile ./scripts/bootstrap.sh;
+        };
+      # Minimal RPi5 installer image
+      rpi5InstallerImage =
+        (nixos-raspberrypi.lib.nixosInstaller {
+          specialArgs = { inherit self username userEmail; };
+          modules = [
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+            ./modules/base/nix.nix
+          ];
+        }).config.system.build.sdImage;
       preCommitCheck = pre-commit-hooks.lib.x86_64-linux.run {
         src = ./.;
         hooks = {
@@ -95,11 +109,23 @@
         topinambour = mkRpi5Server ./hosts/topinambour;
       };
 
-      packages.x86_64-linux.bootstrap = installScript;
+      packages = {
+        x86_64-linux.bootstrap = mkBootstrap "x86_64-linux";
+        aarch64-linux = {
+          bootstrap = mkBootstrap "aarch64-linux";
+          installer = rpi5InstallerImage;
+        };
+      };
 
-      apps.x86_64-linux.bootstrap = {
-        type = "app";
-        program = "${installScript}/bin/bootstrap";
+      apps = {
+        x86_64-linux.bootstrap = {
+          type = "app";
+          program = "${self.packages.x86_64-linux.bootstrap}/bin/bootstrap";
+        };
+        aarch64-linux.bootstrap = {
+          type = "app";
+          program = "${self.packages.aarch64-linux.bootstrap}/bin/bootstrap";
+        };
       };
 
       checks.x86_64-linux.pre-commit = preCommitCheck;
