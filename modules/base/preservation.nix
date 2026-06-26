@@ -21,10 +21,15 @@
           inInitrd = true;
         }
       ];
-      users.${username}.directories = [
-        "repos"
-        "keep" # catch-all for files to keep across reboots while working on something
-      ];
+      users.${username} = {
+        directories = [
+          "repos"
+          "keep"
+        ];
+        files = [
+          ".config/git/ignore" # global gitignore
+        ];
+      };
     };
   };
 
