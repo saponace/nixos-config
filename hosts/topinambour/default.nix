@@ -20,7 +20,6 @@
 
   users.users.${username}.extraGroups = [
     "docker"
-    "networkmanager"
     "media"
   ];
 

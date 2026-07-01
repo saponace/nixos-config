@@ -1,23 +1,19 @@
 { username, ... }:
-
 {
-  hardware.bluetooth.enable = true; # Bluetooth
-  services.blueman.enable = true; # Bluetooth audio
-
   networking = {
     networkmanager.enable = true;
     nameservers = [ "1.1.1.1" ];
   };
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true; # resolve .local hostnames on the LAN
-  };
-
   users.users.${username}.extraGroups = [ "networkmanager" ];
 
+  # Resolve .local hostnames on the LAN.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+
+  # Persist connection profiles across the tmpfs root.
   preservation.preserveAt."/persistent".directories = [
-    "/var/lib/bluetooth"
     "/etc/NetworkManager/system-connections"
   ];
 }

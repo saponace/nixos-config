@@ -4,6 +4,7 @@
   imports = [
     ../modules/base/nix.nix
     ../modules/base/ssh.nix
+    ../modules/base/networking.nix
     ../modules/base/locale.nix
     ../modules/base/users.nix
     ../modules/base/tools.nix
