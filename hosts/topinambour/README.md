@@ -26,6 +26,7 @@ Replace `/dev/sdX` with your SD card device (`lsblk` to find it).
 Insert the card, attach a monitor + keyboard, and power on. The installer auto-logs in
 on the console. With an internet connection, run:
 
+TODO: remove branch postfix
 ```sh
 nix run github:saponace/nixos-config/preservation#bootstrap topinambour
 ```
