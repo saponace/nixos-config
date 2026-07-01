@@ -6,9 +6,10 @@ From the installer ISO (partitions the disk, installs NixOS, and seeds `/persist
 nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#bootstrap -- [HOST]
 ```
 
-## Install with existing /persistent
+## Reinstall onto an existing disk (keep /persistent)
+Rebuilds the system without reformatting (`/persistent' pre-populated). Mounts the existing layout from `hosts/[HOST]/disko.nix` then installs.
 ```bash
-sudo nixos-install --no-root-passwd --flake github:saponace/nixos-config#[HOST]
+nix run --extra-experimental-features "nix-command flakes" github:saponace/nixos-config#refresh -- [HOST]
 ```
 
 ## Personalizing

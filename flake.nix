@@ -72,6 +72,8 @@
             ./profiles/base.nix
           ];
         };
+
+      # Format disk and install
       mkBootstrap =
         system:
         let
@@ -90,6 +92,21 @@
             user_name=${username}
           ''
           + builtins.readFile ./scripts/bootstrap.sh;
+        };
+
+      # Install with existing /persistent setup
+      mkRefresh =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "refresh";
+          runtimeInputs = [
+            disko.packages.${system}.disko
+            p.nixos-install-tools
+          ];
+          text = builtins.readFile ./scripts/refresh.sh;
         };
       # Minimal RPi5 installer image
       rpi5InstallerImage =
@@ -117,21 +134,37 @@
       };
 
       packages = {
-        x86_64-linux.bootstrap = mkBootstrap "x86_64-linux";
+        x86_64-linux = {
+          bootstrap = mkBootstrap "x86_64-linux";
+          refresh = mkRefresh "x86_64-linux";
+        };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";
+          refresh = mkRefresh "aarch64-linux";
           installer = rpi5InstallerImage;
         };
       };
 
       apps = {
-        x86_64-linux.bootstrap = {
-          type = "app";
-          program = "${self.packages.x86_64-linux.bootstrap}/bin/bootstrap";
+        x86_64-linux = {
+          bootstrap = {
+            type = "app";
+            program = "${self.packages.x86_64-linux.bootstrap}/bin/bootstrap";
+          };
+          refresh = {
+            type = "app";
+            program = "${self.packages.x86_64-linux.refresh}/bin/refresh";
+          };
         };
-        aarch64-linux.bootstrap = {
-          type = "app";
-          program = "${self.packages.aarch64-linux.bootstrap}/bin/bootstrap";
+        aarch64-linux = {
+          bootstrap = {
+            type = "app";
+            program = "${self.packages.aarch64-linux.bootstrap}/bin/bootstrap";
+          };
+          refresh = {
+            type = "app";
+            program = "${self.packages.aarch64-linux.refresh}/bin/refresh";
+          };
         };
       };
 
