@@ -438,7 +438,7 @@
         "resumeScreenOffCommand": "",
         "resumeSuspendCommand": "",
         "screenOffCommand": "",
-        "screenOffTimeout": 300,
+        "screenOffTimeout": 600,
         "suspendCommand": "",
         "suspendTimeout": 0
     },
