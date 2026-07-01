@@ -9,6 +9,7 @@
     ./hardware.nix
     ./disko.nix
     ./network.nix
+    ../../modules/base/preservation.nix
     ../../modules/base/btrfs.nix
   ];
 
