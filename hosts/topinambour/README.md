@@ -1,34 +1,30 @@
-## Raspberry-pi installation
-
-topinambour is installed by flashing a throwaway installer image, then bootstrap it.
+## Raspberry-pi 5 bootstraping
 
 ### 1. Build the installer image
 
-Run on a x86 machine. Requires aarch64 binaries (from the
-nixos-raspberrypi cachix cache or aarch64 emulation via binfmt).
+Run on x86 (needs aarch64 binaries from the nixos-raspberrypi cachix cache or binfmt emulation):
 
 ```sh
 nix build .#packages.aarch64-linux.installer --accept-flake-config
 ```
 
-The image will be produced at `result/sd-image/*.img.zst`.
+Image: `result/sd-image/*.img.zst`.
 
-### 2. Flash the SD card
+### 2. Flash to a USB drive
 
 ```sh
 zstdcat result/sd-image/*.img.zst | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
-Replace `/dev/sdX` with your SD card device (`lsblk` to find it).
+`/dev/sdX` = the USB drive (`lsblk`).
 
-### 3. Boot the installer and run bootstrap
+### 3. Boot from USB and run bootstrap
 
-Insert the card, attach a monitor + keyboard, and power on. The installer auto-logs in
-on the console. With an internet connection, run:
+Insert the live USB and the target SD, attach monitor + keyboard. Boot from USB.
 
 TODO: remove branch postfix
 ```sh
-nix run github:saponace/nixos-config/preservation#bootstrap topinambour
+nix run github:saponace/nixos-config/preservation-topinambour#bootstrap topinambour
 ```
 
 ### 4. Generate secrets (first install only)
