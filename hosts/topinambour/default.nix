@@ -15,6 +15,10 @@
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 
+  # preservation's inInitrd needs systemd initrd; unlike 26.11 it's not the 25.11
+  # default. TODO: drop once nixos-raspberrypi's nixpkgs defaults it on.
+  boot.initrd.systemd.enable = true;
+
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
 
@@ -68,7 +72,11 @@
       };
     };
 
+  # HM 25.11 enum caps home.stateVersion at "25.11".
+  home-manager.users.root.home.stateVersion = "25.11";
   home-manager.users.${username} = _: {
+    home.stateVersion = "25.11";
+
     programs.zsh = {
       shellAliases = {
         stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";

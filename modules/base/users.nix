@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   username,
   userEmail,
   config,
@@ -25,10 +26,11 @@
     "f /var/db/sudo/lectured/${toString config.users.users.${username}.uid} 0600 root root -"
   ];
 
-  home-manager.users.root.home.stateVersion = "26.05";
+  # mkDefault so topinambour (HM 25.11, enum caps at "25.11") can lower it.
+  home-manager.users.root.home.stateVersion = lib.mkDefault "26.05";
 
   home-manager.users.${username} = _: {
-    home.stateVersion = "26.05";
+    home.stateVersion = lib.mkDefault "26.05";
 
     xdg.enable = true;
 

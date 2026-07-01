@@ -5,13 +5,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # HM for the RPi, matching nixos-raspberrypi's nixpkgs (master needs 26.x lib).
+    # TODO: bump release branch when nixos-raspberrypi moves off nixos-25.11.
+    home-manager-rpi = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
+    };
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Don't follow this flake's nixpkgs: it needs its own pin (stdenv.hostPlatform.linux-kernel).
     };
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -29,6 +35,7 @@
       self,
       nixpkgs,
       home-manager,
+      home-manager-rpi,
       stylix,
       nixos-raspberrypi,
       pre-commit-hooks,
@@ -58,7 +65,7 @@
           specialArgs = { inherit self username userEmail; };
           modules = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-            home-manager.nixosModules.home-manager
+            home-manager-rpi.nixosModules.home-manager
             disko.nixosModules.disko
             preservation.nixosModules.default
             hostPath
