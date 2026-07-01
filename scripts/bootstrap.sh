@@ -9,8 +9,8 @@ usage() {
 [ "$#" -ge 1 ] || usage
 host="$1"
 slug="saponace/nixos-config"
-# TODO: testing — drop "/preservation" once that branch is merged to master.
-flake="github:${slug}/preservation"
+# TODO: testing — drop the branch suffix once merged to master.
+flake="github:${slug}/preservation-topinambour"
 
 echo "==> Current block devices:"
 lsblk
