@@ -15,9 +15,35 @@
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 
+  # SD command queueing hangs I/O with some cards
+  hardware.raspberry-pi.config.all.base-dt-params.sd_cqe = {
+    enable = true;
+    value = "0";
+  };
+
+  # Headless: no GPU, and its power-on spike hangs boot on marginal PSUs
+  hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
+
   # preservation's inInitrd needs systemd initrd; unlike 26.11 it's not the 25.11
   # default. TODO: drop once nixos-raspberrypi's nixpkgs defaults it on.
   boot.initrd.systemd.enable = true;
+
+  # USB keyboard in initrd (debug shell access)
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "usbhid"
+    "hid_generic"
+    "hid_logitech_dj"
+    "hid_logitech_hidpp"
+  ];
+
+  # TODO: temp — initrd hang debugging: tty9 shell + verbose systemd on console
+  boot.kernelParams = [
+    "rd.systemd.debug_shell=1"
+    "rd.systemd.log_level=debug"
+    "systemd.log_level=debug"
+    "systemd.journald.forward_to_console=1"
+  ];
 
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
