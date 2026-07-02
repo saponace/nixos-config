@@ -59,9 +59,12 @@
             hostPath
           ];
         };
+      # nixosSystem, not nixosSystemFull: Full's global overlay (RPi-optimised
+      # ffmpeg/pipewire) rebuilds lots of uncached graphical deps for nothing on
+      # a headless server.
       mkRpi5Server =
         hostPath:
-        nixos-raspberrypi.lib.nixosSystemFull {
+        nixos-raspberrypi.lib.nixosSystem {
           specialArgs = { inherit self username userEmail; };
           modules = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base
@@ -92,6 +95,22 @@
             user_name=${username}
           ''
           + builtins.readFile ./scripts/bootstrap.sh;
+        };
+
+      # Format a removable disk and install a host onto it, from another machine
+      mkFlash =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "flash";
+          runtimeInputs = [
+            disko.packages.${system}.disko-install
+            p.mkpasswd
+            p.util-linux # lsblk, wipefs, mount
+          ];
+          text = builtins.readFile ./scripts/flash.sh;
         };
 
       # Install with existing /persistent setup
@@ -137,6 +156,7 @@
         x86_64-linux = {
           bootstrap = mkBootstrap "x86_64-linux";
           refresh = mkRefresh "x86_64-linux";
+          flash = mkFlash "x86_64-linux";
         };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";
@@ -154,6 +174,10 @@
           refresh = {
             type = "app";
             program = "${self.packages.x86_64-linux.refresh}/bin/refresh";
+          };
+          flash = {
+            type = "app";
+            program = "${self.packages.x86_64-linux.flash}/bin/flash";
           };
         };
         aarch64-linux = {

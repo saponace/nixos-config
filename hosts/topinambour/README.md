@@ -1,33 +1,23 @@
-## Raspberry-pi 5 bootstraping
+## Raspberry-pi 5 installation
 
-### 1. Build the installer image
+### 1. Format, install and seed the password
 
-Run on x86 (needs aarch64 binaries from the nixos-raspberrypi cachix cache or binfmt emulation):
-
-```sh
-nix build .#packages.aarch64-linux.installer --accept-flake-config
-```
-
-Image: `result/sd-image/*.img.zst`.
-
-### 2. Flash to a USB drive
+Run from an x86 NixOS machine with aarch64 binfmt.
+From this repo's root:
 
 ```sh
-zstdcat result/sd-image/*.img.zst | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync
+nix run .#flash topinambour
+
 ```
+### 2. Boot
 
-`/dev/sdX` = the USB drive (`lsblk`).
+Insert the SD in the Pi, power on:
 
-### 3. Boot from USB and run bootstrap
-
-Insert the live USB and the target SD, attach monitor + keyboard. Boot from USB.
-
-TODO: remove branch postfix
 ```sh
-nix run github:saponace/nixos-config/preservation-topinambour#bootstrap topinambour
+ssh topinambour
 ```
 
-### 4. Generate secrets (first install only)
+### 3. Generate secrets (first install only)
 
 This is only needed once. After the first boot:
 
