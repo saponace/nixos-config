@@ -1,4 +1,8 @@
-_: {
+{
+  device ? "/dev/mmcblk0",
+  ...
+}:
+{
   disko.devices = {
     nodev."/" = {
       fsType = "tmpfs";
@@ -9,7 +13,7 @@ _: {
     };
 
     disk.main = {
-      device = "/dev/mmcblk0";
+      inherit device;
       type = "disk";
       content = {
         type = "gpt";

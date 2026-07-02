@@ -106,9 +106,10 @@
         p.writeShellApplication {
           name = "flash";
           runtimeInputs = [
-            disko.packages.${system}.disko-install
+            disko.packages.${system}.disko
             p.mkpasswd
-            p.util-linux # lsblk, wipefs, mount
+            p.nixos-install-tools
+            p.util-linux # lsblk, wipefs, umount
           ];
           text = builtins.readFile ./scripts/flash.sh;
         };

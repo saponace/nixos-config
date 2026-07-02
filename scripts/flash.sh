@@ -26,14 +26,18 @@ esac
 echo "==> Wiping stale filesystem signatures"
 sudo wipefs -af "$disk"
 
-echo "==> Formatting and installing"
-sudo disko-install --flake ".#${host}" --mode format --disk main "$disk"
+echo "==> Partitioning, formatting and mounting at /mnt"
+sudo disko --mode destroy,format,mount --argstr device "$disk" "hosts/${host}/disko.nix"
+
+echo "==> Building the system"
+toplevel=$(nix build --no-link --print-out-paths ".#nixosConfigurations.${host}.config.system.build.toplevel")
+
+echo "==> Installing (closure copy + bootloader)"
+sudo nixos-install --system "$toplevel" --root /mnt --no-root-passwd --no-channel-copy
 
 echo "==> Seeding the login password into /persistent"
-mnt=$(mktemp -d)
-sudo mount -o subvol=/persistent /dev/disk/by-partlabel/disk-main-root "$mnt"
-mkpasswd -m sha-512 | sudo tee "${mnt}/password" >/dev/null
-sudo umount "$mnt"
-rmdir "$mnt"
+mkpasswd -m sha-512 | sudo tee /mnt/persistent/password >/dev/null
+
+sudo umount -R /mnt
 
 echo "Done. Insert the disk and boot."

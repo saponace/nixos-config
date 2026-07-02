@@ -7,7 +7,7 @@
 {
   imports = [
     ./hardware.nix
-    ./disko.nix
+    (import ./disko.nix { })
     ./network.nix
     ../../modules/base/preservation.nix
     ../../modules/base/btrfs.nix
