@@ -123,10 +123,13 @@ in
           (cd /mnt/wd && zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
             --exclude "stak-config/*/logs/*" \
             --exclude "stak-config/*/log" \
+            --exclude "stak-config/*/log/*" \
             --exclude "stak-config/*/cache/*" \
             --exclude "stak-config/*/Sentry/*" \
             --exclude "stak-config/*/MediaCover/*" \
+            --exclude "stak-config/*/Backups/*" \
             --exclude "stak-config/prowlarr/Definitions/*" \
+            --exclude "stak-config/recyclarr/repositories/*" \
             --exclude "stak-config/jellyfin/data/data/subtitles/*" \
             --exclude "stak-config/jellyfin/data/metadata/*" \
             --exclude "stak-config/jellyfin/data/transcodes/*")
