@@ -2,8 +2,12 @@
   pkgs,
   lib,
   username,
+  nixos-raspberrypi,
   ...
 }:
+let
+  onPi = pkgs.stdenv.hostPlatform.isAarch64;
+in
 {
   imports = [
     ./hardware.nix
@@ -14,6 +18,12 @@
   ];
 
   boot.loader.raspberry-pi.bootloader = "kernel";
+
+  # rpi5 defaults don't eval on x86 (image builder)
+  boot.kernelPackages =
+    if onPi then nixos-raspberrypi.packages.aarch64-linux.linuxPackages_rpi5 else pkgs.linuxPackages;
+  boot.loader.raspberry-pi.firmwarePackage =
+    if onPi then nixos-raspberrypi.packages.aarch64-linux.raspberrypifw else pkgs.raspberrypifw;
 
   # This card's CQE breaks btrfs I/O (boot-tested); ext4/master tolerates it
   hardware.raspberry-pi.config.all.base-dt-params.sd_cqe = {

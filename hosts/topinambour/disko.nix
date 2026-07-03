@@ -1,4 +1,18 @@
-_: {
+{ pkgs, ... }:
+let
+  # Native VM for image builds; an emulated aarch64 VM takes hours
+  buildPkgs = import pkgs.path { system = "x86_64-linux"; };
+in
+{
+  disko.memSize = 4096;
+  disko.imageBuilder = {
+    enableBinfmt = true;
+    pkgs = buildPkgs;
+    kernelPackages = buildPkgs.linuxPackages;
+  };
+  # Image builder re-evals this config on x86
+  nixpkgs.config.allowUnsupportedSystem = true;
+
   disko.devices = {
     nodev."/" = {
       fsType = "tmpfs";
