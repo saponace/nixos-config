@@ -25,3 +25,11 @@ Rebuilds the system without reformatting (`/persistent' pre-populated).
 ```bash
 nix run 'github:saponace/nixos-config#refresh' topinambour     # reinstall, keep /persistent
 ```
+
+### Backup the stak config
+
+Zips `/mnt/wd/stak-config`.
+
+```sh
+stak-backup
+```
