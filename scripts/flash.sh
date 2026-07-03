@@ -28,7 +28,6 @@ esac
 
 echo "==> Flashing"
 sudo dd if=result/main.raw of="$disk" bs=4M status=progress conv=fsync
-sudo partprobe "$disk"
 sudo udevadm settle
 
 echo "==> Seeding the login password (hashed, stored on the persistent volume)"

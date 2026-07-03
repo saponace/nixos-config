@@ -108,7 +108,6 @@
           runtimeInputs = [
             p.mkpasswd
             p.util-linux # lsblk, mount
-            p.parted # partprobe
             p.git
           ];
           text = ''
