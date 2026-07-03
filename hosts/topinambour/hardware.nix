@@ -7,6 +7,7 @@ _: {
     options = [
       "defaults"
       "noatime"
+      "nofail" # don't block boot if fsck fails/hangs; stak.service still waits for the mount
     ];
   };
 
