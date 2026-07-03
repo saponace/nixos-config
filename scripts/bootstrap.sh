@@ -26,7 +26,7 @@ esac
 
 echo "==> Wiping stale filesystem signatures before partitioning"
 disk_dev=$(nix --extra-experimental-features 'nix-command flakes' eval --raw "${flake}#nixosConfigurations.${host}.config.disko.devices.disk.main.device")
-sudo wipefs -af "${disk_dev}"
+lsblk -nro PATH "${disk_dev}" | xargs sudo wipefs -af
 
 echo "==> Partitioning, formatting and mounting"
 sudo disko --mode destroy,format,mount --flake "${flake}#${host}"
