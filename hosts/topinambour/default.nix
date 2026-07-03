@@ -15,12 +15,6 @@
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 
-  # SD command queueing hangs I/O with some cards
-  hardware.raspberry-pi.config.all.base-dt-params.sd_cqe = {
-    enable = true;
-    value = "0";
-  };
-
   # Headless: no GPU
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
 
