@@ -24,9 +24,27 @@
   # Headless: no GPU, and its power-on spike hangs boot on marginal PSUs
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
 
+  # Expand the flashed image's last partition to the full disk on first boot
+  boot.growPartition = true;
+
   # preservation's inInitrd needs systemd initrd; unlike 26.11 it's not the 25.11
   # default. TODO: drop once nixos-raspberrypi's nixpkgs defaults it on.
   boot.initrd.systemd.enable = true;
+
+  # envfs blanks /usr setup, so an empty tmpfs /usr makes systemd refuse to
+  # boot. Backport of the 26.11 envfs fix. TODO: drop with 25.11.
+  boot.initrd.systemd.tmpfiles.settings."50-envfs" = {
+    "/sysroot/usr/bin".d = {
+      user = "root";
+      group = "root";
+      mode = "0755";
+    };
+    "/sysroot/bin".d = {
+      user = "root";
+      group = "root";
+      mode = "0755";
+    };
+  };
 
   # USB keyboard in initrd (debug shell access)
   boot.initrd.availableKernelModules = [

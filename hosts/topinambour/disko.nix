@@ -14,6 +14,8 @@
 
     disk.main = {
       inherit device;
+      # Flashable image size; grown to the full disk on first boot
+      imageSize = "16G";
       type = "disk";
       content = {
         type = "gpt";
@@ -39,7 +41,10 @@
               subvolumes = {
                 "/nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [ "noatime" ];
+                  mountOptions = [
+                    "noatime"
+                    "x-systemd.growfs" # resize btrfs to the grown partition
+                  ];
                 };
                 "/persistent" = {
                   mountpoint = "/persistent";
