@@ -102,7 +102,6 @@ zstyle ':chpwd:*' recent-dirs-file ${ZDOTDIR:-$HOME}/.zdirs
         zstyle ':completion:*:*:*' ignore-parents parent pwd
     ## order of the tilde completion, only make sense when enable sorted/grouped completion
         zstyle ':completion:*:-tilde-:*' group-order named-directories directory-stack local-directories users
-    ## TODO: sent a mail to zsh-users about that
         zstyle ':completion:*:-tilde-::named-directories' ignored-patterns '_*'
     ## ignore the users that uninterested except really expected
         zstyle ':completion:*:*:*:users' ignored-patterns adm amanda amule apache at avahi avahi-autoipd beaglidx bin cacti canna colord clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm git gkrellmd gopher hacluster haldaemon halt http hsqldb ident incron junkbust kdm ldap lp mail mailman mailnull man messagebus mldonkey mysql nagios named nbd netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn operator pcap pdnsd polkitd postfix postgres privoxy pulse pvm quagga radvd rpc rpcuser rpm rtkit sagemath scard shutdown squid sshd statd svn sync tftp tor usbmux uucp uuidd vcsa wwwrun xfs '_*' 'systemd-*' ${USERNAME}
