@@ -1,6 +1,6 @@
-## Raspberry-pi 5 installation
+# Raspberry-pi 5 installation
 
-### Build image, flash and seed the password
+## Build image, flash and seed the password
 
 Run from an x86 NixOS machine with aarch64 binfmt, SD card in a USB reader:
 
@@ -8,7 +8,7 @@ Run from an x86 NixOS machine with aarch64 binfmt, SD card in a USB reader:
 nix run .#flash topinambour
 ```
 
-### Generate secrets on WD (first install only)
+## Generate secrets on WD (first install only)
 
 This is only needed once. After the first boot:
 
@@ -20,13 +20,13 @@ echo "RADARR_API_KEY=<radarr api key>" >> /mnt/wd/stak-config/secrets.env
 
 Find the API keys in each app under Settings → General → Security → API Key.
 
-### Reinstall onto an existing disk (keep /persistent)
+## Reinstall onto an existing disk (keep /persistent)
 Rebuilds the system without reformatting (`/persistent' pre-populated).
 ```bash
 nix run 'github:saponace/nixos-config#refresh' topinambour     # reinstall, keep /persistent
 ```
 
-### Backup the stak config
+## Backup the stak config
 
 Zips `/mnt/wd/stak-config`.
 
