@@ -15,6 +15,12 @@
 
   boot.loader.raspberry-pi.bootloader = "kernel";
 
+  # This card's CQE breaks btrfs I/O (boot-tested); ext4/master tolerates it
+  hardware.raspberry-pi.config.all.base-dt-params.sd_cqe = {
+    enable = true;
+    value = "0";
+  };
+
   # Headless: no GPU
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
 
