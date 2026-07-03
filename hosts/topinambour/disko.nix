@@ -1,8 +1,4 @@
-{
-  device ? "/dev/mmcblk0",
-  ...
-}:
-{
+_: {
   disko.devices = {
     nodev."/" = {
       fsType = "tmpfs";
@@ -13,7 +9,7 @@
     };
 
     disk.main = {
-      inherit device;
+      device = "/dev/mmcblk0";
       # Flashable image size; grown to the full disk on first boot
       imageSize = "16G";
       type = "disk";

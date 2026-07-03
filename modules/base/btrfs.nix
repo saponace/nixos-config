@@ -2,11 +2,14 @@
 {
   system.activationScripts.snapperNixosRebuild = {
     supportsDryActivation = false;
+    # Snapshot on nixos-rebuild only; activation also runs at boot (stage 1)
     text = ''
-      ${pkgs.snapper}/bin/snapper -c persistent create \
-        --type single \
-        --cleanup-algorithm number \
-        --description "nixos-rebuild"
+      if [ -z "''${IN_NIXOS_SYSTEMD_STAGE1:-}" ]; then
+        ${pkgs.snapper}/bin/snapper -c persistent create \
+          --type single \
+          --cleanup-algorithm number \
+          --description "nixos-rebuild"
+      fi
     '';
   };
 

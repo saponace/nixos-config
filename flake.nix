@@ -97,23 +97,6 @@
           + builtins.readFile ./scripts/bootstrap.sh;
         };
 
-      # Format a removable disk and install a host onto it, from another machine
-      mkFlash =
-        system:
-        let
-          p = nixpkgs.legacyPackages.${system};
-        in
-        p.writeShellApplication {
-          name = "flash";
-          runtimeInputs = [
-            disko.packages.${system}.disko
-            p.mkpasswd
-            p.nixos-install-tools
-            p.util-linux # lsblk, wipefs, umount
-          ];
-          text = builtins.readFile ./scripts/flash.sh;
-        };
-
       # Install with existing /persistent setup
       mkRefresh =
         system:
@@ -157,7 +140,6 @@
         x86_64-linux = {
           bootstrap = mkBootstrap "x86_64-linux";
           refresh = mkRefresh "x86_64-linux";
-          flash = mkFlash "x86_64-linux";
         };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";
@@ -175,10 +157,6 @@
           refresh = {
             type = "app";
             program = "${self.packages.x86_64-linux.refresh}/bin/refresh";
-          };
-          flash = {
-            type = "app";
-            program = "${self.packages.x86_64-linux.flash}/bin/flash";
           };
         };
         aarch64-linux = {

@@ -7,7 +7,7 @@
 {
   imports = [
     ./hardware.nix
-    (import ./disko.nix { })
+    ./disko.nix
     ./network.nix
     ../../modules/base/preservation.nix
     ../../modules/base/btrfs.nix
@@ -21,7 +21,7 @@
     value = "0";
   };
 
-  # Headless: no GPU, and its power-on spike hangs boot on marginal PSUs
+  # Headless: no GPU
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
 
   # Expand the flashed image's last partition to the full disk on first boot
@@ -45,23 +45,6 @@
       mode = "0755";
     };
   };
-
-  # USB keyboard in initrd (debug shell access)
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "usbhid"
-    "hid_generic"
-    "hid_logitech_dj"
-    "hid_logitech_hidpp"
-  ];
-
-  # TODO: temp — initrd hang debugging: tty9 shell + verbose systemd on console
-  boot.kernelParams = [
-    "rd.systemd.debug_shell=1"
-    "rd.systemd.log_level=debug"
-    "systemd.log_level=debug"
-    "systemd.journald.forward_to_console=1"
-  ];
 
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
