@@ -19,6 +19,9 @@
     hashedPasswordFile = "/persistent/password";
   };
 
+  # Allow to login as root (notably access emergency mode shell)
+  users.users.root.hashedPasswordFile = "/persistent/password";
+
   programs.zsh.enable = true;
 
   # Pre-create sudo's lecture marker so it never lectures
