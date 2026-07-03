@@ -97,6 +97,26 @@
           + builtins.readFile ./scripts/bootstrap.sh;
         };
 
+      # Build the sd image, flash it and seed /persistent
+      mkFlash =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "flash";
+          runtimeInputs = [
+            p.mkpasswd
+            p.util-linux # lsblk, mount
+            p.parted # partprobe
+            p.git
+          ];
+          text = ''
+            user_name=${username}
+          ''
+          + builtins.readFile ./scripts/flash.sh;
+        };
+
       # Install with existing /persistent setup
       mkRefresh =
         system:
@@ -140,6 +160,7 @@
         x86_64-linux = {
           bootstrap = mkBootstrap "x86_64-linux";
           refresh = mkRefresh "x86_64-linux";
+          flash = mkFlash "x86_64-linux";
         };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";
@@ -157,6 +178,10 @@
           refresh = {
             type = "app";
             program = "${self.packages.x86_64-linux.refresh}/bin/refresh";
+          };
+          flash = {
+            type = "app";
+            program = "${self.packages.x86_64-linux.flash}/bin/flash";
           };
         };
         aarch64-linux = {
