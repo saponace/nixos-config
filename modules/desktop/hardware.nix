@@ -5,7 +5,7 @@
 
   boot.binfmt = {
     emulatedSystems = [ "aarch64-linux" ];
-    # Static qemu so emulation works in chroots
+    # Static qemu so can chroot into aarch64 systems
     preferStaticEmulators = true;
   };
 
