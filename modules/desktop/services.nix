@@ -10,4 +10,5 @@
   # Auto-mount removable drives
   services.udisks2.enable = true; # daemon
   environment.systemPackages = [ pkgs.udiskie ]; # tray icon
+  boot.kernelModules = [ "exfat" ]; # exFAT driver
 }
