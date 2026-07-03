@@ -1,57 +1,35 @@
-## Raspberry-pi installation
+# Raspberry-pi 5 installation
 
-### 1. Build the SD card image
+## Build image, flash and seed the password
 
-Run on celeri (or any x86 machine). Requires aarch64 binaries — either from the nixos-raspberrypi cachix cache (configured in `modules/base/nix.nix`) or aarch64 emulation via binfmt.
-
-```sh
-nix build .#nixosConfigurations.topinambour.config.system.build.sdImage --accept-flake-config
-```
-
-The image will be at `result/sd-image/*.img.zst`.
-
-### 2. Flash the SD card
+Run from an x86 NixOS machine with aarch64 binfmt, SD card in a USB reader:
 
 ```sh
-# decompress and flash in one step
-zstdcat result/sd-image/*.img.zst | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync
+nix run .#flash topinambour
 ```
 
-Replace `/dev/sdX` with your SD card device (`lsblk` to find it).
+## Generate secrets on WD (first install only)
 
-### 3. First boot
-
-Insert the SD card into the Pi and power it on. SSH will be available once it boots:
-
-```sh
-ssh saponace@topinambour
-```
-
-Change the password:
-```sh
-passwd
-```
-
-### 4. Clone the repo and run the first switch
-
-```sh
-git clone https://github.com/saponace/nixos-config.git
-cd nixos-config
-nh os switch
-```
-
-### 5. Generate secrets (first install only)
-
-Create `/mnt/wd/stak-config/secrets.env` with service secrets that are not versioned in the repo.
-This file persists across `nh os switch` rebuilds — only needed once.
+This is only needed once. After the first boot:
 
 ```sh
 echo "HOMARR_SECRET_ENCRYPTION_KEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)" > /mnt/wd/stak-config/secrets.env
-```
-
-Then append the API keys for Recyclarr (find them in each app under Settings → General → Security → API Key):
-
-```sh
 echo "SONARR_API_KEY=<sonarr api key>" >> /mnt/wd/stak-config/secrets.env
 echo "RADARR_API_KEY=<radarr api key>" >> /mnt/wd/stak-config/secrets.env
+```
+
+Find the API keys in each app under Settings → General → Security → API Key.
+
+## Reinstall onto an existing disk (keep /persistent)
+Rebuilds the system without reformatting (`/persistent' pre-populated).
+```bash
+nix run 'github:saponace/nixos-config#refresh' topinambour     # reinstall, keep /persistent
+```
+
+## Backup the stak config
+
+Zips `/mnt/wd/stak-config`.
+
+```sh
+stak-backup
 ```

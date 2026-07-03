@@ -3,7 +3,7 @@
 {
   imports = [
     ../modules/desktop/hardware.nix
-    ../modules/desktop/networking.nix
+    ../modules/desktop/bluetooth.nix
     ../modules/desktop/sound.nix
     ../modules/desktop/boot.nix
     ../modules/desktop/services.nix

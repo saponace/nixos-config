@@ -1,13 +1,7 @@
 _: {
-  networking = {
-    hostName = "topinambour";
-    networkmanager.enable = true;
-  };
+  networking.hostName = "topinambour";
 
   services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    hostName = "stak"; # advertise as stak.local
     publish = {
       enable = true;
       addresses = true;

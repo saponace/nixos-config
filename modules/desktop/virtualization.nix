@@ -12,4 +12,7 @@
     "kvm"
     "libvirtd"
   ];
+
+  # libvirt state: VM definitions, networks, and the encrypted secret store.
+  preservation.preserveAt."/persistent".directories = [ "/var/lib/libvirt" ];
 }

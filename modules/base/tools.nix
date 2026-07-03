@@ -35,7 +35,10 @@ let
         enable = true;
       };
 
-      lazygit.enable = true;
+      lazygit = {
+        enable = true;
+        settings.disableStartupPopups = true;
+      };
 
       btop = {
         enable = true;
@@ -49,7 +52,6 @@ in
     jq
     pre-commit
     rsync
-    sshfs
     unzip
     wget
     zip

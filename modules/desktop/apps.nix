@@ -11,12 +11,22 @@
 
   environment.systemPackages = with pkgs; [
     bitwig-studio
+    btrfs-assistant # btrfs/snapper GUI
     nautilus
     swayimg
     vlc
   ];
 
   programs.steam.enable = true;
+
+  preservation.preserveAt."/persistent".users.${username}.directories = [
+    ".config/mozilla"
+    ".local/share/keyrings"
+    "Bitwig Studio" # workspace
+    ".BitwigStudio" # license activation, EULA flag, prefs, installed packages
+    ".local/share/Steam"
+    ".steam"
+  ];
 
   home-manager.users.${username} = _: {
     programs = {

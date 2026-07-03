@@ -1,26 +1,39 @@
 {
   pkgs,
+  lib,
   username,
   userEmail,
+  config,
   ...
 }:
 
 {
   users.users.${username} = {
     isNormalUser = true;
+    uid = 1000;
     extraGroups = [
       "wheel"
     ];
     shell = pkgs.zsh;
-    initialPassword = username;
+    # Password comes from is seeded to the persistent volume at install (see README).
+    hashedPasswordFile = "/persistent/password";
   };
+
+  # Allow to login as root (notably access emergency mode shell)
+  users.users.root.hashedPasswordFile = "/persistent/password";
 
   programs.zsh.enable = true;
 
-  home-manager.users.root.home.stateVersion = "26.05";
+  # Pre-create sudo's lecture marker so it never lectures
+  systemd.tmpfiles.rules = [
+    "f /var/db/sudo/lectured/${toString config.users.users.${username}.uid} 0600 root root -"
+  ];
+
+  # mkDefault so topinambour (HM 25.11, enum caps at "25.11") can lower it.
+  home-manager.users.root.home.stateVersion = lib.mkDefault "26.05";
 
   home-manager.users.${username} = _: {
-    home.stateVersion = "26.05";
+    home.stateVersion = lib.mkDefault "26.05";
 
     xdg.enable = true;
 

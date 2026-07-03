@@ -18,6 +18,8 @@ in
     polarity = "dark";
 
     targets.kmscon.enable = false;
+    # Plymouth animation defined in boot.nix
+    targets.plymouth.enable = false;
 
     cursor = {
       package = pkgs.nordzy-cursor-theme;

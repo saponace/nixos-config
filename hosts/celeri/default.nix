@@ -1,8 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
     ./hardware.nix
+    ./disko.nix
+    ../../modules/base/preservation.nix
+    ../../modules/base/btrfs.nix
     ../../profiles/base.nix
     ../../profiles/desktop.nix
     ../../modules/peripherals/logitech.nix
@@ -32,6 +35,8 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+
+  preservation.preserveAt."/persistent".users.${username}.directories = [ "samples" ];
 
   services.xserver.xkb = {
     layout = "us";
