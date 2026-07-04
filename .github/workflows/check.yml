@@ -11,4 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
+      # Stylix reads theme files from these packages at eval time (IFD), which --no-build below can't realise
+      - run: nix build --no-link .#nixosConfigurations.celeri.pkgs.base16-schemes .#nixosConfigurations.celeri.pkgs.alacritty-theme
       - run: nix flake check --no-build --all-systems
