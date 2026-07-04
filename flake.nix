@@ -130,6 +130,24 @@
           ];
           text = builtins.readFile ./scripts/refresh.sh;
         };
+      # Evaluate every host then flake check
+      mkCheck =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+          evalHost = host: ''
+            echo "Evaluating ${host}..."
+            nix eval --raw ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath" > /dev/null
+          '';
+        in
+        p.writeShellApplication {
+          name = "check";
+          text =
+            nixpkgs.lib.concatMapStrings evalHost (builtins.attrNames self.nixosConfigurations)
+            + ''
+              nix flake check --no-build --all-systems
+            '';
+        };
       # Minimal RPi5 installer image
       rpi5InstallerImage =
         (nixos-raspberrypi.lib.nixosInstaller {
@@ -160,6 +178,7 @@
           bootstrap = mkBootstrap "x86_64-linux";
           refresh = mkRefresh "x86_64-linux";
           flash = mkFlash "x86_64-linux";
+          check = mkCheck "x86_64-linux";
         };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";

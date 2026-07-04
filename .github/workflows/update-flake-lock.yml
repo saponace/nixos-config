@@ -15,10 +15,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
       - run: nix flake update
-      # Stylix reads theme files from these packages at eval time (IFD), which --no-build below can't realise
-      - run: nix build --no-link .#nixosConfigurations.celeri.pkgs.base16-schemes .#nixosConfigurations.celeri.pkgs.alacritty-theme
-      # Only open a PR if all hosts still evaluate with the new inputs
-      - run: nix flake check --no-build --all-systems
+      # Only open a PR if everything still evaluates with the new inputs
+      - run: nix run .#check
       - uses: peter-evans/create-pull-request@v7
         with:
           branch: update-flake-lock
