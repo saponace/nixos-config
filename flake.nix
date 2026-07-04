@@ -195,7 +195,15 @@
         };
       };
 
-      checks.x86_64-linux.pre-commit = preCommitCheck;
+      # `nix flake check` catches config errors (--no-build for eval only; --all-systems to also build configs for hosts with other architectures)
+      checks = {
+        x86_64-linux = {
+          pre-commit = preCommitCheck;
+          celeri = self.nixosConfigurations.celeri.config.system.build.toplevel;
+          rutabaga = self.nixosConfigurations.rutabaga.config.system.build.toplevel;
+        };
+        aarch64-linux.topinambour = self.nixosConfigurations.topinambour.config.system.build.toplevel;
+      };
 
       devShells.x86_64-linux.default = pkgs.mkShell {
         inherit (preCommitCheck) shellHook;
