@@ -47,30 +47,24 @@
       builtins.elem name config.allowedUnfreePackages
       || builtins.any (prefix: lib.hasPrefix prefix name) config.allowedUnfreePrefixes;
 
-    environment = {
-      systemPackages = with pkgs; [
-        nh
-        nixfmt
-        statix
-        deadnix
-      ];
-
-      sessionVariables = {
-        NH_FLAKE = "/home/${username}/repos/nixos-config/"; # Used by nh
+    programs.nh = {
+      enable = true;
+      flake = "/home/${username}/repos/nixos-config";
+      clean = {
+        enable = true; # weekly by default
+        extraArgs = "--keep 3 --keep-since 7d";
       };
     };
 
-    nix = {
-      optimise = {
-        automatic = true;
-        dates = [ "22:45" ];
-      };
+    environment.systemPackages = with pkgs; [
+      nixfmt
+      statix
+      deadnix
+    ];
 
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-      };
+    nix.optimise = {
+      automatic = true;
+      dates = [ "22:45" ];
     };
   };
 }
