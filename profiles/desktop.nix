@@ -4,7 +4,7 @@
   imports = [
     ../modules/desktop/hardware.nix
     ../modules/desktop/bluetooth.nix
-    ../modules/desktop/sound.nix
+    ../modules/desktop/audio.nix
     ../modules/desktop/boot.nix
     ../modules/desktop/services.nix
     ../modules/desktop/display-manager.nix

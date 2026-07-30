@@ -4,6 +4,7 @@
 
   environment.systemPackages = with pkgs; [
     crosspipe
+    alsa-utils # ships amidi: send/receive MIDI SysEx
   ];
 
   preservation.preserveAt."/persistent".users.${username}.directories = [
