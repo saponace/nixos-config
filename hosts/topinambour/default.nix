@@ -49,6 +49,8 @@ in
 
   virtualisation.docker.enable = true;
 
+  services.journald.extraConfig = "SystemMaxUse=200M"; # Otherwise it grows too much with containers logs
+
   preservation.preserveAt."/persistent".directories = [ "/var/lib/docker" ];
 
   fileSystems."/persistent".neededForBoot = lib.mkForce true;
@@ -84,6 +86,7 @@ in
         Restart = "always";
         TimeoutStopSec = 15;
         WorkingDirectory = "/etc/stak";
+        StandardOutput = "null"; # docker's journald driver already logs containers; compose duplicates it
         ExecStartPre = "${dc}/bin/docker-compose ${args} down";
         ExecStart = "${dc}/bin/docker-compose ${args} up";
         ExecStop = "${dc}/bin/docker-compose ${args} down";

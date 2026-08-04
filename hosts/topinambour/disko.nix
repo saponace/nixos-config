@@ -65,6 +65,11 @@ in
                   mountpoint = "/persistent/.snapshots";
                   mountOptions = [ "noatime" ];
                 };
+                # Dedicated subvolume for docker stuff so snapper doesn't recurse into it
+                "/persistent/var/lib/docker" = {
+                  mountpoint = "/persistent/var/lib/docker";
+                  mountOptions = [ "noatime" ];
+                };
               };
             };
           };
