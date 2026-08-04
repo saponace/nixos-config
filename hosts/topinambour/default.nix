@@ -34,8 +34,35 @@ in
   # Headless: no GPU
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
 
-  # Expand the flashed image's last partition to the full disk on first boot
-  boot.growPartition = true;
+  boot.initrd.systemd = {
+    # Grow the flashed root partition to the full card; btrfs follows via x-systemd.growfs
+    repart = {
+      enable = true;
+      device = "/dev/mmcblk0";
+    };
+
+    storePaths = [ "${pkgs.util-linux}/bin/sfdisk" ];
+
+    # The flashed image leaves the GPT backup header at the image's end, so repart sees no free space until it's moved to the end of the card
+    services.relocate-gpt-backup = {
+      description = "Move the GPT backup header to the end of the device";
+      requires = [ "dev-mmcblk0.device" ];
+      after = [ "dev-mmcblk0.device" ];
+      before = [ "systemd-repart.service" ];
+      requiredBy = [ "systemd-repart.service" ];
+      unitConfig.DefaultDependencies = false;
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${pkgs.util-linux}/bin/sfdisk --relocate gpt-bak-std /dev/mmcblk0";
+      };
+    };
+  };
+
+  systemd.repart.partitions."10-root" = {
+    Type = "linux-generic"; # matches the existing root partition rather than creating one
+    Label = "disk-main-root";
+  };
 
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
@@ -49,9 +76,12 @@ in
 
   virtualisation.docker.enable = true;
 
-  services.journald.extraConfig = "SystemMaxUse=200M"; # Otherwise it grows too much with containers logs
-
-  preservation.preserveAt."/persistent".directories = [ "/var/lib/docker" ];
+  preservation.preserveAt."/persistent".directories = [
+    {
+      directory = "/var/lib/docker";
+      mode = "0710";
+    }
+  ];
 
   fileSystems."/persistent".neededForBoot = lib.mkForce true;
 
