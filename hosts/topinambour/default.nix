@@ -37,25 +37,6 @@ in
   # Expand the flashed image's last partition to the full disk on first boot
   boot.growPartition = true;
 
-  # preservation's inInitrd needs systemd initrd; unlike 26.11 it's not the 25.11
-  # default. TODO: drop once nixos-raspberrypi's nixpkgs defaults it on.
-  boot.initrd.systemd.enable = true;
-
-  # envfs blanks /usr setup, so an empty tmpfs /usr makes systemd refuse to
-  # boot. Backport of the 26.11 envfs fix. TODO: drop with 25.11.
-  boot.initrd.systemd.tmpfiles.settings."50-envfs" = {
-    "/sysroot/usr/bin".d = {
-      user = "root";
-      group = "root";
-      mode = "0755";
-    };
-    "/sysroot/bin".d = {
-      user = "root";
-      group = "root";
-      mode = "0755";
-    };
-  };
-
   # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
   boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
 
@@ -109,11 +90,7 @@ in
       };
     };
 
-  # HM 25.11 enum caps home.stateVersion at "25.11".
-  home-manager.users.root.home.stateVersion = "25.11";
   home-manager.users.${username} = _: {
-    home.stateVersion = "25.11";
-
     programs.zsh = {
       shellAliases = {
         stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";

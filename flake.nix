@@ -5,10 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # HM for the RPi, matching nixos-raspberrypi's nixpkgs (master needs 26.x lib).
-    # TODO: bump release branch when nixos-raspberrypi moves off nixos-25.11.
+    # HM for the RPi: master targets unstable, asserting on newer pkgs than 26.05 ships.
+    # TODO: bump release branch when nixos-raspberrypi moves off nixos-26.05.
     home-manager-rpi = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
     };
     stylix = {
