@@ -31,13 +31,18 @@ sudo dd if=result/main.raw of="$disk" bs=4M status=progress conv=fsync
 sudo udevadm settle
 
 echo "==> Growing the root partition to fill the disk"
+# Scoped to $disk: the by-partlabel symlinks are ambiguous when this machine uses them too
+root_part=$(lsblk -no PATH,PARTLABEL "$disk" | awk '$2 == "disk-main-root" { print $1 }')
+[ -n "$root_part" ] || { echo "No disk-main-root partition on ${disk}" >&2; exit 1; }
+part_num=$(cat "/sys/class/block/${root_part##*/}/partition") # layout differs per host
 sudo sfdisk --relocate gpt-bak-std "$disk" # the image's GPT backup header sits at the image's end
-echo ", +" | sudo sfdisk -N 2 "$disk"      # btrfs follows on first boot via x-systemd.growfs
+sudo udevadm settle
+echo ", +" | sudo sfdisk -N "$part_num" "$disk" # btrfs follows on first boot via x-systemd.growfs
 sudo udevadm settle
 
 echo "==> Seeding the login password (hashed, stored on the persistent volume)"
 mnt=$(mktemp -d)
-sudo mount -o subvol=/persistent /dev/disk/by-partlabel/disk-main-root "$mnt"
+sudo mount -o subvol=/persistent "$root_part" "$mnt"
 mkpasswd -m sha-512 | sudo tee "${mnt}/password" >/dev/null
 
 echo "==> Cloning config into ~/repos"
