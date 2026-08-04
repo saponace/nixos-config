@@ -107,7 +107,7 @@
           name = "flash";
           runtimeInputs = [
             p.mkpasswd
-            p.util-linux # lsblk, mount
+            p.util-linux # lsblk, mount, sfdisk
             p.git
           ];
           text = ''

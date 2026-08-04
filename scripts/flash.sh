@@ -30,6 +30,11 @@ echo "==> Flashing"
 sudo dd if=result/main.raw of="$disk" bs=4M status=progress conv=fsync
 sudo udevadm settle
 
+echo "==> Growing the root partition to fill the disk"
+sudo sfdisk --relocate gpt-bak-std "$disk" # the image's GPT backup header sits at the image's end
+echo ", +" | sudo sfdisk -N 2 "$disk"      # btrfs follows on first boot via x-systemd.growfs
+sudo udevadm settle
+
 echo "==> Seeding the login password (hashed, stored on the persistent volume)"
 mnt=$(mktemp -d)
 sudo mount -o subvol=/persistent /dev/disk/by-partlabel/disk-main-root "$mnt"
