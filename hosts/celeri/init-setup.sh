@@ -48,9 +48,9 @@ place_app() {
     sleep 0.1
   done
 
-  # maximize-column toggles, so only call it once, after placement is confirmed.
-  niri msg action focus-window --id "$id" || true
-  niri msg action maximize-column || true
+  # Commented out: default-column-width already opens these full width, and maximize-column would toggle that back off.
+  # niri msg action focus-window --id "$id" || true
+  # niri msg action maximize-column || true
 }
 
 place_app alacritty Alacritty HDMI-A-1
