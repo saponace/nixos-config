@@ -48,6 +48,9 @@ in
 
   virtualisation.docker.enable = true;
 
+  # Home Assistant runs on the host network, so docker's firewall bypass doesn't apply
+  networking.firewall.allowedTCPPorts = [ 8123 ];
+
   preservation.preserveAt."/persistent".directories = [
     {
       directory = "/var/lib/docker";
