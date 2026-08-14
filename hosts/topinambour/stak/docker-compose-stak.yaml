@@ -290,3 +290,29 @@ services:
       - TP_THEME=${TP_THEME:?err}
     networks:
       - stak
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Home Assistant (home-assistant.io)
+##  Function: Home automation hub
+##
+##  Documentation: https://www.home-assistant.io/installation/linux#docker-compose
+##
+###########################################################################
+###########################################################################
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:2026.8
+    container_name: homeassistant
+    restart: unless-stopped
+    # Host network: mDNS/SSDP discovery of LAN devices doesn't cross the bridge.
+    # Serves 8123, opened in the host firewall (host-net skips docker's bypass).
+    network_mode: host
+    volumes:
+      - ${FOLDER_FOR_DATA:?err}/homeassistant:/config
+      - /run/dbus:/run/dbus:ro
+    environment:
+      - TZ=${TIMEZONE:?err}
+    # Zigbee coordinator; fill the by-id path from `ls /dev/serial/by-id/` once the dongle is in
+    # devices:
+    #   - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_XXXX-if00-port0:/dev/zigbee
