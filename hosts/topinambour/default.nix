@@ -104,8 +104,9 @@ in
         stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
       };
       initContent = ''
+        # sudo: home-assistant runs as root and writes .storage/auth 0600
         stak-backup() {
-          (cd /mnt/wd && zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
+          (cd /mnt/wd && sudo zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
             --exclude "stak-config/*/logs/*" \
             --exclude "stak-config/*/log" \
             --exclude "stak-config/*/log/*" \
@@ -117,7 +118,11 @@ in
             --exclude "stak-config/recyclarr/repositories/*" \
             --exclude "stak-config/jellyfin/data/data/subtitles/*" \
             --exclude "stak-config/jellyfin/data/metadata/*" \
-            --exclude "stak-config/jellyfin/data/transcodes/*")
+            --exclude "stak-config/jellyfin/data/transcodes/*" \
+            --exclude "stak-config/homeassistant/home-assistant_v2.db*" \
+            --exclude "stak-config/homeassistant/home-assistant.log*" \
+            --exclude "stak-config/homeassistant/.cache/*" \
+            --exclude "stak-config/homeassistant/tts/*")
         }
       '';
     };
