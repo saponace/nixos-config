@@ -27,7 +27,9 @@
 
   # Play the splash until niri takes over
   services.greetd.greeterManagesPlymouth = true; # don't make greetd wait for plymouth to exit first
-  systemd.services.plymouth-quit.wantedBy = lib.mkForce [ ]; # never quit the splash at multi-user.target
-  systemd.services.plymouth-quit-wait.wantedBy = lib.mkForce [ ]; # nor pull in its getty-blocking waiter
-  systemd.services.greetd.serviceConfig.ExecStartPre = "-${lib.getExe' pkgs.plymouth "plymouth"} quit --retain-splash"; # quit but keep last frame up until niri draws
+  systemd.services = {
+    plymouth-quit.wantedBy = lib.mkForce [ ]; # never quit the splash at multi-user.target
+    plymouth-quit-wait.wantedBy = lib.mkForce [ ]; # nor pull in its getty-blocking waiter
+    greetd.serviceConfig.ExecStartPre = "-${lib.getExe' pkgs.plymouth "plymouth"} quit --retain-splash"; # quit but keep last frame up until niri draws
+  };
 }

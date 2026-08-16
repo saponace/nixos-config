@@ -142,11 +142,9 @@
         in
         p.writeShellApplication {
           name = "check";
-          text =
-            nixpkgs.lib.concatMapStrings evalHost (builtins.attrNames self.nixosConfigurations)
-            + ''
-              nix flake check --no-build --all-systems
-            '';
+          text = nixpkgs.lib.concatMapStrings evalHost (builtins.attrNames self.nixosConfigurations) + ''
+            nix flake check --no-build --all-systems
+          '';
         };
       # Minimal RPi5 installer image
       rpi5InstallerImage =

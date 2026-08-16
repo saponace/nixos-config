@@ -17,13 +17,18 @@ in
     ../../modules/base/btrfs.nix
   ];
 
-  boot.loader.raspberry-pi.bootloader = "kernel";
+  boot = {
+    loader.raspberry-pi.bootloader = "kernel";
 
-  # rpi5 defaults don't eval on x86 (image builder)
-  boot.kernelPackages =
-    if onPi then nixos-raspberrypi.packages.aarch64-linux.linuxPackages_rpi5 else pkgs.linuxPackages;
-  boot.loader.raspberry-pi.firmwarePackage =
-    if onPi then nixos-raspberrypi.packages.aarch64-linux.raspberrypifw else pkgs.raspberrypifw;
+    # rpi5 defaults don't eval on x86 (image builder)
+    kernelPackages =
+      if onPi then nixos-raspberrypi.packages.aarch64-linux.linuxPackages_rpi5 else pkgs.linuxPackages;
+    loader.raspberry-pi.firmwarePackage =
+      if onPi then nixos-raspberrypi.packages.aarch64-linux.raspberrypifw else pkgs.raspberrypifw;
+
+    # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
+    kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
+  };
 
   # This card's CQE breaks btrfs I/O (boot-tested); ext4/master tolerates it
   hardware.raspberry-pi.config.all.base-dt-params.sd_cqe = {
@@ -33,9 +38,6 @@ in
 
   # Headless: no GPU
   hardware.raspberry-pi.config.all.dt-overlays.vc4-kms-v3d.enable = false;
-
-  # RPi kernel max for vm.mmap_rnd_bits is 30 (vs NixOS default of 33)
-  boot.kernel.sysctl."vm.mmap_rnd_bits" = lib.mkForce 30;
 
   users.users.${username}.extraGroups = [
     "docker"
