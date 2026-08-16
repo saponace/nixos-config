@@ -315,4 +315,4 @@ services:
       - TZ=${TIMEZONE:?err}
     # Zigbee coordinator
     devices:
-      - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_ca07893e4029f111a49846adfa551895-if00-port0:/dev/zigbee
+      - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_ca07893e4029f111a49846adfa551895-if00-port0:/dev/ttyUSB0
