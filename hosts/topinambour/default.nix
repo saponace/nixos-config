@@ -119,7 +119,6 @@ in
             --exclude "stak-config/jellyfin/data/data/subtitles/*" \
             --exclude "stak-config/jellyfin/data/metadata/*" \
             --exclude "stak-config/jellyfin/data/transcodes/*" \
-            --exclude "stak-config/homeassistant/home-assistant_v2.db*" \
             --exclude "stak-config/homeassistant/home-assistant.log*" \
             --exclude "stak-config/homeassistant/.cache/*" \
             --exclude "stak-config/homeassistant/tts/*")
