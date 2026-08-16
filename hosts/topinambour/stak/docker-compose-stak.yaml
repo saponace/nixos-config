@@ -313,6 +313,6 @@ services:
       - /run/dbus:/run/dbus:ro
     environment:
       - TZ=${TIMEZONE:?err}
-    # Zigbee coordinator; fill the by-id path from `ls /dev/serial/by-id/` once the dongle is in
-    # devices:
-    #   - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_XXXX-if00-port0:/dev/zigbee
+    # Zigbee coordinator
+    devices:
+      - /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_ca07893e4029f111a49846adfa551895-if00-port0:/dev/zigbee
