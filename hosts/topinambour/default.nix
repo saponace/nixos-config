@@ -39,8 +39,7 @@ let
         --exclude "stak-config/homeassistant/.cache/*" \
         --exclude "stak-config/homeassistant/tts/*"
 
-      find . -maxdepth 1 -name 'stak-config~*.zip' -printf '%T@ %p\n' \
-        | sort -rn | tail -n "+$((keep + 1))" | cut -d' ' -f2- | xargs -r rm -f
+      find . -maxdepth 1 -name 'stak-config~*.zip' | sort -r | tail -n "+$((keep + 1))" | xargs -r rm -f
     '';
   };
 in
