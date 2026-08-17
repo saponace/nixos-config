@@ -8,7 +8,6 @@
 
   environment.systemPackages = with pkgs; [
     acpi
-    brightnessctl
     libnotify
   ];
 }

@@ -147,16 +147,16 @@
                     "textColor": "none"
                 },
                 {
-                    "id": "Spacer",
-                    "width": 10
-                },
-                {
                     "hideWhenZero": false,
                     "hideWhenZeroUnread": false,
                     "iconColor": "none",
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
+                },
+                {
+                    "id": "Spacer",
+                    "width": 10
                 },
                 {
                     "defaultSettings": {
@@ -167,15 +167,22 @@
                     "id": "plugin:clipboard"
                 },
                 {
+                    "id": "plugin:screenshot"
+                },
+                {
                     "id": "Spacer",
                     "width": 10
                 },
                 {
-                    "id": "plugin:screenshot"
-                },
-                {
                     "iconColor": "none",
                     "id": "NightLight"
+                },
+                {
+                    "applyToAllMonitors": true,
+                    "displayMode": "onhover",
+                    "iconColor": "none",
+                    "id": "Brightness",
+                    "textColor": "none"
                 },
                 {
                     "displayMode": "onhover",
@@ -257,10 +264,6 @@
             {
                 "enabled": true,
                 "id": "audio-card"
-            },
-            {
-                "enabled": true,
-                "id": "brightness-card"
             },
             {
                 "enabled": true,
