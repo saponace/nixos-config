@@ -156,7 +156,7 @@ in
       description = "Weekly stak config backup";
       wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnCalendar = "Sun 03:00";
+        OnCalendar = "Mon 03:00";
         Persistent = true;
         RandomizedDelaySec = "10m";
       };
