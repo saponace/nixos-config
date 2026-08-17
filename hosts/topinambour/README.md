@@ -28,8 +28,13 @@ nix run 'github:saponace/nixos-config#refresh' topinambour     # reinstall, keep
 
 ## Backup the stak config
 
-Zips `/mnt/wd/stak-config`.
+Zips `/mnt/wd/stak-config` to `/mnt/wd`, keeping the 4 most recent archives.
+The stak is stopped for the duration of the backup.
 
+Runs weekly via `stak-backup.timer`
+
+Manual run:
 ```sh
-stak-backup
+sudo systemctl start stak-backup
+journalctl -u stak-backup -f
 ```

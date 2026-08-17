@@ -7,6 +7,42 @@
 }:
 let
   onPi = pkgs.stdenv.hostPlatform.isAarch64;
+
+  stak-backup = pkgs.writeShellApplication {
+    name = "stak-backup";
+    runtimeInputs = [
+      pkgs.zip
+      pkgs.systemd
+    ];
+    text = ''
+      keep=4
+      cd /mnt/wd
+
+      # every service holds sqlite WALs open; a clean stop checkpoints them into the .db files
+      systemctl stop stak
+      trap 'systemctl start stak' EXIT
+
+      zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
+        --exclude "stak-config/*/logs/*" \
+        --exclude "stak-config/*/log" \
+        --exclude "stak-config/*/log/*" \
+        --exclude "stak-config/*/cache/*" \
+        --exclude "stak-config/*/Sentry/*" \
+        --exclude "stak-config/*/MediaCover/*" \
+        --exclude "stak-config/*/Backups/*" \
+        --exclude "stak-config/prowlarr/Definitions/*" \
+        --exclude "stak-config/recyclarr/repositories/*" \
+        --exclude "stak-config/jellyfin/data/data/subtitles/*" \
+        --exclude "stak-config/jellyfin/data/metadata/*" \
+        --exclude "stak-config/jellyfin/data/transcodes/*" \
+        --exclude "stak-config/homeassistant/home-assistant.log*" \
+        --exclude "stak-config/homeassistant/.cache/*" \
+        --exclude "stak-config/homeassistant/tts/*"
+
+      find . -maxdepth 1 -name 'stak-config~*.zip' -printf '%T@ %p\n' \
+        | sort -rn | tail -n "+$((keep + 1))" | cut -d' ' -f2- | xargs -r rm -f
+    '';
+  };
 in
 {
   imports = [
@@ -61,7 +97,10 @@ in
   fileSystems."/persistent".neededForBoot = lib.mkForce true;
 
   environment = {
-    systemPackages = [ pkgs.docker-compose ];
+    systemPackages = [
+      pkgs.docker-compose
+      stak-backup
+    ];
 
     etc = {
       "stak/docker-compose.yaml".source = ./stak/docker-compose-stak.yaml;
@@ -70,60 +109,64 @@ in
     };
   };
 
-  systemd.services.stak =
-    let
-      dc = pkgs.docker-compose;
-      args = "--file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
-    in
-    {
-      description = "Stak";
-      requires = [
-        "docker.service"
-        "mnt-wd.mount"
-      ];
-      after = [
-        "docker.service"
-        "mnt-wd.mount"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        TimeoutStopSec = 15;
-        WorkingDirectory = "/etc/stak";
-        StandardOutput = "null"; # docker's journald driver already logs containers; compose duplicates it
-        ExecStartPre = "${dc}/bin/docker-compose ${args} down";
-        ExecStart = "${dc}/bin/docker-compose ${args} up";
-        ExecStop = "${dc}/bin/docker-compose ${args} down";
+  systemd = {
+    services = {
+      stak =
+        let
+          dc = pkgs.docker-compose;
+          args = "--file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
+        in
+        {
+          description = "Stak";
+          requires = [
+            "docker.service"
+            "mnt-wd.mount"
+          ];
+          after = [
+            "docker.service"
+            "mnt-wd.mount"
+          ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            Type = "simple";
+            Restart = "always";
+            TimeoutStopSec = 15;
+            WorkingDirectory = "/etc/stak";
+            StandardOutput = "null"; # docker's journald driver already logs containers; compose duplicates it
+            ExecStartPre = "${dc}/bin/docker-compose ${args} down";
+            ExecStart = "${dc}/bin/docker-compose ${args} up";
+            ExecStop = "${dc}/bin/docker-compose ${args} down";
+          };
+        };
+
+      stak-backup = {
+        description = "Stak config backup";
+        requires = [ "mnt-wd.mount" ];
+        after = [
+          "mnt-wd.mount"
+          "docker.service"
+        ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = lib.getExe stak-backup;
+        };
       };
     };
 
-  home-manager.users.${username} = _: {
-    programs.zsh = {
-      shellAliases = {
-        stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
+    timers.stak-backup = {
+      description = "Weekly stak config backup";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "Sun 03:00";
+        Persistent = true;
+        RandomizedDelaySec = "10m";
       };
-      initContent = ''
-        # sudo: home-assistant runs as root and writes .storage/auth 0600
-        stak-backup() {
-          (cd /mnt/wd && sudo zip -r "stak-config~$(date +%Y%m%d).zip" stak-config \
-            --exclude "stak-config/*/logs/*" \
-            --exclude "stak-config/*/log" \
-            --exclude "stak-config/*/log/*" \
-            --exclude "stak-config/*/cache/*" \
-            --exclude "stak-config/*/Sentry/*" \
-            --exclude "stak-config/*/MediaCover/*" \
-            --exclude "stak-config/*/Backups/*" \
-            --exclude "stak-config/prowlarr/Definitions/*" \
-            --exclude "stak-config/recyclarr/repositories/*" \
-            --exclude "stak-config/jellyfin/data/data/subtitles/*" \
-            --exclude "stak-config/jellyfin/data/metadata/*" \
-            --exclude "stak-config/jellyfin/data/transcodes/*" \
-            --exclude "stak-config/homeassistant/home-assistant.log*" \
-            --exclude "stak-config/homeassistant/.cache/*" \
-            --exclude "stak-config/homeassistant/tts/*")
-        }
-      '';
+    };
+  };
+
+  home-manager.users.${username} = _: {
+    programs.zsh.shellAliases = {
+      stak = "docker-compose --file /etc/stak/docker-compose.yaml --env-file /etc/stak/docker-compose.env --env-file /mnt/wd/stak-config/secrets.env";
     };
   };
 
