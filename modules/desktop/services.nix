@@ -11,4 +11,6 @@
   services.udisks2.enable = true; # daemon
   environment.systemPackages = [ pkgs.udiskie ]; # tray icon
   boot.kernelModules = [ "exfat" ]; # exFAT driver
+
+  services.gvfs.enable = true; # Show in nautilus: MTP, SAMBA, network browsing etc.
 }

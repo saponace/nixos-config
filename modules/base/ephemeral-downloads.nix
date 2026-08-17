@@ -1,4 +1,10 @@
-{ pkgs, username, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 let
   downloads = "/home/${username}/Downloads";
 in
@@ -10,6 +16,11 @@ in
   systemd.tmpfiles.rules = [
     "d ${downloads} 0755 ${username} users -"
   ];
+
+  # Do not show as a removable device in nautilus
+  fileSystems = lib.mkIf config.services.gvfs.enable {
+    ${downloads}.options = [ "x-gvfs-hide" ];
+  };
 
   systemd.services.wipe-downloads = {
     description = "Empty ${downloads} on boot (ephemeral disk-backed scratch)";

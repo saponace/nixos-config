@@ -7,6 +7,8 @@
   preservation = {
     enable = true;
     preserveAt."/persistent" = {
+      # Do not show as a removable device in nautilus
+      commonMountOptions = [ "x-gvfs-hide" ];
       directories = [
         {
           directory = "/var/lib/nixos";
