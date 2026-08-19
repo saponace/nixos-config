@@ -30,5 +30,10 @@
 
   home-manager.users.${username} = {
     programs.opencode.enable = true;
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications."x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
+    };
   };
 }

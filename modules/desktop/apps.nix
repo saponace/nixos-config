@@ -29,6 +29,12 @@
   ];
 
   home-manager.users.${username} = _: {
+    xdg.mimeApps = {
+      enable = true;
+      associations.added."application/pdf" = "firefox.desktop";
+      defaultApplications."application/pdf" = "firefox.desktop";
+    };
+
     programs = {
       firefox = {
         enable = true;
