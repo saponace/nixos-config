@@ -146,6 +146,24 @@
             nix flake check --no-build --all-systems
           '';
         };
+      # Bump the stak docker-compose images to the newest stable tags
+      mkUpdateStak =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "update-stak";
+          runtimeInputs = [
+            p.curl
+            p.jq
+            p.gawk # tag flavour matching
+            p.gnugrep
+            p.gnused # in-place tag rewrite
+            p.coreutils # sort -V
+          ];
+          text = builtins.readFile ./scripts/update-stak.sh;
+        };
       # Minimal RPi5 installer image
       rpi5InstallerImage =
         (nixos-raspberrypi.lib.nixosInstaller {
@@ -177,6 +195,7 @@
           refresh = mkRefresh "x86_64-linux";
           flash = mkFlash "x86_64-linux";
           check = mkCheck "x86_64-linux";
+          update-stak = mkUpdateStak "x86_64-linux";
         };
         aarch64-linux = {
           bootstrap = mkBootstrap "aarch64-linux";

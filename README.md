@@ -21,3 +21,4 @@ Identity lives in `flake.nix` which defines `username` and `userEmail`.
 ## Day-to-day
 - Rebuild NixOS config and activate: `nh os switch`
 - Update flake inputs: `nix flake update`
+- Update the stak container images: `nix run .#update-stak`
