@@ -14,6 +14,8 @@ _: {
       # Fallback, or a broken Pi-hole leaves the host unable to resolve
       dns = "127.0.0.1;1.1.1.1;";
     };
+    # No IPv6 on the LAN, and dnsmasq would serve its link-local as an AAAA
+    ipv6.method = "disabled";
   };
 
   services.avahi = {
