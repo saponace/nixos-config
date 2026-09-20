@@ -48,6 +48,7 @@ in
     ./hardware.nix
     ./disko.nix
     ./network.nix
+    ./pihole.nix
     ../../modules/base/preservation.nix
     ../../modules/base/btrfs.nix
   ];

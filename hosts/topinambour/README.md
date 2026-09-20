@@ -38,3 +38,7 @@ Manual run:
 sudo systemctl start stak-backup
 journalctl -u stak-backup -f
 ```
+
+## Pi-hole (LAN DNS)
+
+Static at `192.168.0.2`. Point the LAN at it once on home rooter DNS.
