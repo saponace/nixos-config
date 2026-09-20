@@ -14,7 +14,6 @@ _: {
     settings.dns = {
       domain = "ht.home";
       expandHosts = true;
-      domainNeeded = true;
       upstreams = [
         "1.1.1.1"
         "1.0.0.1"
