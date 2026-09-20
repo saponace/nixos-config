@@ -1,6 +1,10 @@
 _: {
   networking.hostName = "topinambour";
 
+  # NetworkManager's ipv6.method=disabled leaves the kernel link-local in
+  # place, which dnsmasq then serves as an unreachable AAAA
+  boot.kernel.sysctl."net.ipv6.conf.end0.disable_ipv6" = 1;
+
   # Serves DNS for the LAN, so its address can't come from DHCP
   networking.networkmanager.ensureProfiles.profiles.wired = {
     connection = {
