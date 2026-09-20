@@ -43,6 +43,9 @@
           settings = {
             # Don't show the "Firefox crashed" prompt after an unclean shutdown
             "browser.sessionstore.resume_from_crash" = false;
+
+            # DoH tunnels DNS past the LAN resolver, hiding local names from it
+            "network.trr.mode" = 5;
           };
         };
       };
