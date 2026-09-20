@@ -21,20 +21,21 @@ _: {
       ];
       hosts = [ "192.168.0.2 topinambour" ];
     };
+
+    # Default is /etc/pihole, which NixOS owns; keep mutable state out of it
+    settings.files = {
+      database = "/var/lib/pihole/pihole-FTL.db";
+      gravity = "/var/lib/pihole/gravity.db";
+      macvendor = "/var/lib/pihole/macvendor.db";
+    };
   };
 
   services.pihole-web = {
     enable = true;
-    ports = [ 8053 ]; # 80 is homarr's
+    ports = [ 8053 ];
   };
 
   preservation.preserveAt."/persistent".directories = [
-    {
-      directory = "/etc/pihole";
-      user = "pihole";
-      group = "pihole";
-      mode = "0700";
-    }
     {
       directory = "/var/lib/pihole";
       user = "pihole";
