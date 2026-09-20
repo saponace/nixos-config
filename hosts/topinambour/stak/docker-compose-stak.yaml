@@ -53,6 +53,9 @@ services:
     image: ghcr.io/homarr-labs/homarr:v1.77.1
     container_name: homarr
     restart: unless-stopped
+    # Home Assistant is on the host network, so the stak bridge has no DNS name for it
+    extra_hosts:
+      - "homeassistant:${DOCKER_GATEWAY:?err}"
     ports:
       - "${WEBUI_PORT_HOMARR:?err}:7575"
     volumes:
