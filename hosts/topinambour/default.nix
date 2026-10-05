@@ -111,6 +111,8 @@ in
 
   systemd = {
     services = {
+      docker.unitConfig.RequiresMountsFor = [ "/mnt/wd" ];
+
       stak =
         let
           dc = pkgs.docker-compose;
