@@ -39,7 +39,16 @@ sudo mkdir -p "/mnt/persistent/${nm_dir}"
 sudo cp -a "/${nm_dir}"/. "/mnt/persistent/${nm_dir}/"
 
 echo "==> Installing NixOS"
-sudo nixos-install --no-root-passwd --flake "${flake}#${host}"
+# The host's binary caches only land in nix.conf after install; pass them to this first build.
+host_setting() {
+  nix --extra-experimental-features 'nix-command flakes' eval --raw \
+    "${flake}#nixosConfigurations.${host}.config.nix.settings.$1" --apply toString
+}
+substituters=$(host_setting extra-substituters)
+trusted_keys=$(host_setting extra-trusted-public-keys)
+sudo nixos-install --no-root-passwd --flake "${flake}#${host}" \
+  --option extra-substituters "$substituters" \
+  --option extra-trusted-public-keys "$trusted_keys"
 
 echo "==> Cloning config into ~/repos"
 repos_dir="/mnt/persistent/home/${user_name}/repos"  # user_name is injected from flake.nix
