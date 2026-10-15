@@ -28,6 +28,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     preservation.url = "github:nix-community/preservation";
+    # No `inputs.nixpkgs.follows` here, unlike the other inputs: cache.numtide.com
+    # builds omp against llm-agents' own nixpkgs. With ours, the hash would differ,
+    # the cache would miss, and omp would compile from source.
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
