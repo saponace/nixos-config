@@ -25,16 +25,7 @@ echo "==> Mounting existing filesystems (no format)"
 sudo disko --mode mount --flake "${flake}#${host}"
 
 echo "==> Installing NixOS"
-# The host's binary caches only land in nix.conf after install; pass them to this first build.
-host_setting() {
-  nix --extra-experimental-features 'nix-command flakes' eval --raw \
-    "${flake}#nixosConfigurations.${host}.config.nix.settings.$1" --apply toString
-}
-substituters=$(host_setting extra-substituters)
-trusted_keys=$(host_setting extra-trusted-public-keys)
-sudo nixos-install --no-root-passwd --flake "${flake}#${host}" \
-  --option extra-substituters "$substituters" \
-  --option extra-trusted-public-keys "$trusted_keys"
+nixos-install-cached "$flake" "$host"
 
 read -rp "Refresh complete. Reboot into '${host}' ? [y/N] " reply
 case "$reply" in

@@ -80,6 +80,18 @@
           ];
         };
 
+      # nixos-install that pulls from the host's binary caches; shared by bootstrap and refresh
+      mkNixosInstallCached =
+        system:
+        let
+          p = nixpkgs.legacyPackages.${system};
+        in
+        p.writeShellApplication {
+          name = "nixos-install-cached";
+          runtimeInputs = [ p.nixos-install-tools ];
+          text = builtins.readFile ./scripts/nixos-install-cached.sh;
+        };
+
       # Format disk and install
       mkBootstrap =
         system:
@@ -92,7 +104,8 @@
             disko.packages.${system}.disko
             p.mkpasswd
             p.util-linux # lsblk
-            p.nixos-install-tools
+            p.nixos-install-tools # nixos-enter
+            (mkNixosInstallCached system)
             p.git # clone this repo into the persistent home
           ];
           text = ''
@@ -130,7 +143,7 @@
           name = "refresh";
           runtimeInputs = [
             disko.packages.${system}.disko
-            p.nixos-install-tools
+            (mkNixosInstallCached system)
           ];
           text = builtins.readFile ./scripts/refresh.sh;
         };
