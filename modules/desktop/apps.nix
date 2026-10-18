@@ -25,6 +25,12 @@
 
   programs.steam.enable = true;
 
+  # Lets GLib apps (nautilus, firefox downloads…) launch Terminal=true entries like nvim.desktop
+  xdg.terminal-exec = {
+    enable = true;
+    settings.default = [ "Alacritty.desktop" ];
+  };
+
   preservation.preserveAt."/persistent".users.${username}.directories = [
     ".config/mozilla"
     ".local/share/keyrings"
@@ -39,7 +45,10 @@
     xdg.mimeApps = {
       enable = true;
       associations.added."application/pdf" = "firefox.desktop";
-      defaultApplications."application/pdf" = "firefox.desktop";
+      defaultApplications = {
+        "application/pdf" = "firefox.desktop";
+        "text/plain" = "nvim.desktop"; # also covers subclasses: markdown, nix, shell, json…
+      };
     };
 
     programs = {
